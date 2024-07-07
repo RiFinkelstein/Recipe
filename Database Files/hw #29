@@ -1,0 +1,11 @@
+1. rfinkelstein.database.windows.net
+2. Login: dev_loginone  PASSWORD: 'ABCabc123!@#'
+3. User: dev_user 
+4. Recipename: Rice Crispy Treats
+    ingredients: 3 TBSP Margrine
+                4 cups Rice Krispies
+                1 7 oz jar of Marhsmellow fluff
+    insructions: 1. in saucepan over low heat, melt margrine, add Marshmellow fluff, remove from heat
+                2. add rice crispies, stir well untill coated
+                3. press mixure into 2 inch deep pan
+5. Database name: HeartyHealthDB
