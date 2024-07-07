@@ -1,5 +1,5 @@
 -- SM Excellent! See comments, no need to resubmit.
-use HeartyHealthDB
+use RecipeDB
 GO
 
 DROP table if EXISTS CookbookRecipe
@@ -72,7 +72,6 @@ CREATE table dbo.recipe(
 )
 go 
 
-select * from recipe;
 
 CREATE table dbo.Measurement(
     MeasurementID int not null Identity PRIMARY key,

@@ -1,5 +1,5 @@
 -- SM Excellent! See comments, no need to resubmit.
-use HeartyHealthDB
+use RecipeDB
 go 
 delete CookbookRecipe
 DELETE CookBook

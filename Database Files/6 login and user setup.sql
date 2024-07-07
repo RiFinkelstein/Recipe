@@ -5,7 +5,7 @@
 --use master
 CREATE LOGIN //loginname// with PASSWORD= '//password//'
 
---IMPORTAN switch to HeartyHealthyDB
+--IMPORTAN switch to RecipeDB
 CREATE USER dev_user from LOGIN //loginname//
 
 ALTER role db_datareader add member dev_user

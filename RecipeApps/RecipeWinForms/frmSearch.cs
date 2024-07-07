@@ -35,7 +35,7 @@ namespace RecipeWinForms
             Debug.Print(sql);
             DataTable dt = SQLUtility.GetDataTable(sql);
             gRecipe.DataSource = dt;
-            //gRecipe.Columns["PresidentID"].Visible = false;
+            gRecipe.Columns["RecipeID"].Visible = false;
         }
 
         private void BtnSearch_Click(object? sender, EventArgs e)
