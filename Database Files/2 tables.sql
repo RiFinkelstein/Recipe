@@ -72,6 +72,8 @@ CREATE table dbo.recipe(
 )
 go 
 
+select * from recipe;
+
 CREATE table dbo.Measurement(
     MeasurementID int not null Identity PRIMARY key,
     MeasurementName varchar(35) not null

@@ -388,3 +388,5 @@ join Recipe R
 on r.Recipename = x.Recipename
 go 
 
+SELECT * from recipe
+
