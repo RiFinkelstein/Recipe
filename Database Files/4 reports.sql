@@ -8,7 +8,7 @@ a) When the word 'specific' is used, pick one record (of the appropriate type, r
     The way the website works is that a list of items are displayed and then the user picks one and navigates to the "details" page.
 b) Whenever you have a record for a specific item include the name of the picture for that item. That is because the website will always show a picture of the item.
 */
-
+select * from recipe
 /*
 Home Page
     One result set with the number of recipes, meals, and cookbooks. Each row should have a column with the item name (Ex: Recipes) and a column with the count.

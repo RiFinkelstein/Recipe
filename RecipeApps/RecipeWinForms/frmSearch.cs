@@ -19,6 +19,7 @@ namespace RecipeWinForms
             InitializeComponent();
             btnSearch.Click += BtnSearch_Click;
             FormatGrid();
+            gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
         }
 
         private void FormatGrid()
@@ -36,6 +37,17 @@ namespace RecipeWinForms
             DataTable dt = SQLUtility.GetDataTable(sql);
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeID"].Visible = false;
+        }
+        private void ShowRecipetForm(int RowIndex)
+        {
+            int id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
+            frmRecipe frm = new frmRecipe();
+            frm.ShowForm(id);
+            Debug.Print(id.ToString());
+        }
+        private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            ShowRecipetForm(e.RowIndex);
         }
 
         private void BtnSearch_Click(object? sender, EventArgs e)
