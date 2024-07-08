@@ -32,7 +32,7 @@ namespace RecipeWinForms
 
         private void SearchForRecipe(string RecipeName)
         {
-            string sql = "select * from recipe r where r.RecipeName like '%" + RecipeName + "%'";
+            string sql = "select * from Recipe  r where r.RecipeName like '%" + RecipeName + "%'";
             Debug.Print(sql);
             DataTable dt = SQLUtility.GetDataTable(sql);
             gRecipe.DataSource = dt;
