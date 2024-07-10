@@ -28,9 +28,11 @@ namespace RecipeWinForms
         public void ShowForm(int RecipeID)
         {
             string sql = "select* from recipe r where r.recipeID= " + RecipeID.ToString();
-
             dtRecipe = SQLUtility.GetDataTable(sql);
-
+            if (RecipeID == 0)
+            {
+                dtRecipe.Rows.Add();
+            }
             WindowsFormUtility.SetControlBinding(txtRecipeName, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtCalories, dtRecipe);
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, dtRecipe);
@@ -44,32 +46,29 @@ namespace RecipeWinForms
         }
         private void save()
         {
+                SQLUtility.DebugPringDataTable(dtRecipe);
+                DataRow r = dtRecipe.Rows[0];
+                int id = (int)r["recipeID"];
+                string sql = "";
 
-            SQLUtility.DebugPringDataTable(dtRecipe);
-            DataRow r = dtRecipe.Rows[0];
-            int id = (int)r["recipeID"];
-            string sql = "";
-
-            if (id > 0)
-            {
-                sql = string.Join(Environment.NewLine, $"update recipe set",
-                    $"RecipeName= '{r["RecipeName"]}',",
-                    $"Calories= '{r["Calories"]}',",
-                    $"DraftedDate= '{r["DraftedDate"]}',",
-                    $"PublishedDate= '{r["PublishedDate"]}',",
-                    $"ArchivedDate= '{r["ArchivedDate"]}'",
-                    
-                    $"where recipeID=  {r["recipeID"]}");
-            }
-            else
-            {
-               sql = "insert president(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate, Status)";
-               sql += $"select '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}', '{r["PublishedDate"]}', '{r["ArchivedDate"]}', '{r["Status"]}'";
-            }
-            Debug.Print("-----------");
-            Debug.Print(sql);
-
-            SQLUtility.ExecuteSQL(sql);
+                if (id > 0)
+                {
+                    sql = string.Join(Environment.NewLine, $"update recipe set",
+                        $"RecipeName= '{r["RecipeName"]}',",
+                        $"Calories= '{r["Calories"]}',",
+                        $"DraftedDate= '{r["DraftedDate"]}',",
+                        $"PublishedDate= '{r["PublishedDate"]}',",
+                        $"ArchivedDate= '{r["ArchivedDate"]}'",
+                        $"where recipeID=  {r["recipeID"]}");
+                }
+                else
+                {
+                    sql = "insert president(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate, Status)";
+                    sql += $"select '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}', '{r["PublishedDate"]}', '{r["ArchivedDate"]}', '{r["Status"]}'";
+                }
+                Debug.Print("-----------");
+                Debug.Print(sql);
+                //SQLUtility.ExecuteSQL(sql);
         }
 
         private void delete()
