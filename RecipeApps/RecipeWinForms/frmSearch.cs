@@ -20,7 +20,10 @@ namespace RecipeWinForms
             btnSearch.Click += BtnSearch_Click;
             FormatGrid();
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
+            btnNew.Click += BtnNew_Click;
         }
+
+
 
         private void FormatGrid()
         {
@@ -38,16 +41,27 @@ namespace RecipeWinForms
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeID"].Visible = false;
         }
-        private void ShowRecipetForm(int RowIndex)
+        private void ShowRecipeForm(int RowIndex)
         {
-            int id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
+            int id = 0;
+            if (RowIndex > -1)
+            {
+            id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; }
+
             frmRecipe frm = new frmRecipe();
             frm.ShowForm(id);
             Debug.Print(id.ToString());
         }
+
+
+        private void BtnNew_Click(object? sender, EventArgs e)
+        {
+            ShowRecipeForm(-1);
+
+        }
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            ShowRecipetForm(e.RowIndex);
+            ShowRecipeForm(e.RowIndex);
         }
 
         private void BtnSearch_Click(object? sender, EventArgs e)
