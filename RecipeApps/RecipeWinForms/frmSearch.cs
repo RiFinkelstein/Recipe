@@ -40,7 +40,16 @@ namespace RecipeWinForms
         }
         private void ShowRecipetForm(int RowIndex)
         {
-            int id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
+           //int id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
+           //frmRecipe frm = new frmRecipe();
+           //frm.ShowForm(id);
+           //Debug.Print(id.ToString());
+            int id = 0;
+            if (RowIndex > -1)
+            {
+                id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
+
+            }
             frmRecipe frm = new frmRecipe();
             frm.ShowForm(id);
             Debug.Print(id.ToString());

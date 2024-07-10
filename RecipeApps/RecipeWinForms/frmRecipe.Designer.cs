@@ -38,14 +38,14 @@
             lblCaptionStatus = new Label();
             txtRecipeName = new TextBox();
             txtCalories = new TextBox();
-            txtDraftedDate = new TextBox();
-            txtPublishedDate = new TextBox();
-            txtArchivedDate = new TextBox();
-            txtStatus = new TextBox();
             toolStrip1 = new ToolStrip();
             btnSave = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
+            dtpDraftedDate = new DateTimePicker();
+            dtpPublishedDate = new DateTimePicker();
+            dtpArchivedDate = new DateTimePicker();
+            lstStatus = new ComboBox();
             tblMain.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -63,11 +63,11 @@
             tblMain.Controls.Add(lblCaptionStatus, 0, 6);
             tblMain.Controls.Add(txtRecipeName, 1, 1);
             tblMain.Controls.Add(txtCalories, 1, 2);
-            tblMain.Controls.Add(txtDraftedDate, 1, 3);
-            tblMain.Controls.Add(txtPublishedDate, 1, 4);
-            tblMain.Controls.Add(txtArchivedDate, 1, 5);
-            tblMain.Controls.Add(txtStatus, 1, 6);
             tblMain.Controls.Add(toolStrip1, 0, 0);
+            tblMain.Controls.Add(dtpDraftedDate, 1, 3);
+            tblMain.Controls.Add(dtpPublishedDate, 1, 4);
+            tblMain.Controls.Add(dtpArchivedDate, 1, 5);
+            tblMain.Controls.Add(lstStatus, 1, 6);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -157,37 +157,6 @@
             txtCalories.Size = new Size(125, 27);
             txtCalories.TabIndex = 7;
             // 
-            // txtDraftedDate
-            // 
-            txtDraftedDate.Anchor = AnchorStyles.Left;
-            txtDraftedDate.Location = new Point(403, 210);
-            txtDraftedDate.Name = "txtDraftedDate";
-            txtDraftedDate.Size = new Size(125, 27);
-            txtDraftedDate.TabIndex = 8;
-            // 
-            // txtPublishedDate
-            // 
-            txtPublishedDate.Anchor = AnchorStyles.Left;
-            txtPublishedDate.Location = new Point(403, 274);
-            txtPublishedDate.Name = "txtPublishedDate";
-            txtPublishedDate.Size = new Size(125, 27);
-            txtPublishedDate.TabIndex = 9;
-            // 
-            // txtArchivedDate
-            // 
-            txtArchivedDate.Anchor = AnchorStyles.Left;
-            txtArchivedDate.Location = new Point(403, 338);
-            txtArchivedDate.Name = "txtArchivedDate";
-            txtArchivedDate.Size = new Size(125, 27);
-            txtArchivedDate.TabIndex = 10;
-            // 
-            // txtStatus
-            // 
-            txtStatus.Location = new Point(403, 387);
-            txtStatus.Name = "txtStatus";
-            txtStatus.Size = new Size(125, 27);
-            txtStatus.TabIndex = 11;
-            // 
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
@@ -221,6 +190,39 @@
             btnDelete.Size = new Size(57, 24);
             btnDelete.Text = "Delete";
             // 
+            // dtpDraftedDate
+            // 
+            dtpDraftedDate.Format = DateTimePickerFormat.Short;
+            dtpDraftedDate.Location = new Point(403, 195);
+            dtpDraftedDate.Name = "dtpDraftedDate";
+            dtpDraftedDate.Size = new Size(125, 27);
+            dtpDraftedDate.TabIndex = 13;
+            // 
+            // dtpPublishedDate
+            // 
+            dtpPublishedDate.Format = DateTimePickerFormat.Short;
+            dtpPublishedDate.Location = new Point(403, 259);
+            dtpPublishedDate.Name = "dtpPublishedDate";
+            dtpPublishedDate.Size = new Size(125, 27);
+            dtpPublishedDate.TabIndex = 14;
+            // 
+            // dtpArchivedDate
+            // 
+            dtpArchivedDate.Format = DateTimePickerFormat.Short;
+            dtpArchivedDate.Location = new Point(403, 323);
+            dtpArchivedDate.Name = "dtpArchivedDate";
+            dtpArchivedDate.Size = new Size(125, 27);
+            dtpArchivedDate.TabIndex = 15;
+            // 
+            // lstStatus
+            // 
+            lstStatus.FormattingEnabled = true;
+            lstStatus.Items.AddRange(new object[] { "Drafted", "Published", "Archived" });
+            lstStatus.Location = new Point(403, 387);
+            lstStatus.Name = "lstStatus";
+            lstStatus.Size = new Size(125, 28);
+            lstStatus.TabIndex = 16;
+            // 
             // frmRecipe
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -247,13 +249,13 @@
         private Label lblCaptionStatus;
         private TextBox txtRecipeName;
         private TextBox txtCalories;
-        private TextBox txtDraftedDate;
-        private TextBox txtPublishedDate;
-        private TextBox txtArchivedDate;
-        private TextBox txtStatus;
         private ToolStrip toolStrip1;
         private ToolStripButton btnSave;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnDelete;
+        private DateTimePicker dtpDraftedDate;
+        private DateTimePicker dtpPublishedDate;
+        private DateTimePicker dtpArchivedDate;
+        private ComboBox lstStatus;
     }
 }

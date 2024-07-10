@@ -22,6 +22,10 @@ namespace RecipeWinForms
             InitializeComponent();
             btnSave.Click += BtnSave_Click;
             btnDelete.Click += BtnDelete_Click;
+            foreach (Control c in tblMain.Controls)
+            {
+                c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+            }
         }
 
 
@@ -29,13 +33,20 @@ namespace RecipeWinForms
         public void ShowForm(int RecipeID)
         {
             string sql = "select* from recipe r where r.recipeID= " + RecipeID.ToString();
-            DataTable dt = SQLUtility.GetDataTable(sql);
-            txtRecipeName.DataBindings.Add("Text", dt, "RecipeName");
-            txtCalories.DataBindings.Add("Text", dt, "Calories");
-            txtDraftedDate.DataBindings.Add("Text", dt, "DraftedDate");
-            txtPublishedDate.DataBindings.Add("Text", dt, "PublishedDate");
-            txtArchivedDate.DataBindings.Add("Text", dt, "ArchivedDate");
-            txtStatus.DataBindings.Add("Text", dt, "Status");
+            DataTable dtRecipe = SQLUtility.GetDataTable(sql);
+            SetControlBinding(txtRecipeName, dtRecipe);
+            SetControlBinding(txtCalories, dtRecipe);
+            SetControlBinding(dtpDraftedDate, dtRecipe);
+            SetControlBinding(dtpPublishedDate, dtRecipe);
+            SetControlBinding(dtpArchivedDate, dtRecipe);
+            SetControlBinding(lstStatus, dtRecipe);
+
+            //txtRecipeName.DataBindings.Add("Text", dtRecipe, "RecipeName");
+            //txtCalories.DataBindings.Add("Text", dtRecipe, "Calories");
+            //dtpDraftedDate.DataBindings.Add("Text", dtRecipe, "DraftedDate");
+            //dtpPublishedDate.DataBindings.Add("Text", dtRecipe, "PublishedDate");
+            //dtpArchivedDate.DataBindings.Add("Text", dtRecipe, "ArchivedDate");
+            //lstStatus.DataBindings.Add("Text", dtRecipe, "Status");
             this.Show();
 
         }
@@ -73,6 +84,7 @@ namespace RecipeWinForms
 
         private void save()
         {
+
             SQLUtility.DebugPringDataTable(dtRecipe);
             DataRow r = dtRecipe.Rows[0];
             int id = (int)r["recipeID"];

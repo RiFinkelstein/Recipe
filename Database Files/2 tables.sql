@@ -1,5 +1,5 @@
 -- SM Excellent! See comments, no need to resubmit.
-use RecipeDB
+use HeartyHealthDB
 GO
 
 DROP table if EXISTS CookbookRecipe
