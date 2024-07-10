@@ -1,7 +1,8 @@
 use master
 go
-DROP DATABASE if exists RecipeDB
+DROP DATABASE if exists HeartyHealthDB
 go
-CREATE DATABASE RecipeDB
+CREATE DATABASE HeartyHealthDB
 go
-use RecipeDB
+use HeartyHealthDB
+
