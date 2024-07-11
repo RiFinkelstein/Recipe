@@ -1,5 +1,5 @@
 -- SM Excellent! See comments, no need to resubmit.
-use RecipeDB
+use HeartyHealthDB
 go 
 delete CookbookRecipe
 DELETE CookBook
@@ -138,7 +138,10 @@ UNION SELECT (Select u.usersID from users U WHERE UserName = 'CCollins'), (selec
 UNION SELECT (Select u.usersID from users U WHERE UserName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Classic Potatoes', 125, '09-09-2005', '02-08-2010', null
 UNION SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vanilla Ice Cream', 150, '03-28-2001', '01-15-2003', '07-27-2017' 
 UNION SELECT (Select u.usersID from users U WHERE UserName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'baked banana chips', 25, '06-17-2003', '06-05-2010', '11-04-2023'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Butter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'CC Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Cinaman Butter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'PanutButter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+
 go
 
 -- SM A CTE would be much more readable and easier to do.
