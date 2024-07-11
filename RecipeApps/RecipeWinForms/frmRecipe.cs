@@ -68,7 +68,7 @@ namespace RecipeWinForms
                 }
                 Debug.Print("-----------");
                 Debug.Print(sql);
-                //SQLUtility.ExecuteSQL(sql);
+                SQLUtility.ExecuteSQL(sql);
         }
 
         private void delete()
