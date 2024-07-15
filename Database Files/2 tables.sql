@@ -173,3 +173,7 @@ CREATE table dbo.CookbookRecipe(
 
 )
 go 
+
+
+insert recipe(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)
+select 'r', 1, '1/15/2024 5:50:07 PM', '2/15/2024 12:00:00 AM', '3/15/2024 12:00:00 AM'

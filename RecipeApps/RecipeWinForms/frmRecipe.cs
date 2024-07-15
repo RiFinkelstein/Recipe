@@ -63,8 +63,8 @@ namespace RecipeWinForms
                 }
                 else
                 {
-                    sql = "insert president(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate, Status)";
-                    sql += $"select '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}', '{r["PublishedDate"]}', '{r["ArchivedDate"]}', '{r["Status"]}'";
+                    sql = "insert recipe(UsersID, CuisineID, RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)";
+                    sql += $"select (Select u.usersID from users U WHERE UserName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}', '{r["PublishedDate"]}', '{r["ArchivedDate"]}'";
                 }
                 Debug.Print("-----------");
                 Debug.Print(sql);

@@ -120,6 +120,9 @@ union select 'salad', 3
 union select 'Main Course', 4 
 union select 'Dessert', 5
 GO
+insert recipe(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)
+select 'r', 1, '1/15/2024 5:50:07 PM', '2/15/2024 12:00:00 AM', '3/15/2024 12:00:00 AM'
+
 
 -- SM A CTE would be much more readable and easier to do.
 insert Recipe(UsersID, CuisineID, RecipeName, calories, DraftedDate, PublishedDate, ArchivedDate)
@@ -393,3 +396,10 @@ go
 
 SELECT * from recipe
 
+update recipe set
+RecipeName= 'Fruit Cup',
+Calories= '100',
+DraftedDate= '9/25/2023 12:00:00 AM',
+PublishedDate= '',
+ArchivedDate= ''
+where recipeID=  1
