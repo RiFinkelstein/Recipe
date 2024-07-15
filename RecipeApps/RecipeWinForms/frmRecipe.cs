@@ -57,8 +57,8 @@ namespace RecipeWinForms
                         $"RecipeName= '{r["RecipeName"]}',",
                         $"Calories= '{r["Calories"]}',",
                         $"DraftedDate= '{r["DraftedDate"]}',",
-                        $"PublishedDate= '{r["PublishedDate"]}',",
-                        $"ArchivedDate= '{r["ArchivedDate"]}'",
+                        $"PublishedDate= nullif('{r["PublishedDate"]}', ''),",
+                        $"ArchivedDate= nullif('{ r["ArchivedDate"]}', '')",
                         $"where recipeID=  {r["recipeID"]}");
                 }
                 else
