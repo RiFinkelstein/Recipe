@@ -1,3 +1,5 @@
+global using CPUFramework;
+global using NUnit.Framework;
 using RecipeSystem;
 using System.Data;
 using System.IO;
