@@ -17,7 +17,32 @@ namespace RecipeTest
             DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
         }
 
-        
+        [Test]
+        public void ChangeExistingDraftedDate()
+        {
+            // Get an existing RecipeID from the database
+            int recipeID = getExistingRecipeID();
+            Assume.That(recipeID > 0, "No recipe in the database, can't perform the test");
+            // Retrieve the current drafteddate using the RecipeID
+            DateTime DraftedDate = SQLUtility.GetFirstColumnFirstRowValueDate("SELECT DraftedDate FROM recipe WHERE RecipeID = " + recipeID);
+            TestContext.WriteLine("Drafted date for RecipeID " + recipeID + " is " + DraftedDate);
+            DateTime NewDraftedDate = DraftedDate.AddDays(5);
+            TestContext.WriteLine("Changing new drafted date to " + NewDraftedDate);
+            // Load the recipe data into a DataTable 
+            DataTable dt = Recipe.Load(recipeID);
+            // Update the recipe name in the DataTable
+            dt.Rows[0]["DraftedDate"] = NewDraftedDate;
+            // Save the updated DataTable back to the database
+            Recipe.Save(dt);
+            // Retrieve the updated recipe name from the database
+            DateTime updatedDraftedDate = SQLUtility.GetFirstColumnFirstRowValueDate("SELECT DraftedDate FROM recipe WHERE RecipeID = " + recipeID);
+            // Assert that the updated recipe name matches the expected new recipe name
+            ClassicAssert.IsTrue(updatedDraftedDate == NewDraftedDate, "Recipe name for RecipeID (" + recipeID + ") is " + updatedDraftedDate);
+            // Output the final recipe name
+            TestContext.WriteLine("Recipe name for RecipeID (" + recipeID + ") is now " + NewDraftedDate);
+        }
+
+
         [Test]
         public void ChangeExistingRecipeName()
         {
@@ -28,7 +53,7 @@ namespace RecipeTest
             string recipeName = SQLUtility.GetFirstColumnFirstRowValue("SELECT RecipeName FROM recipe WHERE RecipeID = " + recipeID).ToString(); 
             TestContext.WriteLine("Recipe name for RecipeID " + recipeID + " is " + recipeName); 
             // Modify the recipe name by appending "AA" 
-            string newRecipeName = recipeName + "AA";
+            string newRecipeName = recipeName + "AA" + DateTime.Now.ToString();
             TestContext.WriteLine("Changing recipe name to " + newRecipeName); 
             // Load the recipe data into a DataTable 
             DataTable dt = Recipe.Load(recipeID); 
