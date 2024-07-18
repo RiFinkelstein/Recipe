@@ -21,7 +21,7 @@ namespace RecipeSystem
 
         public static DataTable Load(int RecipeID)
         {
-            string sql = "select* from recipe r where r.recipeID= " + RecipeID.ToString();
+            string sql = "select * from recipe r where r.recipeID= " + RecipeID.ToString();
             return SQLUtility.GetDataTable(sql);
         }
 

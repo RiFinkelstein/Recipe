@@ -396,4 +396,12 @@ SELECT * from recipe
 
 
 
-select top 1 recipeid from recipe
+select top 1 recipeid, RecipeName from recipe
+
+update recipe set
+RecipeName= '0AA7/18/2024 3:25:59 PM',
+Calories= '77',
+DraftedDate= '6/22/2004 12:00:00 AM',
+PublishedDate= nullif('4/11/2009 12:00:00 AM', ''),
+ArchivedDate= nullif('', '')
+where recipeID=  9
