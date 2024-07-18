@@ -65,6 +65,13 @@ join Users u
 on u.UsersID = r.UsersID
 where u.username = 'JGreen'
 
+DELETE r 
+select * 
+from recipe R
+LEFT join Users u 
+on r.UsersID= u.UsersID
+where RecipeID= 9
+
 delete R 
 from recipe R 
 join users u
