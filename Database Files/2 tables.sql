@@ -57,7 +57,7 @@ CREATE table dbo.recipe(
     DraftedDate DATETIME not null constraint ck_recipe_Drafted_date_is_not_in_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
     PublishedDate DATETIME null constraint ck_recipe__Published_Dateis_not_in_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
     ArchivedDate DATETIME null constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
-    Picure as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
+    Picture as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
 -- SM Column name should be RecipeStatus as Status is a reserved word.
     Status as case
         when PublishedDate is null and ArchivedDate is null then 'Drafted' 
@@ -175,5 +175,3 @@ CREATE table dbo.CookbookRecipe(
 go 
 
 
-insert recipe(RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)
-select 'r', 1, '1/15/2024 5:50:07 PM', '2/15/2024 12:00:00 AM', '3/15/2024 12:00:00 AM'
