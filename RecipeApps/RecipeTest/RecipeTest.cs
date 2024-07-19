@@ -97,7 +97,7 @@ namespace RecipeTest
 
 
  /*       [Test]
- --Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
+ Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
         public void ChangeExistingRecipeName()
         {
             // Get an existing RecipeID from the database
