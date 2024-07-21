@@ -159,6 +159,24 @@ namespace RecipeTest
             ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
             TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB"); 
         }
+        [Test]
+        public void SearchPresidents()
+        {
+            string criteria = "a";
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select total= count (*) from recipe where recipename like '%" + criteria + "%'");
+            Assume.That(num > 0, "there are no recipes that match the search for " + num);
+            TestContext.WriteLine(num + "recipe that match " + criteria);
+            TestContext.WriteLine("ensure that recipe search returns " + num + "rows");
+
+            DataTable dt = Recipe.SearchRecipe(criteria);
+
+            int results = dt.Rows.Count;
+
+            ClassicAssert.IsTrue(results == num, "results of recipes search does not match number of recipes" + results + "<>" + num);
+            TestContext.WriteLine("number of rows returned by recipes search is " + results);
+
+        }
+
 
         [Test]
         public void LoadRecipe()
