@@ -1,4 +1,5 @@
 ﻿using CPUFramework;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,10 +14,15 @@ namespace RecipeSystem
     {
         public static DataTable SearchRecipe(string RecipeName)
         {
-            string sql = "select * from Recipe  r where r.RecipeName like '%" + RecipeName + "%'";
-            Debug.Print(sql);
-            DataTable dt = SQLUtility.GetDataTable(sql);
-            return dt;
+            
+                DataTable dt = new();
+                SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeGet");
+
+                cmd.Parameters["@recipename"].Value = RecipeName;
+
+                dt = SQLUtility.GetDataTable(cmd);
+
+                return dt;
         }
 
         public static DataTable Load(int RecipeID)

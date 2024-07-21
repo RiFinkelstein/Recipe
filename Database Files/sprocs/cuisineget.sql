@@ -4,7 +4,7 @@ begin
 	select @cuisinename = nullif(@cuisinename, '')
     SELECT c.cuisineid, c.cuisinename 
     from cuisine c
-	where c.cuisineid= cuisineid
+	where c.cuisineid= @cuisineid
 	or @all= 1
 	or c.cuisinename like '%'+ @cuisinename + '%'
 	order by c.cuisinename
