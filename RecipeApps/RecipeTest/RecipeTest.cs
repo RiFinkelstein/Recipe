@@ -27,13 +27,23 @@ namespace RecipeTest
             DateTime PublishedDate = DateTime.Parse(publishedDateStr);
             DateTime ArchivedDate = DateTime.Parse(archivedDateStr);
 
+
             // Create a new DataTable to hold the recipe data
             DataTable dt = SQLUtility.GetDataTable("SELECT * FROM recipe WHERE RecipeID = 0");
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
 
+            int CuisineID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 cuisineid from cuisine");
+            int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users\r\n");
+
+            Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
+            Assume.That(UsersID > 0, "no Users in database, cant do test");
+
             // Append current datetime to the RecipeName to ensure uniqueness
             RecipeName = RecipeName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            r["CuisineID"] = CuisineID;
+            r["UsersID"] = UsersID;
+
             r["RecipeName"] = RecipeName;
             r["Calories"] = Calories;
             r["DraftedDate"] = DraftedDate;
@@ -189,6 +199,30 @@ namespace RecipeTest
             int loadedID = (int)dt.Rows[0]["recipeID"];
             ClassicAssert.IsTrue(loadedID == recipeID, (int)dt.Rows[0]["recipeID"] + "<>" + recipeID);
             TestContext.WriteLine("loaded recipe (" + loadedID + ")");
+        }
+
+        [Test]
+        public void GetListOfCuisines()
+        {
+            int CusineCount = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from Cuisine");
+            Assume.That(CusineCount > 0, "no cuisines in database, cant do test");
+            TestContext.WriteLine("number of rows in DB= " + CusineCount);
+            TestContext.WriteLine("Ensure the num of rows return by app matches " + CusineCount);
+            DataTable dt = Recipe.GetUserList();
+            ClassicAssert.IsTrue(dt.Rows.Count == CusineCount, "num rows return by app (" + dt.Rows.Count + ")<> " + CusineCount);
+            TestContext.WriteLine("number of rows in cusine retruned byt the app " + dt.Rows.Count);
+        }
+
+        [Test]
+        public void GetListOfUsers()
+        {
+            int UsersCount = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from Users");
+            Assume.That(UsersCount > 0, "no Users in database, cant do test");
+            TestContext.WriteLine("number of rows in DB= " + UsersCount);
+            TestContext.WriteLine("Ensure the num of rows return by app matches " + UsersCount);
+            DataTable dt = Recipe.GetUserList();
+            ClassicAssert.IsTrue(dt.Rows.Count == UsersCount, "num rows return by app (" + dt.Rows.Count + ")<> " + UsersCount);
+            TestContext.WriteLine("number of rows in users retruned byt the app " + dt.Rows.Count);
         }
         private int getExistingRecipeID()
         {

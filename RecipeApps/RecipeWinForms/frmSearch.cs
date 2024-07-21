@@ -46,7 +46,8 @@ namespace RecipeWinForms
             int id = 0;
             if (RowIndex > -1)
             {
-            id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; }
+            id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; 
+            }
 
             frmRecipe frm = new frmRecipe();
             frm.ShowForm(id);

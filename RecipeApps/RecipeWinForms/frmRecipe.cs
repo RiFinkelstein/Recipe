@@ -33,6 +33,11 @@ namespace RecipeWinForms
             {
                 dtRecipe.Rows.Add();
             }
+            DataTable dtUsers = Recipe.GetUserList();
+            WindowsFormUtility.SetListBinding(cmbUser, dtUsers, dtRecipe, "Users");
+
+            DataTable dtCuisine = Recipe.GetCuisineList();
+            WindowsFormUtility.SetListBinding(cmbCuisine, dtCuisine, dtRecipe, "cuisine");
 
             WindowsFormUtility.SetControlBinding(txtRecipeName, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtCalories, dtRecipe);

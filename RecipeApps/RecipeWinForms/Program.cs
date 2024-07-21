@@ -15,8 +15,7 @@ namespace RecipeWinForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
-            //DBManager.setConnectionString("..\\SQLExpress;Database=HeartyHealthDB;Trusted_Connection=true;TrustServerCertificate=True;");
-            Application.Run(new frmSearch());
+            //DBManager.setConnectionString("Server=.\\SQLExpress;Database=HeartyHealthDB;Trusted_Connection=true");
         }
     }
 }
