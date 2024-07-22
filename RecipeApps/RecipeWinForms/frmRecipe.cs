@@ -34,6 +34,17 @@ namespace RecipeWinForms
                 dtRecipe.Rows.Add();
             }
 
+            DataTable dtUsers = Recipe.GetUserList();
+            dtUsers.Columns["usersid"].ReadOnly = false;
+            WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
+
+
+            DataTable dtCuisine = Recipe.GetCuisineList();
+            dtCuisine.Columns["CuisineID"].ReadOnly = false;
+
+
+            WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
+
             WindowsFormUtility.SetControlBinding(txtRecipeName, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtCalories, dtRecipe);
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, dtRecipe);
@@ -41,9 +52,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtArchivedDate, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtStatus, dtRecipe);
             this.Show();
-
-
-
         }
         private void save()
         {

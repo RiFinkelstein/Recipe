@@ -41,7 +41,7 @@ SELECT recipename= case
             u.UserName, 
             r.calories, 
             x.numberofingredients, 
-            r.Picure
+            r.Picture
 from X 
 JOIN recipe R 
 ON R.RecipeID = X.RecipeID
@@ -58,14 +58,14 @@ Recipe details page:
         b) List of ingredients: show the measurement quantity, measurement type and ingredient in one column, sorted by sequence. Ex. 1 Teaspoon Salt  
         c) List of prep steps sorted by sequence.
 */
-SELECT r.recipename, r.Calories, numberofingredients= count(distinct RI.ingredientID), numberofsteps= count(distinct D.directionsID), r.Picure
+SELECT r.recipename, r.Calories, numberofingredients= count(distinct RI.ingredientID), numberofsteps= count(distinct D.directionsID), r.Picture
 from recipe R
 join RecipeIngredient RI 
 on RI.recipeID = r.RecipeID
 join Directions d
 on  d.recipeID = r.recipeID
 where r.recipename= 'Apple yogurt smoothie'
-group by r.recipename, r.calories, r.Picure
+group by r.recipename, r.calories, r.Picture
 
 SELECT Listofingredients= concat(RI.Amount, ' ', m.MeasurementName, ' ', I.ingredientName)
 from Recipe R

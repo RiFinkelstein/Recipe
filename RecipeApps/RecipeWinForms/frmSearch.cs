@@ -39,6 +39,11 @@ namespace RecipeWinForms
             DataTable dt= Recipe.SearchRecipe(RecipeName);
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeID"].Visible = false;
+            gRecipe.Columns["usersid"].Visible = false; 
+            gRecipe.Columns["CuisineID"].Visible = false;
+            gRecipe.Columns["CuisineID"].ReadOnly = false;
+            gRecipe.Columns["usersid"].ReadOnly = false;
+
         }
 
         private void ShowRecipeForm(int RowIndex)
@@ -46,8 +51,8 @@ namespace RecipeWinForms
             int id = 0;
             if (RowIndex > -1)
             {
-            id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; }
-
+              id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; 
+            }
             frmRecipe frm = new frmRecipe();
             frm.ShowForm(id);
             Debug.Print(id.ToString());

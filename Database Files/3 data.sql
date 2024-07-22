@@ -27,7 +27,7 @@ union SELECT 'Club'
 go
 
 
-Insert Users(UsersFirstName, UsersLastName, UserName)
+Insert Users(UsersFirstName, UsersLastName, UsersName)
 select 'John', 'Green', 'JGreen'
 union select 'Elsie', 'Bradley', 'ERadley'
 union select 'Carol', 'Collins', 'CCollins'
@@ -124,30 +124,30 @@ GO
 
 -- SM A CTE would be much more readable and easier to do.
 insert Recipe(UsersID, CuisineID, RecipeName, calories, DraftedDate, PublishedDate, ArchivedDate)
-SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Chocolate Chip Cookies', 150, '12-30-2003', '07-14-2013', '01-07-2016' 
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Apple Yogurt Smoothie', 75, '05-28-2004', '04-11-2009',  null 
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'English'), 'Cheese Bread', 250, '11-01-2021', null,  null 
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vegetable Soup', 50, '02-22-2015', '02-16-2022',  '04-04-2022'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'HHarper'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Teriaki Salmon', 400, '11-07-2009', '09-05-2022', null
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'BJohnson'), (select C.CuisineID from Cuisine C where cuisinename= 'Mexican'), 'Grilled Peppers', 40, '07-29-2008', '05-22-2009', '08-26-2016'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'Awhite'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Fruit Cups', 100, '09-25-2023', null, null
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'JElias'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Deli Salad', 100, '10-11-2008', '01-26-2013', '08-21-2021'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Pretzel Chicken ', 120, '06-16-2019', '06-16-2020', null
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Spicy Rice', 120, '12-21-2003', '01-30-2008', '03-26-2017'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Chocolate Mousse', 175, '05-20-2015', null, '05-10-2019'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'Greek'), 'pancakes', 125, '09-12-2020', null, null
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Classic Potatoes', 125, '09-09-2005', '02-08-2010', null
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vanilla Ice Cream', 150, '03-28-2001', '01-15-2003', '07-27-2017' 
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'baked banana chips', 25, '06-17-2003', '06-05-2010', '11-04-2023'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'CC Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Cinaman Butter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
-UNION SELECT (Select u.usersID from users U WHERE UserName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'PanutButter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
-
+SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Chocolate Chip Cookies', 150, '12-30-2003', '07-14-2013', '01-07-2016' 
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Apple Yogurt Smoothie', 75, '05-28-2004', '04-11-2009',  null 
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'English'), 'Cheese Bread', 250, '11-01-2021', null,  null 
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vegetable Soup', 50, '02-22-2015', '02-16-2022',  '04-04-2022'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'HHarper'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Teriaki Salmon', 400, '11-07-2009', '09-05-2022', null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'BJohnson'), (select C.CuisineID from Cuisine C where cuisinename= 'Mexican'), 'Grilled Peppers', 40, '07-29-2008', '05-22-2009', '08-26-2016'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'Awhite'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Fruit Cups', 100, '09-25-2023', null, null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'JElias'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Deli Salad', 100, '10-11-2008', '01-26-2013', '08-21-2021'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Pretzel Chicken ', 120, '06-16-2019', '06-16-2020', null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Spicy Rice', 120, '12-21-2003', '01-30-2008', '03-26-2017'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Chocolate Mousse', 175, '05-20-2015', null, '05-10-2019'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'Greek'), 'pancakes', 125, '09-12-2020', null, null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Classic Potatoes', 125, '09-09-2005', '02-08-2010', null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vanilla Ice Cream', 150, '03-28-2001', '01-15-2003', '07-27-2017' 
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'baked banana chips', 25, '06-17-2003', '06-05-2010', '11-04-2023'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'CC Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Cinaman Butter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'PeanutButter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
+ss
 go
 
 -- SM A CTE would be much more readable and easier to do.
 Insert RecipeIngredient(RecipeID, IngredientID, MeasurementID, Amount, SequenceNumber)
-Select (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), (select I.ingredientID from ingredient I where I.ingredientName= 'Sugar'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cup'), 1, 1
+select (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), (select I.ingredientID from ingredient I where I.ingredientName= 'Sugar'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cup'), 1, 1
 union Select (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), (select I.ingredientID from ingredient I where I.ingredientName= 'oil'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cup'), .5, 2
 union Select (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), (select I.ingredientID from ingredient I where I.ingredientName= 'eggs'), null, 3, 3
 union Select (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), (select I.ingredientID from ingredient I where I.ingredientName= 'flour'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cup'), 2, 4
@@ -218,17 +218,17 @@ union Select (select r.recipeID from recipe R where r.RecipeName = 'Vanilla Ice 
 union Select (select r.recipeID from recipe R where r.RecipeName = 'Vanilla Ice Cream'), (select I.ingredientID from ingredient I where I.ingredientName= 'egg whites'), null, 3, 3
 union Select (select r.recipeID from recipe R where r.RecipeName = 'baked banana chips'), (select I.ingredientID from ingredient I where I.ingredientName= 'bananas'), null, 2, 1
 union Select (select r.recipeID from recipe R where r.RecipeName = 'baked banana chips'), (select I.ingredientID from ingredient I where I.ingredientName= 'Lemon Juice'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'TableSpoon'), 3, 2
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Stick Butter'), null, 1, 1
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Sugar'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'Cup'), 3, 2
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Vanilla Pudding'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'TableSpoon'), 2, 3
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'eggs'), null, 4, 4
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'whipped cream cheese'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'ounce'), 8, 5
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'sour cream cheese'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'ounce'), 8, 6
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'flour'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cups'), 1, 7
-union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'baking powder'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'Teaspoon'), 2, 8
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Stick Butter'), null, 1, 1
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Sugar'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'Cup'), 3, 2
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'Vanilla Pudding'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'TableSpoon'), 2, 3
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'eggs'), null, 4, 4
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'whipped cream cheese'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'ounce'), 8, 5
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'sour cream cheese'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'ounce'), 8, 6
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'flour'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'cups'), 1, 7
+--union Select (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), (select I.ingredientID from ingredient I where I.ingredientName= 'baking powder'), (select M.MeasurementID from Measurement m where m.MeasurementName= 'Teaspoon'), 2, 8
 GO
 
--- SM A CTE would be much more readable and easier to do.
+---- SM A CTE would be much more readable and easier to do.
 insert Directions(recipeID, Direction, StepNumber)
 SELECT (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), 'First combine sugar, oil and eggs in a bowl', 1
 UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Chocolate Chip Cookies'), 'mix well', 2
@@ -289,17 +289,17 @@ UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'baked banana
 UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'baked banana chips'), 'brush bananas with lemon juice', 2
 UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'baked banana chips'), 'check on bananas and lift them from paper so they dont stick ', 3
 UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'baked banana chips'), 'bake until dry (for another 30-60 minutes)', 4
-UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Cream butter with sugars', 1
-UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Add eggs and mix well', 2
-UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Slowly add rest of ingredients and mix well', 3
-UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'fill muffin pans 3/4 full and bake for 30 minutes.', 4
+--UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Cream butter with sugars', 1
+--UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Add eggs and mix well', 2
+--UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'Slowly add rest of ingredients and mix well', 3
+--UNION SELECT (select r.recipeID from recipe R where r.RecipeName = 'Butter Muffins'), 'fill muffin pans 3/4 full and bake for 30 minutes.', 4
 
 -- SM A CTE would be much more readable and easier to do.
 insert meal(UsersID, MealName, active, DateCreated)
-SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), 'BreakFast Bash', 1,  '07-14-2013'
-union SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), 'Savory Lunch', 0,  '02-15-2012'
-union SELECT (Select u.usersID from users U WHERE UserName = 'HHarper'), 'Filling Dinner', 1,  '12-22-2023'
-union SELECT (Select u.usersID from users U WHERE UserName = 'Awhite'), 'Bunch oh Brunch ', 1,  '07-02-2022'
+SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'BreakFast Bash', 1,  '07-14-2013'
+union SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Savory Lunch', 0,  '02-15-2012'
+union SELECT (Select u.usersID from users U WHERE UsersName = 'HHarper'), 'Filling Dinner', 1,  '12-22-2023'
+union SELECT (Select u.usersID from users U WHERE UsersName = 'Awhite'), 'Bunch oh Brunch ', 1,  '07-02-2022'
 go
 
 ;with x as (
@@ -358,10 +358,10 @@ go
 
 -- SM A CTE would be much more readable and easier to do.
 INSERT CookBook (UsersID, CookbookName, price, DateCreated, Active)
-SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), 'Treats for two', 30,  '07-14-2013', 1
-union SELECT (Select u.usersID from users U WHERE UserName = 'JElias'), 'Deserts Oh my', 35,  '09-23-21', 1
-union SELECT (Select u.usersID from users U WHERE UserName = 'JGreen'), 'Best of Recipes', 25,  '02-15-2022', 1
-union SELECT (Select u.usersID from users U WHERE UserName = 'Awhite'), 'Kid in the kitchen', 15,  '11-10-2021', 0
+SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Treats for two', 30,  '07-14-2013', 1
+union SELECT (Select u.usersID from users U WHERE UsersName = 'JElias'), 'Deserts Oh my', 35,  '09-23-21', 1
+union SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Best of Recipes', 25,  '02-15-2022', 1
+union SELECT (Select u.usersID from users U WHERE UsersName = 'Awhite'), 'Kid in the kitchen', 15,  '11-10-2021', 0
 GO
   
 ;with x as(
@@ -392,16 +392,6 @@ join Recipe R
 on r.Recipename = x.Recipename
 go 
 
-SELECT * from recipe
 
 
 
-select top 1 recipeid, RecipeName from recipe
-
-update recipe set
-RecipeName= '0AA7/18/2024 3:25:59 PM',
-Calories= '77',
-DraftedDate= '6/22/2004 12:00:00 AM',
-PublishedDate= nullif('4/11/2009 12:00:00 AM', ''),
-ArchivedDate= nullif('', '')
-where recipeID=  9
