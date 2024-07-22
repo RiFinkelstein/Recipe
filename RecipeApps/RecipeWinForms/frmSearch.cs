@@ -41,8 +41,6 @@ namespace RecipeWinForms
             gRecipe.Columns["RecipeID"].Visible = false;
             gRecipe.Columns["usersid"].Visible = false; 
             gRecipe.Columns["CuisineID"].Visible = false;
-            gRecipe.Columns["CuisineID"].ReadOnly = false;
-            gRecipe.Columns["usersid"].ReadOnly = false;
 
         }
 
