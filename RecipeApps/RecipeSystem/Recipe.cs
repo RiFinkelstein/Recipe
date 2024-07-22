@@ -37,8 +37,6 @@ namespace RecipeSystem
 
             return dt;
 
-            //string sql = "select * from recipe r where r.recipeID= " + RecipeID.ToString();
-            //return SQLUtility.GetDataTable(sql);
         }
         
         public static DataTable GetUserList()
