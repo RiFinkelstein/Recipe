@@ -35,9 +35,14 @@ namespace RecipeWinForms
             }
 
             DataTable dtUsers = Recipe.GetUserList();
+            dtUsers.Columns["usersid"].ReadOnly = false;
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
 
+
             DataTable dtCuisine = Recipe.GetCuisineList();
+            dtCuisine.Columns["CuisineID"].ReadOnly = false;
+
+
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
 
             WindowsFormUtility.SetControlBinding(txtRecipeName, dtRecipe);

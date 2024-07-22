@@ -71,8 +71,8 @@ namespace RecipeSystem
             {
                 sql = string.Join(Environment.NewLine, $"update recipe set",
                     $"RecipeName= '{r["RecipeName"]}',",
-                    $"CuisineID= '{r["CuisineID"]}',",
                     $"UsersID= '{r["UsersID"]}',",
+                    $"CuisineID= '{r["CuisineID"]}',",
                     $"Calories= '{r["Calories"]}',",
                     $"DraftedDate= '{r["DraftedDate"]}',",
                     $"PublishedDate= nullif('{r["PublishedDate"]}', ''),",
@@ -82,7 +82,7 @@ namespace RecipeSystem
             else
             {
                 sql = "insert recipe(UsersID, CuisineID, RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)";
-                sql += $"select '{r["CuisineID"]}', '{r["UsersID"]}', '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}',   nullif('{r["PublishedDate"]}', ''),  nullif('{r["ArchivedDate"]}', '')";
+                sql += $"select '{r["UsersID"]}', '{r["CuisineID"]}',  '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}',   nullif('{r["PublishedDate"]}', ''),  nullif('{r["ArchivedDate"]}', '')";
             }
             Debug.Print("-----------");
             Debug.Print(sql);
