@@ -17,13 +17,13 @@ drop table if EXISTS Measurement
 drop table if exists users
 go
 
-create table dbo.Users(
+create table dbo.users(
     UsersID int not null Identity PRIMARY KEY, 
-    UsersFirstName varchar(35) CONSTRAINT ck_User_First_name_is_not_blank check(UsersFirstName <> ''),
-    UsersLastName varchar(35) CONSTRAINT ck_User_Last_name_is_not_blank check(UsersLastName <> ''),
-    UserName varchar(35) 
-            CONSTRAINT ck_User_user_name_is_not_blank check(UserName <> '') 
-            constraint USER_NAME_is_unique UNIQUE
+    usersFirstName varchar(35) CONSTRAINT ck_Users_First_name_is_not_blank check(UsersFirstName <> ''),
+    UsersLastName varchar(35) CONSTRAINT ck_users_Last_name_is_not_blank check(UsersLastName <> ''),
+    UsersName varchar(35) 
+            CONSTRAINT ck_Users_users_name_is_not_blank check(UsersName <> '') 
+            constraint USERs_NAME_is_unique UNIQUE
 )
 go
 
@@ -33,7 +33,7 @@ CREATE table dbo.ingredient(
             CONSTRAINT ck_ingredient_name_is_not_blank check(ingredientname <> '') 
 -- SM Tip: No need to include column name when doing unique constraint on the column.
             constraint ingredient_name_is_unique UNIQUE(ingredientname),
-    Picure as concat('ingredient_', replace(ingredientName, ' ', '_'), '.jpg')
+    Picture as concat('ingredient_', replace(ingredientName, ' ', '_'), '.jpg')
 )
 go
 
@@ -68,7 +68,6 @@ CREATE table dbo.recipe(
     CONSTRAINT ck_archive_date_is_after_publshed_date check(PublishedDate <ArchivedDate),
     constraint ck_published_date_is_after_drafted_date CHECK(DraftedDate<PublishedDate), 
     constraint ck_drafted_date_is_before_published_date CHECK(DraftedDate<ArchivedDate)
-
 )
 go 
 
@@ -111,7 +110,7 @@ create table dbo.Meal(
     active bit not null Default 1,
 -- SM Tip: Default to current date.
     DateCreated date not null constraint ck_meal_DateCreated_is_not_in_future CHECK(DateCreated <= CURRENT_TIMESTAMP), 
-    Picure as concat('Meal_', replace(MealName, ' ', '_'), '.jpg')
+    Picture as concat('Meal_', replace(MealName, ' ', '_'), '.jpg')
 )
 
 go
@@ -158,7 +157,7 @@ CREATE table dbo.CookBook(
 -- SM Tip: Default to current date.
     DateCreated date not null constraint ck_cookbook_DateCreated_is_not_in_future CHECK(DateCreated <= CURRENT_TIMESTAMP),
     Active bit not null DEFAULT 1, 
-    Picure as concat('CookBook_', replace(CookbookName, ' ', '_'), '.jpg')
+    Picture as concat('CookBook_', replace(CookbookName, ' ', '_'), '.jpg')
 )
 
 GO

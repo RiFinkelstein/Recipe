@@ -48,11 +48,11 @@
             txtRecipeName = new TextBox();
             lblcaptionUser = new Label();
             lblCaptionCuisine = new Label();
+            lstUsersName = new ComboBox();
+            lstCuisineName = new ComboBox();
             btnSave = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
-            cmbUser = new ComboBox();
-            cmbCuisine = new ComboBox();
             tblMain.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -77,8 +77,8 @@
             tblMain.Controls.Add(txtRecipeName, 1, 1);
             tblMain.Controls.Add(lblcaptionUser, 0, 2);
             tblMain.Controls.Add(lblCaptionCuisine, 0, 3);
-            tblMain.Controls.Add(cmbUser, 1, 2);
-            tblMain.Controls.Add(cmbCuisine, 1, 3);
+            tblMain.Controls.Add(lstUsersName, 1, 2);
+            tblMain.Controls.Add(lstCuisineName, 1, 3);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -253,6 +253,24 @@
             lblCaptionCuisine.TabIndex = 21;
             lblCaptionCuisine.Text = "Cuisine Type";
             // 
+            // lstUsersName
+            // 
+            lstUsersName.Anchor = AnchorStyles.Left;
+            lstUsersName.FormattingEnabled = true;
+            lstUsersName.Location = new Point(403, 111);
+            lstUsersName.Name = "lstUsersName";
+            lstUsersName.Size = new Size(125, 28);
+            lstUsersName.TabIndex = 23;
+            // 
+            // lstCuisineName
+            // 
+            lstCuisineName.Anchor = AnchorStyles.Left;
+            lstCuisineName.FormattingEnabled = true;
+            lstCuisineName.Location = new Point(403, 161);
+            lstCuisineName.Name = "lstCuisineName";
+            lstCuisineName.Size = new Size(125, 28);
+            lstCuisineName.TabIndex = 24;
+            // 
             // btnSave
             // 
             btnSave.Name = "btnSave";
@@ -270,24 +288,6 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(57, 24);
             btnDelete.Text = "Delete";
-            // 
-            // cmbUser
-            // 
-            cmbUser.Anchor = AnchorStyles.Left;
-            cmbUser.FormattingEnabled = true;
-            cmbUser.Location = new Point(403, 107);
-            cmbUser.Name = "cmbUser";
-            cmbUser.Size = new Size(125, 28);
-            cmbUser.TabIndex = 23;
-            // 
-            // cmbCuisine
-            // 
-            cmbCuisine.Anchor = AnchorStyles.Left;
-            cmbCuisine.FormattingEnabled = true;
-            cmbCuisine.Location = new Point(403, 157);
-            cmbCuisine.Name = "cmbCuisine";
-            cmbCuisine.Size = new Size(125, 28);
-            cmbCuisine.TabIndex = 24;
             // 
             // frmRecipe
             // 
@@ -329,7 +329,7 @@
         private TextBox txtStatus;
         private Label lblCaptionCuisine;
         private Label lblcaptionUser;
-        private ComboBox cmbUser;
-        private ComboBox cmbCuisine;
+        private ComboBox lstUsersName;
+        private ComboBox lstCuisineName;
     }
 }

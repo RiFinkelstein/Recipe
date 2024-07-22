@@ -33,11 +33,12 @@ namespace RecipeWinForms
             {
                 dtRecipe.Rows.Add();
             }
+
             DataTable dtUsers = Recipe.GetUserList();
-            WindowsFormUtility.SetListBinding(cmbUser, dtUsers, dtRecipe, "Users");
+            WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
 
             DataTable dtCuisine = Recipe.GetCuisineList();
-            WindowsFormUtility.SetListBinding(cmbCuisine, dtCuisine, dtRecipe, "cuisine");
+            WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
 
             WindowsFormUtility.SetControlBinding(txtRecipeName, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtCalories, dtRecipe);
@@ -46,9 +47,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtArchivedDate, dtRecipe);
             WindowsFormUtility.SetControlBinding(txtStatus, dtRecipe);
             this.Show();
-
-
-
         }
         private void save()
         {

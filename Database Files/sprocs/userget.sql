@@ -2,12 +2,12 @@ create or alter procedure dbo.userget (@usersid int = 0, @all bit= 0, @lastname 
 as
 begin 
 	select @lastname = nullif(@lastname, '')
-    select u.usersid, u.UsersFirstName, u.userslastname, u.username 
+    select u.usersid, u.UsersFirstName, u.userslastname, u.usersname 
     from users u
 	where u.usersid= @usersid
 	or @all= 1
 	or u.userslastname like '%'+ @lastname + '%'
-	order by u.username
+	order by u.usersname
 end 
 go
 
