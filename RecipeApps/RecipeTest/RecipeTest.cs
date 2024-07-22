@@ -114,6 +114,15 @@ namespace RecipeTest
         }
 
 
+<<<<<<< HEAD
+ /*       [Test]
+ Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
+        public void ChangeExistingRecipeName()
+        {
+            // Get an existing RecipeID from the database
+            int recipeID = getExistingRecipeID();
+            Assume.That(recipeID > 0, "No recipe in the database, can't perform the test"); 
+=======
         /*       [Test]
         --Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
                public void ChangeExistingRecipeName()
@@ -121,6 +130,7 @@ namespace RecipeTest
                    // Get an existing RecipeID from the database
                    int recipeID = getExistingRecipeID();
                    Assume.That(recipeID > 0, "No recipe in the database, can't perform the test"); 
+>>>>>>> main
 
                    // Retrieve the current recipe name using the RecipeID
                    string recipeName = SQLUtility.GetFirstColumnFirstRowValue("SELECT RecipeName FROM recipe WHERE RecipeID = " + recipeID).ToString(); 
