@@ -193,6 +193,26 @@ namespace RecipeTest
             ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
             TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB");
         }
+
+        [Test]
+        public void deleteRecipeInvalid()
+        {
+            DataTable dt = SQLUtility.GetDataTable("SELECT TOP 1 r.RecipeID FROM recipe r JOIN RecipeIngredient ri ON r.RecipeID = ri.RecipeID JOIN Directions d ON r.RecipeID = d.RecipeID JOIN CourseMealRecipe cmr ON r.RecipeID = cmr.RecipeID JOIN CookbookRecipe cbr ON r.RecipeID = cbr.RecipeID");
+            int recipeID = 0;
+            if (dt.Rows.Count > 0)
+            {
+                recipeID = (int)dt.Rows[0]["recipeID"];
+            }
+            Assume.That(recipeID > 0, "no recipes in database, cant do test");
+            TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
+            Recipe.Delete(dt);
+            DataTable dtAfterDelete = Recipe.Load(recipeID);
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+
+        }
+
         [Test]
         public void SearchPresidents()
         {
