@@ -205,16 +205,13 @@ namespace RecipeTest
             }
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
-            Recipe.Delete(dt);
-            DataTable dtAfterDelete = Recipe.Load(recipeID);
-
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
 
         }
 
         [Test]
-        public void SearchPresidents()
+        public void SearchRecipes()
         {
             string criteria = "a";
             int num = SQLUtility.GetFirstColumnFirstRowValue("select total= count (*) from recipe where recipename like '%" + criteria + "%'");
