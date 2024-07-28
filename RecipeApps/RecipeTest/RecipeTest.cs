@@ -16,6 +16,7 @@ namespace RecipeTest
         [SetUp]
         public void Setup()
         {
+            
             DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
         }
 
@@ -72,6 +73,54 @@ namespace RecipeTest
 
 
         [Test]
+        [TestCase(12, "1800-01-01", "1800-02-01", "1800-04-01")]
+        public void InsertNewRecipeInvalidName(int Calories, string draftedDateStr, string publishedDateStr, string archivedDateStr)
+        {
+            // Convert string dates to DateTime
+            DateTime DraftedDate = DateTime.Parse(draftedDateStr);
+            DateTime PublishedDate = DateTime.Parse(publishedDateStr);
+            DateTime ArchivedDate = DateTime.Parse(archivedDateStr);
+
+
+            // Create a new DataTable to hold the recipe data
+            DataTable dt = Recipe.Load(0);
+            DataRow r = dt.Rows.Add();
+            Assume.That(dt.Rows.Count == 1);
+
+            dt.Columns["usersid"].ReadOnly = false;
+            dt.Columns["CuisineID"].ReadOnly = false;
+            int CuisineID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
+            TestContext.WriteLine("cusineid is" + CuisineID);
+            int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users");
+            TestContext.WriteLine("userid is" + UsersID);
+
+            string RecipeName = SQLUtility.GetFirstColumnFirstRowValuestring("select top 1 recipename from recipe");
+
+            Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
+            Assume.That(UsersID > 0, "no Users in database, cant do test");
+
+            // Append current datetime to the RecipeName to ensure uniqueness
+            RecipeName = RecipeName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+
+            dt.Columns["usersid"].ReadOnly = false;
+            dt.Columns["CuisineID"].ReadOnly = false;
+            r["RecipeName"] = RecipeName;
+            r["Calories"] = Calories;
+            r["DraftedDate"] = DraftedDate;
+            r["PublishedDate"] = PublishedDate;
+            r["ArchivedDate"] = ArchivedDate;
+            r["usersid"] = UsersID;
+            r["CuisineID"] = CuisineID;
+
+            // Save the new recipe to the database using the existing Save method
+            Recipe.Save(dt);
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+        
+
+        [Test]
         public void ChangeExistingRecipeCalories()
         {
             int recipeID = getExistingRecipeID();
@@ -86,6 +135,21 @@ namespace RecipeTest
             int newCalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
             ClassicAssert.IsTrue(newCalories == Calories, "calroeis for recipe (" + recipeID + ") = " + newCalories);
             TestContext.WriteLine("calories for recipe(" + recipeID + ") =" + Calories);
+        }
+
+        [Test]
+        public void ChangeExistingRecipeinvalidCalories()
+        {
+            int recipeID = getExistingRecipeID();
+            int calories = -5;
+            Assume.That(recipeID > 0, "no recipes in database, cant do test");
+
+            TestContext.WriteLine("change termstart year" + calories);
+            DataTable dt = Recipe.Load(recipeID);
+            dt.Rows[0]["calories"] = calories;
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
+            TestContext.WriteLine(ex.Message);
         }
 
         [Test]
@@ -113,65 +177,6 @@ namespace RecipeTest
             TestContext.WriteLine("Recipe name for RecipeID (" + recipeID + ") is now " + NewDraftedDate);
         }
 
-
-<<<<<<< HEAD
- /*       [Test]
- Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
-        public void ChangeExistingRecipeName()
-        {
-            // Get an existing RecipeID from the database
-            int recipeID = getExistingRecipeID();
-            Assume.That(recipeID > 0, "No recipe in the database, can't perform the test"); 
-=======
-        /*       [Test]
-        --Ive manually done this test a lot of times and it wokrs but when I run it it doesnt work, Ive tried debugging and I cant figure it out... 
-               public void ChangeExistingRecipeName()
-               {
-                   // Get an existing RecipeID from the database
-                   int recipeID = getExistingRecipeID();
-                   Assume.That(recipeID > 0, "No recipe in the database, can't perform the test"); 
->>>>>>> main
-
-                   // Retrieve the current recipe name using the RecipeID
-                   string recipeName = SQLUtility.GetFirstColumnFirstRowValue("SELECT RecipeName FROM recipe WHERE RecipeID = " + recipeID).ToString(); 
-                   TestContext.WriteLine("Recipe name for RecipeID " + recipeID + " is " + recipeName);
-                   Assume.That(!string.IsNullOrEmpty(recipeName), "recipe name is not be null or empty");
-
-                   // Modify the recipe name by appending "AA" 
-                   string newRecipeName = recipeName + "AA" + DateTime.Now.ToString();
-                   TestContext.WriteLine("Changing recipe name to " + newRecipeName); 
-
-                   // Load the recipe data into a DataTable 
-                   DataTable dt = Recipe.Load(recipeID);
-                   TestContext.WriteLine("loaded data for recipeid" + recipeID);
-
-
-                   // Update the recipe name in the DataTable
-                   dt.Rows[0]["recipename"] = newRecipeName;
-                   TestContext.WriteLine("old recipe name is "+ recipeName);
-
-
-                   SQLUtility.DebugPringDataTable(dt);
-
-                   // Save the updated DataTable back to the database
-                   Recipe.Save(dt);
-                   TestContext.WriteLine("saved data for recipeID: " + recipeID + "with new name" + recipeName);
-
-                   // Retrieve the updated recipe name from the database
-                   string updatedRecipeName = SQLUtility.GetFirstColumnFirstRowValue("SELECT RecipeName FROM recipe WHERE RecipeID = " + recipeID).ToString();
-
-
-                   TestContext.WriteLine("updated recipe name is " + updatedRecipeName);
-
-                   System.Threading.Thread.Sleep(4000);
-
-                   // Assert that the updated recipe name matches the expected new recipe name
-                   ClassicAssert.AreSame(updatedRecipeName, newRecipeName, "Recipe name for RecipeID (" + recipeID + ") is " + updatedRecipeName);
-                   // Output the final recipe name
-                   TestContext.WriteLine("Recipe name for RecipeID (" + recipeID + ") is now " + recipeName);  
-               }
-               */
-
         [Test]
         public void deleteRecipe()
         {
@@ -184,7 +189,7 @@ namespace RecipeTest
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
             Recipe.Delete(dt);
-            DataTable dtAfterDelete =Recipe.Load(recipeID);
+            DataTable dtAfterDelete = Recipe.Load(recipeID);
             ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
             TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB");
         }
