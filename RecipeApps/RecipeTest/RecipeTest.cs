@@ -249,7 +249,7 @@ namespace RecipeTest
             Assume.That(CusineCount > 0, "no cuisines in database, cant do test");
             TestContext.WriteLine("number of rows in DB= " + CusineCount);
             TestContext.WriteLine("Ensure the num of rows return by app matches " + CusineCount);
-            DataTable dt = Recipe.GetUserList();
+            DataTable dt = Recipe.GetCuisineList();
             ClassicAssert.IsTrue(dt.Rows.Count == CusineCount, "num rows return by app (" + dt.Rows.Count + ")<> " + CusineCount);
             TestContext.WriteLine("number of rows in cusine retruned byt the app " + dt.Rows.Count);
         }
