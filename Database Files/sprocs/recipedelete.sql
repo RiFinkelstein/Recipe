@@ -5,9 +5,10 @@ as
 begin 
 begin try
 begin tran
-    delete r from recipe r where RecipeID= @recipeid
     delete ri from RecipeIngredient ri where ri.recipeID= @recipeid
-  delete d from Directions d where RecipeID= @recipeid
+    delete d from Directions d where RecipeID= @recipeid
+    delete r from recipe r where RecipeID= @recipeid
+
   commit
   end try
   begin catch
@@ -17,5 +18,4 @@ end catch
 
 END
 go
-
 
