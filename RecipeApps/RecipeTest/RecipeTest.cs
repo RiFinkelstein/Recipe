@@ -207,8 +207,36 @@ namespace RecipeTest
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
-
         }
+
+        [Test]
+        public void deleteRecipeInvalidbecasueofBusinessrule()
+        {
+            string sql = @"
+                        SELECT TOP 1 r.RecipeID 
+                        FROM recipe r JOIN RecipeIngredient ri 
+                        ON r.RecipeID = ri.RecipeID 
+                        JOIN Directions d 
+                        ON r.RecipeID = d.RecipeID 
+                        JOIN CourseMealRecipe cmr 
+                        ON r.RecipeID = cmr.RecipeID 
+                        JOIN CookbookRecipe cbr 
+                        ON r.RecipeID = cbr.RecipeID
+                        where r.Status = 'drafted' 
+                        or DATEDIFF(day, r.ArchivedDate, GETDATE())>30
+                        ";
+            DataTable dt = SQLUtility.GetDataTable(sql);
+            int recipeID = 0;
+            if (dt.Rows.Count > 0)
+            {
+                recipeID = (int)dt.Rows[0]["recipeID"];
+            }
+            Assume.That(recipeID > 0, "no recipes that are either drafted or archived more than 30 days ago in database, cant do test");
+            TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
 
         [Test]
         public void SearchRecipes()
