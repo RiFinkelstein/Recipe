@@ -99,9 +99,6 @@ namespace RecipeTest
             Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
             Assume.That(UsersID > 0, "no Users in database, cant do test");
 
-            // Append current datetime to the RecipeName to ensure uniqueness
-            RecipeName = RecipeName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-
             dt.Columns["usersid"].ReadOnly = false;
             dt.Columns["CuisineID"].ReadOnly = false;
             r["RecipeName"] = RecipeName;
@@ -111,9 +108,6 @@ namespace RecipeTest
             r["ArchivedDate"] = ArchivedDate;
             r["usersid"] = UsersID;
             r["CuisineID"] = CuisineID;
-
-            // Save the new recipe to the database using the existing Save method
-            Recipe.Save(dt);
 
             Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
             TestContext.WriteLine(ex.Message);
