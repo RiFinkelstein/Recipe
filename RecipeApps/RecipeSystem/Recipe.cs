@@ -53,33 +53,15 @@ namespace RecipeSystem
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
-        
+
         public static void Save(DataTable dtRecipe)
         {
-            SQLUtility.DebugPringDataTable(dtRecipe);
+            if (dtRecipe.Rows.Count == 0)
+            {
+                throw new Exception("cannot call president save method becasue there are no rows in the table");
+            }
             DataRow r = dtRecipe.Rows[0];
-            int id = (int)r["recipeID"];
-            string sql = "";
-            if (id > 0)
-            {
-                sql = string.Join(Environment.NewLine, $"update recipe set",
-                    $"RecipeName= '{r["RecipeName"]}',",
-                    $"UsersID= '{r["UsersID"]}',",
-                    $"CuisineID= '{r["CuisineID"]}',",
-                    $"Calories= '{r["Calories"]}',",
-                    $"DraftedDate= '{r["DraftedDate"]}',",
-                    $"PublishedDate= nullif('{r["PublishedDate"]}', ''),",
-                    $"ArchivedDate= nullif('{r["ArchivedDate"]}', '')",
-                    $"where recipeID=  {r["recipeID"]}");
-            }
-            else
-            {
-                sql = "insert recipe(UsersID, CuisineID, RecipeName, Calories, DraftedDate,PublishedDate, ArchivedDate)";
-                sql += $"select '{r["UsersID"]}', '{r["CuisineID"]}',  '{r["RecipeName"]}', {r["Calories"]}, '{r["DraftedDate"]}',   nullif('{r["PublishedDate"]}', ''),  nullif('{r["ArchivedDate"]}', '')";
-            }
-            Debug.Print("-----------");
-            Debug.Print(sql);
-            SQLUtility.ExecuteSQL(sql);
+            SQLUtility.SaveDataRow(r, "recipeupdate");
         }
 
         public static void Delete(DataTable dtRecipe)
