@@ -177,6 +177,7 @@
             txtArchivedDate.Anchor = AnchorStyles.Left;
             txtArchivedDate.Location = new Point(403, 361);
             txtArchivedDate.Name = "txtArchivedDate";
+            txtArchivedDate.ReadOnly = true;
             txtArchivedDate.Size = new Size(125, 27);
             txtArchivedDate.TabIndex = 18;
             // 
@@ -184,6 +185,7 @@
             // 
             txtStatus.Location = new Point(403, 403);
             txtStatus.Name = "txtStatus";
+            txtStatus.ReadOnly = true;
             txtStatus.Size = new Size(125, 27);
             txtStatus.TabIndex = 19;
             // 
@@ -202,6 +204,7 @@
             txtPublishedDate.Anchor = AnchorStyles.Left;
             txtPublishedDate.Location = new Point(403, 311);
             txtPublishedDate.Name = "txtPublishedDate";
+            txtPublishedDate.ReadOnly = true;
             txtPublishedDate.Size = new Size(125, 27);
             txtPublishedDate.TabIndex = 8;
             // 

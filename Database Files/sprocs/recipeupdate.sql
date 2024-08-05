@@ -1,10 +1,10 @@
-CREATE OR ALTER PROC dbo.recipeupdate(
+CREATE OR ALTER PROC dbo.Recipepdate(
     @RecipeID int OUTPUT,
     @CuisineID int,
     @UsersID int,
     @RecipeName varchar(50),
     @Calories int, 
-    @drafteddate datetime)
+    @DraftedDate datetime)
 AS
 BEGIN
     DECLARE @return int = 0;

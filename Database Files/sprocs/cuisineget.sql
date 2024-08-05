@@ -1,13 +1,13 @@
-create or alter procedure dbo.Cuisineget (@cuisineid int = 0, @all bit= 0, @cuisinename varchar(35)='')
+create or alter procedure dbo.CuisineGet (@CuisineId int = 0, @All bit= 0, @CuisineName varchar(35)='')
 as
 begin 
-	select @cuisinename = nullif(@cuisinename, '')
-    SELECT c.cuisineid, c.cuisinename 
+	select @CuisineName = nullif(@CuisineName, '')
+    SELECT c.CuisineId, c.CuisineName 
     from cuisine c
-	where c.cuisineid= @cuisineid
-	or @all= 1
-	or c.cuisinename like '%'+ @cuisinename + '%'
-	order by c.cuisinename
+	where c.CuisineId= @CuisineId
+	or @All= 1
+	or c.CuisineName like '%'+ @CuisineName + '%'
+	order by c.CuisineName
 end 
 go
 

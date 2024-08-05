@@ -1,11 +1,11 @@
-create or alter procedure dbo.userget (@usersid int = 0, @all bit= 0, @lastname varchar(35)='')
+create or alter procedure dbo.UserGet (@UsersId int = 0, @All bit= 0, @LastName varchar(35)='')
 as
 begin 
-	select @lastname = nullif(@lastname, '')
+	select @LastName = nullif(@LastName, '')
     select u.usersid, u.UsersFirstName, u.userslastname, u.usersname 
     from users u
 	where u.usersid= @usersid
-	or @all= 1
+	or @All= 1
 	or u.userslastname like '%'+ @lastname + '%'
 	order by u.usersname
 end 
