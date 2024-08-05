@@ -58,7 +58,7 @@ namespace RecipeSystem
         {
             if (dtRecipe.Rows.Count == 0)
             {
-                throw new Exception("cannot call president save method becasue there are no rows in the table");
+                throw new Exception("cannot call recipe save method becasue there are no rows in the table");
             }
             DataRow r = dtRecipe.Rows[0];
             SQLUtility.SaveDataRow(r, "recipeupdate");

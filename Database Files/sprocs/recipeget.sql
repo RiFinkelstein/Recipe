@@ -2,12 +2,8 @@ create or alter procedure dbo.recipeget (@recipeid int = 0, @all bit= 0, @Recipe
 as
 begin 
 	select @Recipename = nullif(@Recipename, '')
-	select u.usersid, c.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.STATUS
+	select r.usersid, r.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.STATUS
 	from recipe r
-	join Cuisine c 
-	on C.CuisineID= r.cuisineid
-	join users u 
-	on u.usersid = r.usersid
 	where r.recipeid= @recipeid
 	or @all= 1
 	or r.recipename like '%'+ @Recipename + '%'

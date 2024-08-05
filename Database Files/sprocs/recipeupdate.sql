@@ -3,7 +3,8 @@ CREATE OR ALTER PROC dbo.recipeupdate(
     @CuisineID int,
     @UsersID int,
     @RecipeName varchar(50),
-    @Calories int)
+    @Calories int, 
+    @drafteddate datetime)
 AS
 BEGIN
     DECLARE @return int = 0;
@@ -21,7 +22,8 @@ BEGIN
             CuisineID = @CuisineID,
             UsersID = @UsersID,
             RecipeName = @RecipeName,
-            Calories = @Calories
+            Calories = @Calories, 
+            DraftedDate= @drafteddate
         WHERE RecipeID = @RecipeID;
     END
 

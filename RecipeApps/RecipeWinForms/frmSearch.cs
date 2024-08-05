@@ -61,6 +61,7 @@ namespace RecipeWinForms
         {
             ShowRecipeForm(-1);
 
+
         }
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
