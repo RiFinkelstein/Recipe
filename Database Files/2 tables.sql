@@ -55,8 +55,8 @@ CREATE table dbo.recipe(
     Calories int not null constraint ck_calories_not_less_than_0 CHECK(calories>0), 
 -- SM Tip: DraftedDate should be defaulted to current date
     DraftedDate DATETIME not null  DEFAULT GETDATE() constraint ck_recipe_Drafted_date_is_not_in_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
-    PublishedDate DATETIME null constraint ck_recipe__Published_Dateis_not_in_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
-    ArchivedDate DATETIME null constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
+    PublishedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe__Published_Dateis_not_in_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
+    ArchivedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
     Picture as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
 -- SM Column name should be RecipeStatus as Status is a reserved word.
     Status as case

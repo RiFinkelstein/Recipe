@@ -47,8 +47,9 @@ namespace RecipeWinForms
 
             DataTable dtCuisine = Recipe.GetCuisineList();
             dtCuisine.Columns["CuisineID"].ReadOnly = false;
-
-
+            dtRecipe.Columns["DraftedDate"].ReadOnly = true;
+            dtRecipe.Columns["PublishedDate"].ReadOnly = true;
+            dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
 
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
