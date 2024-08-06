@@ -5,7 +5,7 @@ CREATE or ALTER PROCEDURE dbo.RecipeDelete(
 as 
 begin 
     DECLARE @Return int =0
-if exists (SELECT* from recipe r where r.RecipeID=@recipeid and (r.Status != 'drafted' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30))
+if exists (SELECT* from recipe r where r.RecipeID=@recipeid and (r.Status = 'drafted' or DATEDIFF(day, r.ArchivedDate, GETDATE())>30))
 
 BEGIN
   SELECT @Return =1, 
