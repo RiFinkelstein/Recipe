@@ -235,8 +235,8 @@ AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
                         ON r.RecipeID = cmr.RecipeID 
                         JOIN CookbookRecipe cbr 
                         ON r.RecipeID = cbr.RecipeID
-                        where r.Status = 'drafted' 
-                        or DATEDIFF(day, r.ArchivedDate, GETDATE())>30
+                        where
+                        (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30)
                         ";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
@@ -244,7 +244,7 @@ AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
             {
                 recipeID = (int)dt.Rows[0]["recipeID"];
             }
-            Assume.That(recipeID > 0, "no recipes that are either drafted or archived more than 30 days ago in database, cant do test");
+            Assume.That(recipeID > 0, "no recipes that are currently published and there are no recipes that are archived more than 30 days, cant do test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
