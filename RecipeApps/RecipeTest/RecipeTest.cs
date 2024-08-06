@@ -37,6 +37,9 @@ namespace RecipeTest
 
             dt.Columns["usersid"].ReadOnly = false;
             dt.Columns["CuisineID"].ReadOnly = false;
+            dt.Columns["recipeID"].ReadOnly = false;
+
+
             int CuisineID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
             TestContext.WriteLine("cusineid is" + CuisineID);
             int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users");
@@ -49,8 +52,6 @@ namespace RecipeTest
             // Append current datetime to the RecipeName to ensure uniqueness
             RecipeName = RecipeName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
-            dt.Columns["usersid"].ReadOnly = false;
-            dt.Columns["CuisineID"].ReadOnly = false;
             r["RecipeName"] = RecipeName;
             r["Calories"] = Calories;
             r["DraftedDate"] = DraftedDate;
@@ -98,9 +99,6 @@ namespace RecipeTest
 
             Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
             Assume.That(UsersID > 0, "no Users in database, cant do test");
-
-            dt.Columns["usersid"].ReadOnly = false;
-            dt.Columns["CuisineID"].ReadOnly = false;
             r["RecipeName"] = RecipeName;
             r["Calories"] = Calories;
             r["DraftedDate"] = DraftedDate;
@@ -125,6 +123,8 @@ namespace RecipeTest
             TestContext.WriteLine("change Calories" + Calories);
             DataTable dt = Recipe.Load(recipeID);
             dt.Rows[0]["calories"] = Calories;
+            dt.Columns["recipeID"].ReadOnly = false;
+
             Recipe.Save(dt);
             int newCalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
             ClassicAssert.IsTrue(newCalories == Calories, "calroeis for recipe (" + recipeID + ") = " + newCalories);
@@ -161,6 +161,8 @@ namespace RecipeTest
             DataTable dt = Recipe.Load(recipeID);
             // Update the recipe name in the DataTable
             dt.Rows[0]["DraftedDate"] = NewDraftedDate;
+            dt.Columns["recipeID"].ReadOnly = false;
+
             // Save the updated DataTable back to the database
             Recipe.Save(dt);
             // Retrieve the updated recipe name from the database
@@ -174,8 +176,25 @@ namespace RecipeTest
         [Test]
         public void deleteRecipe()
         {
-            DataTable dt = SQLUtility.GetDataTable("SELECT TOP 1 r.RecipeID FROM recipe r LEFT JOIN RecipeIngredient ri ON r.RecipeID = ri.RecipeID LEFT JOIN Directions d ON r.RecipeID = d.RecipeID LEFT JOIN CourseMealRecipe cmr ON r.RecipeID = cmr.RecipeID LEFT JOIN CookbookRecipe cbr ON r.RecipeID = cbr.RecipeID WHERE ri.RecipeID IS NULL AND d.RecipeID IS NULL  AND cmr.RecipeID IS NULL AND cbr.RecipeID IS NULL");
+            string sql = @"SELECT TOP 1 r.RecipeID 
+FROM recipe r 
+LEFT JOIN RecipeIngredient ri 
+ON r.RecipeID = ri.RecipeID 
+LEFT JOIN Directions d 
+ON r.RecipeID = d.RecipeID 
+LEFT JOIN CourseMealRecipe cmr 
+ON r.RecipeID = cmr.RecipeID 
+LEFT JOIN CookbookRecipe cbr 
+ON r.RecipeID = cbr.RecipeID 
+WHERE ri.RecipeID IS NULL 
+AND d.RecipeID IS NULL 
+AND cmr.RecipeID IS NULL 
+AND cbr.RecipeID IS NULL 
+AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
+
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
+
             if (dt.Rows.Count > 0)
             {
                 recipeID = (int)dt.Rows[0]["recipeID"];
