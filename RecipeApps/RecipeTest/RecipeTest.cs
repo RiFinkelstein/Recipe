@@ -239,14 +239,14 @@ namespace RecipeTest
                         SELECT TOP 1 r.RecipeID 
                         FROM recipe r JOIN RecipeIngredient ri 
                         ON r.RecipeID = ri.RecipeID 
-                        JOIN Directions d 
+                        left JOIN Directions d 
                         ON r.RecipeID = d.RecipeID 
-                        JOIN CourseMealRecipe cmr 
+                        left JOIN CourseMealRecipe cmr 
                         ON r.RecipeID = cmr.RecipeID 
-                        JOIN CookbookRecipe cbr 
+                        left JOIN CookbookRecipe cbr 
                         ON r.RecipeID = cbr.RecipeID
                         where
-                        (r.Status <> 'drafted' or DATEDIFF(day, r.ArchivedDate, GETDATE())<=30)
+                        (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30)
                         ";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
@@ -254,7 +254,7 @@ namespace RecipeTest
             {
                 recipeID = (int)dt.Rows[0]["recipeID"];
             }
-            Assume.That(recipeID > 0, "no recipes that are currently published and there are no recipes that are archived more than 30 days, cant do test");
+            Assume.That(recipeID > 0, "no recipes are currently published or archived less than 30 days ago, cannot perform test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
