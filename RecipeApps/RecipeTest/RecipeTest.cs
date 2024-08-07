@@ -177,21 +177,20 @@ namespace RecipeTest
         public void deleteRecipe()
         {
             string sql = @"SELECT TOP 1 r.RecipeID 
-FROM recipe r 
-LEFT JOIN RecipeIngredient ri 
-ON r.RecipeID = ri.RecipeID 
-LEFT JOIN Directions d 
-ON r.RecipeID = d.RecipeID 
-LEFT JOIN CourseMealRecipe cmr 
-ON r.RecipeID = cmr.RecipeID 
-LEFT JOIN CookbookRecipe cbr 
-ON r.RecipeID = cbr.RecipeID 
-WHERE ri.RecipeID IS NULL 
-AND d.RecipeID IS NULL 
-AND cmr.RecipeID IS NULL 
-AND cbr.RecipeID IS NULL 
-AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
-
+                            FROM recipe r 
+                            LEFT JOIN RecipeIngredient ri 
+                            ON r.RecipeID = ri.RecipeID 
+                            LEFT JOIN Directions d 
+                            ON r.RecipeID = d.RecipeID 
+                            LEFT JOIN CourseMealRecipe cmr 
+                            ON r.RecipeID = cmr.RecipeID 
+                            LEFT JOIN CookbookRecipe cbr 
+                            ON r.RecipeID = cbr.RecipeID 
+                            WHERE ri.RecipeID IS NULL 
+                            AND d.RecipeID IS NULL 
+                            AND cmr.RecipeID IS NULL 
+                            AND cbr.RecipeID IS NULL 
+                            AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
 
@@ -210,7 +209,18 @@ AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
         [Test]
         public void deleteRecipeInvalid()
         {
-            DataTable dt = SQLUtility.GetDataTable("SELECT TOP 1 r.RecipeID FROM recipe r JOIN RecipeIngredient ri ON r.RecipeID = ri.RecipeID JOIN Directions d ON r.RecipeID = d.RecipeID JOIN CourseMealRecipe cmr ON r.RecipeID = cmr.RecipeID JOIN CookbookRecipe cbr ON r.RecipeID = cbr.RecipeID");
+            string sql = @"SELECT TOP 1 r.RecipeID 
+                            FROM recipe r 
+                            LEFT JOIN RecipeIngredient ri 
+                            ON r.RecipeID = ri.RecipeID 
+                            LEFT JOIN Directions d 
+                            ON r.RecipeID = d.RecipeID 
+                            LEFT JOIN CourseMealRecipe cmr 
+                            ON r.RecipeID = cmr.RecipeID 
+                            LEFT JOIN CookbookRecipe cbr 
+                            ON r.RecipeID = cbr.RecipeID 
+                            ";
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
             if (dt.Rows.Count > 0)
             {
@@ -236,7 +246,7 @@ AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
                         JOIN CookbookRecipe cbr 
                         ON r.RecipeID = cbr.RecipeID
                         where
-                        (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30)
+                        (r.Status <> 'drafted' or DATEDIFF(day, r.ArchivedDate, GETDATE())<=30)
                         ";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
