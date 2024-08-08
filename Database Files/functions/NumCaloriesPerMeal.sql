@@ -11,8 +11,7 @@ join CourseMealRecipe cmr
 on cmr.CourseMealID= cm.CourseMealID
 JOIN recipe R
 on r.RecipeID= cmr.RecipeID
-where m.MealID= @mealid
-GROUP by m.MealID, m.MealName   
+where m.MealID= @mealid  
 RETURN @value
 end 
 go
