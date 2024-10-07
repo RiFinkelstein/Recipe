@@ -4,9 +4,9 @@ begin
 	select @RecipeName = nullif(@RecipeName, '')
 	select r.usersid, r.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.STATUS
 	from recipe r
-	where r.recipeid= @recipeid
+	where (@recipeid=0 or r.recipeid= @recipeid)
 	or @All= 1
-	or r.recipename like '%'+ @RecipeName + '%'
+	or (r.recipename like '%'+ @RecipeName + '%' or @recipename is null)
 	order by r.recipename
 end 
 go
