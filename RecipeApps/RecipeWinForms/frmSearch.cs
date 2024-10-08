@@ -51,6 +51,7 @@ namespace RecipeWinForms
             {
               id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value; 
             }
+
             frmRecipe frm = new frmRecipe();
             frm.MdiParent = this.MdiParent;
             frm.ShowForm(id);

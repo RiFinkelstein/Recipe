@@ -24,7 +24,7 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             btnDelete.Click += BtnDelete_Click;
-            btnSave.Click+= BtnSave_Click; 
+            btnSave1.Click+= BtnSave_Click; 
         
         }
 
@@ -81,9 +81,10 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
-
+            Text= txtRecipeName.Text;
             this.Show();
         }
+
         private void save()
         {
             Application.UseWaitCursor = true;

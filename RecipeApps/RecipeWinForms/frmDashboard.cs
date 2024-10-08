@@ -62,16 +62,30 @@ namespace RecipeWinForms
 
             return recordCount;  // Return the count value
         }
+
+
         private void BtnRecipeList_Click(object? sender, EventArgs e)
         {
+            if (this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmRecipeList));
+            }
         }
 
         private void BtnMealList_Click(object? sender, EventArgs e)
         {
+            if (this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmMealList));
+            }
         }
 
         private void BtnCookbookList_Click(object? sender, EventArgs e)
         {
+            if (this.MdiParent is frmMain)
+            {
+                ((frmMain)this.MdiParent).OpenForm(typeof(frmCookbookList));
+            }
         }
     }
 }
