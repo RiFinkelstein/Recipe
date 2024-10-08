@@ -32,6 +32,20 @@
             mnuRecipe = new ToolStripMenuItem();
             mnuSearchRecipe = new ToolStripMenuItem();
             mnuNewRecipe = new ToolStripMenuItem();
+            tsMain = new ToolStrip();
+            mnuFile = new ToolStripMenuItem();
+            mnuMeals = new ToolStripMenuItem();
+            mnuCookbooks = new ToolStripMenuItem();
+            mnuDatamaintenance = new ToolStripMenuItem();
+            mnuWindows = new ToolStripMenuItem();
+            mnuDashboard = new ToolStripMenuItem();
+            mnuListRecipe = new ToolStripMenuItem();
+            mnuClonearecipe = new ToolStripMenuItem();
+            MnuMealsList = new ToolStripMenuItem();
+            MnuListOfCookbooks = new ToolStripMenuItem();
+            mnuNewCookbook = new ToolStripMenuItem();
+            mnuAutocreatecookbook = new ToolStripMenuItem();
+            mnuEditdata = new ToolStripMenuItem();
             mnuMain.SuspendLayout();
             SuspendLayout();
             // 
@@ -39,7 +53,7 @@
             // 
             mnuMain.Font = new Font("Segoe UI", 12F);
             mnuMain.ImageScalingSize = new Size(20, 20);
-            mnuMain.Items.AddRange(new ToolStripItem[] { mnuRecipe });
+            mnuMain.Items.AddRange(new ToolStripItem[] { mnuFile, mnuRecipe, mnuMeals, mnuCookbooks, mnuDatamaintenance, mnuWindows });
             mnuMain.Location = new Point(0, 0);
             mnuMain.Name = "mnuMain";
             mnuMain.Size = new Size(800, 36);
@@ -48,7 +62,7 @@
             // 
             // mnuRecipe
             // 
-            mnuRecipe.DropDownItems.AddRange(new ToolStripItem[] { mnuSearchRecipe, mnuNewRecipe });
+            mnuRecipe.DropDownItems.AddRange(new ToolStripItem[] { mnuSearchRecipe, mnuNewRecipe, mnuListRecipe, mnuClonearecipe });
             mnuRecipe.Name = "mnuRecipe";
             mnuRecipe.Size = new Size(83, 32);
             mnuRecipe.Text = "Recipe";
@@ -56,20 +70,112 @@
             // mnuSearchRecipe
             // 
             mnuSearchRecipe.Name = "mnuSearchRecipe";
-            mnuSearchRecipe.Size = new Size(224, 32);
+            mnuSearchRecipe.Size = new Size(225, 32);
             mnuSearchRecipe.Text = "Search";
             // 
             // mnuNewRecipe
             // 
             mnuNewRecipe.Name = "mnuNewRecipe";
-            mnuNewRecipe.Size = new Size(224, 32);
+            mnuNewRecipe.Size = new Size(225, 32);
             mnuNewRecipe.Text = "New Recipe";
+            // 
+            // tsMain
+            // 
+            tsMain.ImageScalingSize = new Size(20, 20);
+            tsMain.Location = new Point(0, 36);
+            tsMain.Name = "tsMain";
+            tsMain.Size = new Size(800, 25);
+            tsMain.TabIndex = 3;
+            tsMain.Text = "toolStrip1";
+            // 
+            // mnuFile
+            // 
+            mnuFile.DropDownItems.AddRange(new ToolStripItem[] { mnuDashboard });
+            mnuFile.Name = "mnuFile";
+            mnuFile.Size = new Size(56, 32);
+            mnuFile.Text = "File";
+            // 
+            // mnuMeals
+            // 
+            mnuMeals.DropDownItems.AddRange(new ToolStripItem[] { MnuMealsList });
+            mnuMeals.Name = "mnuMeals";
+            mnuMeals.Size = new Size(77, 32);
+            mnuMeals.Text = "Meals";
+            // 
+            // mnuCookbooks
+            // 
+            mnuCookbooks.DropDownItems.AddRange(new ToolStripItem[] { MnuListOfCookbooks, mnuNewCookbook, mnuAutocreatecookbook });
+            mnuCookbooks.Name = "mnuCookbooks";
+            mnuCookbooks.Size = new Size(126, 32);
+            mnuCookbooks.Text = "Cookbooks";
+            // 
+            // mnuDatamaintenance
+            // 
+            mnuDatamaintenance.DropDownItems.AddRange(new ToolStripItem[] { mnuEditdata });
+            mnuDatamaintenance.Name = "mnuDatamaintenance";
+            mnuDatamaintenance.Size = new Size(184, 32);
+            mnuDatamaintenance.Text = "Data Maintenance";
+            // 
+            // mnuWindows
+            // 
+            mnuWindows.Name = "mnuWindows";
+            mnuWindows.Size = new Size(107, 32);
+            mnuWindows.Text = "Windows";
+            // 
+            // mnuDashboard
+            // 
+            mnuDashboard.Name = "mnuDashboard";
+            mnuDashboard.Size = new Size(224, 32);
+            mnuDashboard.Text = "Dashboard";
+            // 
+            // mnuListRecipe
+            // 
+            mnuListRecipe.Name = "mnuListRecipe";
+            mnuListRecipe.Size = new Size(225, 32);
+            mnuListRecipe.Text = "List";
+            // 
+            // mnuClonearecipe
+            // 
+            mnuClonearecipe.Name = "mnuClonearecipe";
+            mnuClonearecipe.Size = new Size(225, 32);
+            mnuClonearecipe.Text = "Clone a Recipe";
+            // 
+            // MnuMealsList
+            // 
+            MnuMealsList.Name = "MnuMealsList";
+            MnuMealsList.Size = new Size(224, 32);
+            MnuMealsList.Text = "List";
+            // 
+            // MnuListOfCookbooks
+            // 
+            MnuListOfCookbooks.Name = "MnuListOfCookbooks";
+            MnuListOfCookbooks.Size = new Size(234, 32);
+            MnuListOfCookbooks.Text = "List";
+            // 
+            // mnuNewCookbook
+            // 
+            mnuNewCookbook.Name = "mnuNewCookbook";
+            mnuNewCookbook.Size = new Size(234, 32);
+            mnuNewCookbook.Text = "New Cookbook";
+            // 
+            // mnuAutocreatecookbook
+            // 
+            mnuAutocreatecookbook.Name = "mnuAutocreatecookbook";
+            mnuAutocreatecookbook.Size = new Size(234, 32);
+            mnuAutocreatecookbook.Text = "Auto-Create";
+            // 
+            // mnuEditdata
+            // 
+            mnuEditdata.Name = "mnuEditdata";
+            mnuEditdata.Size = new Size(224, 32);
+            mnuEditdata.Text = "Edit Data";
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(tsMain);
             Controls.Add(mnuMain);
             IsMdiContainer = true;
             MainMenuStrip = mnuMain;
@@ -87,5 +193,19 @@
         private ToolStripMenuItem mnuRecipe;
         private ToolStripMenuItem mnuSearchRecipe;
         private ToolStripMenuItem mnuNewRecipe;
+        private ToolStrip tsMain;
+        private ToolStripMenuItem mnuFile;
+        private ToolStripMenuItem mnuMeals;
+        private ToolStripMenuItem mnuCookbooks;
+        private ToolStripMenuItem mnuDatamaintenance;
+        private ToolStripMenuItem mnuWindows;
+        private ToolStripMenuItem mnuDashboard;
+        private ToolStripMenuItem mnuListRecipe;
+        private ToolStripMenuItem mnuClonearecipe;
+        private ToolStripMenuItem MnuMealsList;
+        private ToolStripMenuItem MnuListOfCookbooks;
+        private ToolStripMenuItem mnuNewCookbook;
+        private ToolStripMenuItem mnuAutocreatecookbook;
+        private ToolStripMenuItem mnuEditdata;
     }
 }

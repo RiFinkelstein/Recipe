@@ -16,48 +16,72 @@ namespace RecipeWinForms
 {
     public partial class frmRecipe : Form
     {
-        DataTable dtRecipe;
+        DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
+        int recipeID = 0;
 
         public frmRecipe()
         {
             InitializeComponent();
-            btnDelete1.Click += BtnDelete_Click;
-            btnSave1.Click+= BtnSave_Click; 
+            btnDelete.Click += BtnDelete_Click;
+            btnSave.Click+= BtnSave_Click; 
+        
         }
 
 
 
         public void ShowForm(int RecipeID)
         {
-            dtRecipe = Recipe.Load(RecipeID);
+            this.recipeID = RecipeID;
+
+            dtRecipe = Recipe.Load(recipeID);
+ 
             bindsource.DataSource = dtRecipe;
 
-            if (RecipeID == 0)
+            if (recipeID == 0)
             {
-                dtRecipe.Rows.Add();
+                DataRow newRow = dtRecipe.NewRow();
+                dtRecipe.Rows.Add(newRow);
+                bindsource.Position= dtRecipe.Rows.IndexOf(newRow);
+                //dtRecipe.Rows.Add();
             }
-            dtRecipe.Columns["RecipeID"].ReadOnly = false;
-
 
             DataTable dtUsers = Recipe.GetUserList();
-            dtUsers.Columns["usersid"].ReadOnly = false;
-            WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
-
-
             DataTable dtCuisine = Recipe.GetCuisineList();
+            dtRecipe.Columns["RecipeID"].ReadOnly = false;
+            dtUsers.Columns["usersid"].ReadOnly = false;
             dtCuisine.Columns["CuisineID"].ReadOnly = false;
             dtRecipe.Columns["DraftedDate"].ReadOnly = true;
             dtRecipe.Columns["PublishedDate"].ReadOnly = true;
             dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
-            WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
 
+            if (recipeID == 0)
+            { // Directly bind to dtUsers and dtCuisine for new recipes
+              lstUsersName.DataSource = dtUsers; 
+              lstUsersName.DisplayMember = "username";
+               //Change this to the appropriate display column name
+              lstUsersName.ValueMember = "usersid"; 
+              lstCuisineName.DataSource = dtCuisine; 
+              lstCuisineName.DisplayMember = "CuisineName"; 
+                // Change this to the appropriate display column name
+               lstCuisineName.ValueMember = "CuisineID"; 
+            } 
+            else { 
+                // For existing recipes, bind the lists using WindowsFormUtility
+                WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
+                WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine"); 
+            }  
+
+
+                WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
+            WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
+
             this.Show();
         }
         private void save()
