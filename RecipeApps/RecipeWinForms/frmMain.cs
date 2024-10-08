@@ -17,9 +17,13 @@ namespace RecipeWinForms
         public frmMain()
         {
             InitializeComponent();
+            mnuDashboard.Click += MnuDashboard_Click;
             mnuSearchRecipe.Click += MnuSearchRecipe_Click;
             mnuNewRecipe.Click += MnuNewRecipe_Click;
+            this.Shown += FrmMain_Shown;
+
         }
+
 
         private void FrmMain_Shown(object? sender, EventArgs e)
         {
@@ -37,6 +41,11 @@ namespace RecipeWinForms
                     frmRecipe f = new();
                     newfrm = f;
                     f.ShowForm(pkvalue);
+                }
+                else if (frmType == typeof(frmDashboard))
+                {
+                    frmDashboard f = new();
+                    newfrm = f;
                 }
                 else if (frmType == typeof(frmSearch))
                 {
@@ -73,19 +82,12 @@ namespace RecipeWinForms
         {
             OpenForm(typeof(frmSearch));
         }
-        /*
-        private void MnuNewRecipe_Click(object? sender, EventArgs e)
+
+        private void MnuDashboard_Click(object? sender, EventArgs e)
         {
-            frmRecipe f = new frmRecipe();
-            f.MdiParent = this;
-            f.Show();
+            OpenForm(typeof(frmDashboard));
+
         }
 
-        private void MnuSearchRecipe_Click(object? sender, EventArgs e)
-        {
-            frmSearch f= new frmSearch();
-            f.MdiParent = this;
-            f.Show();
-        }*/
     }
 }
