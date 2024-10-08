@@ -29,53 +29,39 @@ namespace RecipeWinForms
 
         private void BindData()
         {
-            // Call the method to get the recipe count and set it to the label
-            SetLabelText(lblRecipesNum, "recipes");
+            int recipeCount = GetRecordCount("RecipeNumGet", "@recipenum");
+            lblRecipesNum.Text= recipeCount.ToString();
+
+            int mealCount = GetRecordCount("MealNumGet", "@MealNum");
+            lblMealsnum.Text = mealCount.ToString();
+
+            int cookbookCount = GetRecordCount("CookbookNumGet", "@CookbookNum");
+            lblCookbooksnum.Text = cookbookCount.ToString();
+
         }
 
-        private void SetLabelText(Label lbl, string recordType)
+      
+        public static int GetRecordCount(string storedProcedureName, string outputParamName)
         {
-            // Assuming you use a similar stored procedure call to get the number of records
-            int numberOfRecords = GetRecipeCount();
-            // Update the label with the count
-            lbl.Text = $"{numberOfRecords}";
-        }
+            int recordCount = 0;
 
-        public static int GetCookbookCount()
-        {
-            int recipeCount = 0;  // Variable to store the count
             // Get the SQL command using your utility
-            SqlCommand cmd = SQLUtility.GetSqlcommand("CookbooksNumGet");
-            // Set the parameter as OUTPUT
-            SQLUtility.SetParamValue(cmd, "@CookbookNum", SqlDbType.Int);
+            SqlCommand cmd = SQLUtility.GetSqlcommand(storedProcedureName);
+
+            // Set the output parameter dynamically
+            SQLUtility.SetParamValue(cmd, outputParamName, SqlDbType.Int);
+
             // Execute the command
             SQLUtility.ExecuteSQL(cmd);
-            // Retrieve the output parameter value (recipe count)
-            if (cmd.Parameters["@CookbookNum"].Value != DBNull.Value)
+
+            // Retrieve the output parameter value
+            if (cmd.Parameters[outputParamName].Value != DBNull.Value)
             {
-                recipeCount = Convert.ToInt32(cmd.Parameters["@CookbookNum"].Value);
+                recordCount = Convert.ToInt32(cmd.Parameters[outputParamName].Value);
             }
-            return recipeCount;  // Return the recipe count
+
+            return recordCount;  // Return the count value
         }
-
-        public static int GetRecipeCount()
-        {
-            int recipeCount = 0;  // Variable to store the count
-            // Get the SQL command using your utility
-            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeNumGet");
-            // Set the parameter as OUTPUT
-            SQLUtility.SetParamValue(cmd, "@RecipeNum", SqlDbType.Int);
-            // Execute the command
-            SQLUtility.ExecuteSQL(cmd);
-            // Retrieve the output parameter value (recipe count)
-            if (cmd.Parameters["@RecipeNum"].Value != DBNull.Value)
-            {
-                recipeCount = Convert.ToInt32(cmd.Parameters["@RecipeNum"].Value);
-            }
-            return recipeCount;  // Return the recipe count
-        }
-
-
         private void BtnRecipeList_Click(object? sender, EventArgs e)
         {
         }
