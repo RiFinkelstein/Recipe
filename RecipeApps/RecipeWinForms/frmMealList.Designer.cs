@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmMealList";
+            gMealList = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)gMealList).BeginInit();
+            SuspendLayout();
+            // 
+            // gMealList
+            // 
+            gMealList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gMealList.Dock = DockStyle.Fill;
+            gMealList.Location = new Point(0, 0);
+            gMealList.Name = "gMealList";
+            gMealList.RowHeadersWidth = 51;
+            gMealList.Size = new Size(800, 450);
+            gMealList.TabIndex = 0;
+            // 
+            // frmMealList
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(gMealList);
+            Name = "frmMealList";
+            Text = "Meal List";
+            ((System.ComponentModel.ISupportInitialize)gMealList).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView gMealList;
     }
 }

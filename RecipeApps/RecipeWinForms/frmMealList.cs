@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CPUFramework;
+using CPUWindowsFormFramework;
+using Microsoft.Data.SqlClient;
+using RecipeSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +19,32 @@ namespace RecipeWinForms
         public frmMealList()
         {
             InitializeComponent();
+            this.Activated += FrmMealList_Activated;
+            gMealList.CellDoubleClick += GMealList_CellDoubleClick;
+        }
+
+
+
+        public static DataTable GetMealList()
+        {
+            SqlCommand cmd = SQLUtility.GetSqlcommand("MealListGet");
+            return SQLUtility.GetDataTable(cmd);
+        }
+
+        private void BindData()
+        {
+            gMealList.DataSource = GetMealList();
+            WindowsFormUtility.FormatGridLforSearchResults(gMealList, "Meal");
+        }
+
+        private void GMealList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void FrmMealList_Activated(object? sender, EventArgs e)
+        {
+            BindData();
         }
     }
 }

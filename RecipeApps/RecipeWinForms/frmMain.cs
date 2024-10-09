@@ -21,6 +21,8 @@ namespace RecipeWinForms
             mnuSearchRecipe.Click += MnuSearchRecipe_Click;
             mnuNewRecipe.Click += MnuNewRecipe_Click;
             mnuListRecipe.Click += MnuListRecipe_Click;
+            MnuMealsList.Click += MnuMealsList_Click;
+            MnuListOfCookbooks.Click += MnuListOfCookbooks_Click;
             this.Shown += FrmMain_Shown;
 
         }
@@ -48,6 +50,17 @@ namespace RecipeWinForms
                 else if (frmType == typeof(frmRecipeList))
                 {
                     frmRecipeList f = new();
+                    newfrm = f;
+                }
+
+                else if (frmType == typeof(frmMealList))
+                {
+                    frmMealList f = new();
+                    newfrm = f;
+                }
+                else if (frmType== typeof(frmCookbookList))
+                {
+                    frmCookbookList f= new();
                     newfrm = f;
                 }
                 else if (frmType == typeof(frmDashboard))
@@ -79,6 +92,15 @@ namespace RecipeWinForms
         private void Frm_FormClosed(object? sender, FormClosedEventArgs e)
         {
             WindowsFormUtility.SetupNav(tsMain);
+        }
+        private void MnuListOfCookbooks_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmCookbookList));
+        }
+
+        private void MnuMealsList_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmMealList));
         }
         private void MnuListRecipe_Click(object? sender, EventArgs e)
         {

@@ -22,7 +22,6 @@ namespace RecipeWinForms
             this.Activated += FrmRecipeList_Activated;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
             btnNewrecipe.Click += BtnNewrecipe_Click;
-
         }
 
 
@@ -39,10 +38,7 @@ namespace RecipeWinForms
             frm.ShowForm(id);
             Debug.Print(id.ToString());
         }
-        private void FrmRecipeList_Activated(object? sender, EventArgs e)
-        {
-            BindData();
-        }
+
         
         public static DataTable GetRecipeList()
         {
@@ -64,7 +60,10 @@ namespace RecipeWinForms
         private void BtnNewrecipe_Click(object? sender, EventArgs e)
         {
             ShowRecipeForm(-1);
-
+        }
+        private void FrmRecipeList_Activated(object? sender, EventArgs e)
+        {
+            BindData();
         }
 
 
