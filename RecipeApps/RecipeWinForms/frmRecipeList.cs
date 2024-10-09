@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using System.Diagnostics;
+using RecipeSystem;
 
 namespace RecipeWinForms
 {
@@ -36,10 +37,12 @@ namespace RecipeWinForms
             frmRecipe frm = new frmRecipe();
             frm.MdiParent = this.MdiParent;
             frm.ShowForm(id);
+            //frm.Text = GetRecipeDescription();
             Debug.Print(id.ToString());
         }
 
         
+
         public static DataTable GetRecipeList()
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeListGet");

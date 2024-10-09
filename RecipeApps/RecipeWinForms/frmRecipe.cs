@@ -81,8 +81,21 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
-            Text= txtRecipeName.Text;
+            this.Text = GetRecipeDescription();
             this.Show();
+
+        }
+
+        private string GetRecipeDescription()
+        {
+            string value = "New Recipe";
+            int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "recipeID");
+            if (pkvalue > 0)
+            {
+                value = "Recipe" +  " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
+            }
+
+            return value;
         }
 
         private void save()
