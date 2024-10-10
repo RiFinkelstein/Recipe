@@ -44,7 +44,7 @@ namespace RecipeWinForms
                 {
                     frmRecipe f = new();
                     newfrm = f;
-                    f.ShowForm(pkvalue);
+                    f.LoadForm(pkvalue);
                 }
 
                 else if (frmType == typeof(frmRecipeList))

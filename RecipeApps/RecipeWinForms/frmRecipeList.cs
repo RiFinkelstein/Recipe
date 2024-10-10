@@ -36,7 +36,8 @@ namespace RecipeWinForms
             }
             frmRecipe frm = new frmRecipe();
             frm.MdiParent = this.MdiParent;
-            frm.ShowForm(id);
+            frm.LoadForm(id);
+            frm.Show();
             //frm.Text = GetRecipeDescription();
             Debug.Print(id.ToString());
         }
