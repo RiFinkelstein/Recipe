@@ -40,8 +40,7 @@ namespace RecipeWinForms
             //frm.Text = GetRecipeDescription();
             Debug.Print(id.ToString());
         }
-
-        
+      
 
         public static DataTable GetRecipeList()
         {

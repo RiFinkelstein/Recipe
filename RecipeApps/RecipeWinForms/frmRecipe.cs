@@ -18,6 +18,7 @@ namespace RecipeWinForms
     {
         DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
+        DataTable dtrecipeingredient = new DataTable();
         int recipeID = 0;
 
         public frmRecipe()
@@ -27,6 +28,8 @@ namespace RecipeWinForms
             btnSave1.Click+= BtnSave_Click; 
         
         }
+
+
 
 
 
@@ -82,8 +85,21 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
             this.Text = GetRecipeDescription();
+            LoadRecipeIngredient();
+            //dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
+            //WindowsFormUtility.AddComboBoxToGrid(gIngredients, Data_Maintenance.GetDataList("Ingredient"), "Ingredient", "IngredientName");
+            //WindowsFormUtility.FormatGridforEdit(gIngredients, "RecipeIngredient");
             this.Show();
+        }
 
+        private void LoadRecipeIngredient()
+        {
+            dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
+            gIngredients.Columns.Clear();
+            gIngredients.DataSource = dtrecipeingredient;
+            //WindowsFormUtility.AddComboBoxToGrid(gIngredients, Data_Maintenance.GetDataList("Ingredient"), "Ingredient", "Ingredientname");
+            //WindowsFormUtility.AddDeleteButtonToGrid(gMedal, deletecolname);
+            WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
         }
 
         private string GetRecipeDescription()
