@@ -68,8 +68,15 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
 
             this.Text= GetRecipeDescription();
-            LoadRecipeIngredient();
-            SetButtonsEnabledBasedOnNewRecord();
+
+            dtrecipeingredient= RecipeIngredient.LoadByRecipeID(recipeID);
+            gIngredients.DataSource = dtrecipeingredient;
+            WindowsFormUtility.AddComboBoxToGrid(gIngredients, Data_Maintenance.GetDataList("ingredient"), "ingredient", "ingredientname");
+            WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
+            WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+
+            //LoadRecipeIngredient();
+            //SetButtonsEnabledBasedOnNewRecord();
         }
 
 
@@ -81,6 +88,7 @@ namespace RecipeWinForms
             gIngredients.DataSource = dtrecipeingredient;
             //WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+
         }
 
         public bool Save()

@@ -5,8 +5,26 @@ create or alter PROCEDURE RecipeIngredientGet(
     @message VARCHAR(500)= '' OUTPUT
 
 )
-
 as 
+begin 
+    DECLARE @return int=0
+
+    SELECT @all = ISNULL(@all, 0), @RecipeIngredientid = ISNULL(@RecipeIngredientid, 0), @recipeID= ISNULL(@recipeID, 0)
+
+    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.IngredientID
+    from RecipeIngredient RI
+    where RI.RecipeIngredientID= @RecipeIngredientid
+    or @all=1
+    or ri.RecipeID= @recipeID
+
+    RETURN @return
+
+end 
+go
+
+exec RecipeIngredientGet @all=1
+
+/*as 
 begin
         SELECT i.ingredientName, m.MeasurementName, ri.Amount, ri.SequenceNumber
         from Recipe R
@@ -20,5 +38,5 @@ begin
         order by ri.SequenceNumber
 end 
 go 
-
+*/
 
