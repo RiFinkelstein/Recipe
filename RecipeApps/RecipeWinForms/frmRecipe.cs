@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RecipeSystem;
+using System.Diagnostics.Metrics;
 
 namespace RecipeWinForms
 {
@@ -73,8 +74,20 @@ namespace RecipeWinForms
             dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
             gIngredients.DataSource = dtrecipeingredient; 
             // Load ingredient data and add combo box
+            if (dtrecipeingredient.Columns.Contains("ingredientname"))
+            {
+                dtrecipeingredient.Columns.Remove("ingredientname");
+            }
+            if (dtrecipeingredient.Columns.Contains("Measurement"))
+            {
+                dtrecipeingredient.Columns.Remove("Measurement");
+            }
             DataTable dtingredient = Data_Maintenance.GetDataList("ingredient"); 
-            WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtingredient, "ingredient", "ingredientname"); 
+            WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtingredient, "ingredient", "ingredientname");
+            DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
+
+            WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
+
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname); 
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
