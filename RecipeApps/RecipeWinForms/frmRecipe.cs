@@ -100,11 +100,10 @@ namespace RecipeWinForms
         private void LoadRecipeIngredient()
         {
             dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
-            RefreshIngredientsGrid();
-           // gIngredients.Columns.Clear();
-           // gIngredients.DataSource = dtrecipeingredient;
-           // WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
-           // WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+           gIngredients.Columns.Clear();
+           gIngredients.DataSource = dtrecipeingredient;
+           WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
+           WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
         }
 
@@ -163,32 +162,8 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
+      
 
-        private void RefreshIngredientsGrid()
-        {
-            gIngredients.DataSource = null;
-            gIngredients.DataSource = dtrecipeingredient;
-
-            // Ensure combo box columns are added back
-            DataTable dtingredient = Data_Maintenance.GetDataList("ingredient");
-            WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtingredient, "Ingredient", "IngredientName");
-
-            DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
-            WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
-
-            // Hide ID columns
-            if (gIngredients.Columns.Contains("IngredientID"))
-                gIngredients.Columns["IngredientID"].Visible = false;
-
-            if (gIngredients.Columns.Contains("MeasurementID"))
-                gIngredients.Columns["MeasurementID"].Visible = false;
-
-            // Re-add delete button
-            WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
-
-            // Format the grid
-            WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
-        }
         private void DeleteRecipeIngredient(int rowIndex)
         {
             try
@@ -205,8 +180,6 @@ namespace RecipeWinForms
                 DataRow row = dtrecipeingredient.Rows[rowIndex];
                 dtrecipeingredient.Rows.Remove(row);
 
-                // Refresh the grid
-                RefreshIngredientsGrid();
             }
             catch (Exception ex)
             {
