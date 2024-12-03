@@ -20,6 +20,8 @@ namespace RecipeWinForms
         DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
         DataTable dtrecipeingredient = new DataTable();
+        DataTable dtrecipesteps = new DataTable();
+
         string Deletecolname = "deletecol";
         int recipeID = 0;
 
@@ -30,7 +32,9 @@ namespace RecipeWinForms
             btnSave1.Click+= BtnSave_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
+            btnSaveSteps.Click += BtnSaveSteps_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
+            gSteps.CellContentClick += GSteps_CellContentClick;
             foreach(Control c in tblMain.Controls)
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
@@ -38,7 +42,7 @@ namespace RecipeWinForms
         
         }
 
- 
+
 
         public void LoadForm(int recipeidval)
         {
@@ -91,8 +95,17 @@ namespace RecipeWinForms
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname); 
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
-            //LoadRecipeIngredient();
-            //SetButtonsEnabledBasedOnNewRecord();
+
+
+            dtrecipesteps = RecipeSteps.LoadByRecipeID(recipeID);
+            gSteps.DataSource = dtrecipesteps;
+            WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
+            WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
+
+
+
+
+
         }
 
 
@@ -187,6 +200,41 @@ namespace RecipeWinForms
             }
         }
 
+        private void DeleteRecipeSteps(int rowIndex)
+        {
+            try
+            {
+                int id = WindowsFormUtility.GetIDFromGrid(gSteps, rowIndex, "directionsID");
+
+                if (id > 0)
+                {
+                    // Delete from database
+                    RecipeSteps.Delete(id);
+                }
+
+                // Remove the row from the DataTable
+                DataRow row = dtrecipesteps.Rows[rowIndex];
+                dtrecipesteps.Rows.Remove(row);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting ingredient: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveRecipeStep()
+        {
+            try
+            {
+                RecipeIngredient.SaveTable(dtrecipesteps, recipeID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+        }
+
 
         private void SaveRecipeIngredient()
         {
@@ -243,7 +291,13 @@ namespace RecipeWinForms
             }
         }
 
-
+        private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
+            {
+                DeleteRecipeSteps(e.RowIndex);
+            }
+        }
 
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
@@ -251,6 +305,12 @@ namespace RecipeWinForms
             {
                 DeleteRecipeIngredient(e.RowIndex);
             }
+        }
+
+
+        private void BtnSaveSteps_Click(object? sender, EventArgs e)
+        {
+            SaveRecipeStep();
         }
 
 
