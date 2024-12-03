@@ -9,7 +9,7 @@ begin
 
 	select @All = isnull(@All,0), @IngredientID = isnull(@IngredientID,0)
 
-        SELECT *
+        SELECT i.ingredientID, i.ingredientName
         from ingredient i 
         where ingredientID= @IngredientID
         or @all=1

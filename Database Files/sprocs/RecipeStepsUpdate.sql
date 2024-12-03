@@ -9,7 +9,7 @@ as
 begin
 	declare @return int = 0
 
-	select @directionsID = isnull(@directionsID,0)
+	select @directionsID = isnull(@directionsID,0), @recipeId = isnull(@directionsID,0)
 
 	if @directionsID = 0
 	begin

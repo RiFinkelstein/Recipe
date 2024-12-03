@@ -10,18 +10,19 @@ begin
     DECLARE @return int=0
 
     SELECT @all = ISNULL(@all, 0), @RecipeIngredientid = ISNULL(@RecipeIngredientid, 0), @recipeID= ISNULL(@recipeID, 0)
-SELECT RI.RecipeIngredientID,
-       RI.RecipeID,
-       RI.IngredientID,
-       RI.MeasurementID,
-       RI.Amount,
-       RI.SequenceNumber
-FROM Recipe R
-JOIN RecipeIngredient RI
-    ON R.RecipeID = RI.RecipeID
-WHERE @recipeID = R.RecipeID
-   OR @all = 1
-ORDER BY RI.SequenceNumber;
+
+    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.IngredientID, i.ingredientName, m.MeasurementID, m.MeasurementName, ri.Amount, ri.SequenceNumber
+        from Recipe R
+        join RecipeIngredient RI 
+        on r.recipeID = ri.recipeID
+        join ingredient i 
+        on i.ingredientID = RI.ingredientID
+        LEFT join Measurement m 
+        on m.MeasurementID = ri.MeasurementID
+        where @recipeID= r.RecipeID
+            or @all=1
+    or ri.RecipeID= @recipeID
+        order by ri.SequenceNumber
   
 
 

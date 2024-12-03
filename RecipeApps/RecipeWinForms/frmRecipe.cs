@@ -227,7 +227,7 @@ namespace RecipeWinForms
         {
             try
             {
-                RecipeIngredient.SaveTable(dtrecipesteps, recipeID);
+                RecipeSteps.SaveTable(dtrecipesteps, recipeID);
             }
             catch (Exception ex)
             {

@@ -19,4 +19,4 @@ begin
 end
 go
 
-EXEC IngredientGet
+EXEC MeasurementGet @all= 1
