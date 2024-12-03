@@ -71,6 +71,17 @@ namespace RecipeSystem
             SQLUtility.SetParamValue(cmd, "@recipeid", id);
             SQLUtility.ExecuteSQL(cmd);
         }
+        public static string GetRecipeDescription(DataTable dtRecipe)
+        {
+            string value = "New Recipe";
+            int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "recipeID");
+            if (pkvalue > 0)
+            {
+                value = "Recipe" + " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
+            }
+
+            return value;
+        }
 
     }
 }

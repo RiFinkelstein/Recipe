@@ -38,7 +38,8 @@ namespace RecipeWinForms
             frm.MdiParent = this.MdiParent;
             frm.LoadForm(id);
             frm.Show();
-            //frm.Text = GetRecipeDescription();
+            //this.Text = Recipe.GetRecipeDescription();
+
             Debug.Print(id.ToString());
         }
 
@@ -65,6 +66,7 @@ namespace RecipeWinForms
         private void BtnNewrecipe_Click(object? sender, EventArgs e)
         {
             ShowRecipeForm(-1);
+
         }
         private void FrmRecipeList_Activated(object? sender, EventArgs e)
         {

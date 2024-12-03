@@ -50,21 +50,27 @@
             lblCaptionCuisine = new Label();
             lstUsersName = new ComboBox();
             lstCuisineName = new ComboBox();
-            btnSave = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            btnDelete = new ToolStripButton();
             tbRecipeChildRecords = new TabControl();
             tbIngredients = new TabPage();
-            tbSteps = new TabPage();
             tblIngredients = new TableLayoutPanel();
             btnSaveIngredients = new Button();
             gIngredients = new DataGridView();
+            tbSteps = new TabPage();
+            btnSave = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
+            tblSteps = new TableLayoutPanel();
+            btnSaveSteps = new Button();
+            gSteps = new DataGridView();
             tblMain.SuspendLayout();
             toolStrip1.SuspendLayout();
             tbRecipeChildRecords.SuspendLayout();
             tbIngredients.SuspendLayout();
             tblIngredients.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gIngredients).BeginInit();
+            tbSteps.SuspendLayout();
+            tblSteps.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gSteps).BeginInit();
             SuspendLayout();
             // 
             // tblMain
@@ -288,24 +294,6 @@
             lstCuisineName.Size = new Size(125, 28);
             lstCuisineName.TabIndex = 24;
             // 
-            // btnSave
-            // 
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(23, 23);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 6);
-            // 
-            // btnDelete
-            // 
-            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDelete.ImageTransparentColor = Color.Magenta;
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(57, 24);
-            btnDelete.Text = "Delete";
-            // 
             // tbRecipeChildRecords
             // 
             tblMain.SetColumnSpan(tbRecipeChildRecords, 2);
@@ -329,16 +317,6 @@
             tbIngredients.TabIndex = 0;
             tbIngredients.Text = "Ingredients";
             tbIngredients.UseVisualStyleBackColor = true;
-            // 
-            // tbSteps
-            // 
-            tbSteps.Location = new Point(4, 29);
-            tbSteps.Name = "tbSteps";
-            tbSteps.Padding = new Padding(3);
-            tbSteps.Size = new Size(786, 118);
-            tbSteps.TabIndex = 1;
-            tbSteps.Text = "Steps";
-            tbSteps.UseVisualStyleBackColor = true;
             // 
             // tblIngredients
             // 
@@ -376,6 +354,70 @@
             gIngredients.Size = new Size(904, 261);
             gIngredients.TabIndex = 1;
             // 
+            // tbSteps
+            // 
+            tbSteps.Controls.Add(tblSteps);
+            tbSteps.Location = new Point(4, 29);
+            tbSteps.Name = "tbSteps";
+            tbSteps.Padding = new Padding(3);
+            tbSteps.Size = new Size(916, 323);
+            tbSteps.TabIndex = 1;
+            tbSteps.Text = "Steps";
+            tbSteps.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(23, 23);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 6);
+            // 
+            // btnDelete
+            // 
+            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(57, 24);
+            btnDelete.Text = "Delete";
+            // 
+            // tblSteps
+            // 
+            tblSteps.ColumnCount = 1;
+            tblSteps.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblSteps.Controls.Add(btnSaveSteps, 0, 0);
+            tblSteps.Controls.Add(gSteps, 0, 1);
+            tblSteps.Dock = DockStyle.Fill;
+            tblSteps.Location = new Point(3, 3);
+            tblSteps.Name = "tblSteps";
+            tblSteps.RowCount = 2;
+            tblSteps.RowStyles.Add(new RowStyle());
+            tblSteps.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblSteps.Size = new Size(910, 317);
+            tblSteps.TabIndex = 0;
+            // 
+            // btnSaveSteps
+            // 
+            btnSaveSteps.Location = new Point(10, 10);
+            btnSaveSteps.Margin = new Padding(10);
+            btnSaveSteps.Name = "btnSaveSteps";
+            btnSaveSteps.Size = new Size(94, 29);
+            btnSaveSteps.TabIndex = 0;
+            btnSaveSteps.Text = "Save";
+            btnSaveSteps.UseVisualStyleBackColor = true;
+            // 
+            // gSteps
+            // 
+            gSteps.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gSteps.Dock = DockStyle.Fill;
+            gSteps.Location = new Point(3, 52);
+            gSteps.Name = "gSteps";
+            gSteps.RowHeadersWidth = 51;
+            gSteps.Size = new Size(904, 262);
+            gSteps.TabIndex = 1;
+            // 
             // frmRecipe
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -393,6 +435,9 @@
             tblIngredients.ResumeLayout(false);
             tblIngredients.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gIngredients).EndInit();
+            tbSteps.ResumeLayout(false);
+            tblSteps.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gSteps).EndInit();
             ResumeLayout(false);
         }
 
@@ -429,5 +474,8 @@
         private TableLayoutPanel tblIngredients;
         private Button btnSaveIngredients;
         private DataGridView gIngredients;
+        private TableLayoutPanel tblSteps;
+        private Button btnSaveSteps;
+        private DataGridView gSteps;
     }
 }
