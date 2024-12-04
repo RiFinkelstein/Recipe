@@ -26,7 +26,10 @@ namespace RecipeSystem
             {
                 r["recipeID"] = recipeID;
             }
+            dt.Columns["RecipeIngredientID"].ReadOnly = false;
+
             SQLUtility.SaveDataTable(dt, "RecipeIngredientupdate");
+
         }
 
         public static void Delete(int RecipeIngredientID)
