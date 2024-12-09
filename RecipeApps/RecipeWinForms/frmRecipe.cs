@@ -104,6 +104,8 @@ namespace RecipeWinForms
             {
                 dtrecipesteps.Columns.Add("directionsID", typeof(int));
             }
+            dtrecipesteps.Columns["directionsID"].ReadOnly = false;
+
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
          }
