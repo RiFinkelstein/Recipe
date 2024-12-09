@@ -17,6 +17,7 @@ namespace RecipeWinForms
 {
     public partial class frmRecipeList : Form
     {
+        DataTable dtrecipe;
         public frmRecipeList()
         {
             InitializeComponent();
@@ -32,19 +33,28 @@ namespace RecipeWinForms
             int id = 0;
             if (RowIndex > -1)
             {
+                // Get the RecipeID from the selected row in the grid
                 id = (int)gRecipe.Rows[RowIndex].Cells["RecipeID"].Value;
             }
+
+            // Load recipe details based on the selected id
+            dtrecipe = Recipe.Load(id);  // This will now load the DataTable for the selected recipe
+
             frmRecipe frm = new frmRecipe();
             frm.MdiParent = this.MdiParent;
-            frm.LoadForm(id);
-            frm.Show();
-            //this.Text = Recipe.GetRecipeDescription();
+            frm.LoadForm(id);  // Pass the recipe ID to the frmRecipe form
 
+            // Set the title of the current form (tab label) based on the loaded recipe's description
+            this.Text = Recipe.GetRecipeDescription(dtrecipe);  // Ensure dtrecipe has the loaded data
+
+            frm.Show();  // Show the recipe form
+
+            this.MdiParent.Refresh();
             Debug.Print(id.ToString());
         }
 
 
-      
+
 
         public static DataTable GetRecipeList()
         {

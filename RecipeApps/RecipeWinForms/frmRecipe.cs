@@ -64,6 +64,8 @@ namespace RecipeWinForms
             dtRecipe.Columns["PublishedDate"].ReadOnly = true;
             dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
 
+            this.Text = GetRecipeDescription();
+
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
@@ -74,7 +76,9 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
 
 
-            this.Text = GetRecipeDescription(); 
+
+
+            
             // Load ingredients for the recipe
             dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
             gIngredients.DataSource = dtrecipeingredient; 
@@ -157,7 +161,6 @@ namespace RecipeWinForms
                     return;
                 }
             }
-            //Application.UseWaitCursor = true;
             var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {
@@ -187,11 +190,8 @@ namespace RecipeWinForms
 
                 if (id > 0)
                 {
-                    // Delete from database
                     RecipeIngredient.Delete(id);
                 }
-
-                // Remove the row from the DataTable
                 DataRow row = dtrecipeingredient.Rows[rowIndex];
                 dtrecipeingredient.Rows.Remove(row);
 
@@ -229,8 +229,6 @@ namespace RecipeWinForms
         {
             try
             {
-                //directionID=(directionID==0)?-1: directionID;
-                //recipeID = (recipeID==0)?-1: recipeID;
                 RecipeSteps.SaveTable(dtrecipesteps, recipeID);
             }
             catch (Exception ex)
