@@ -24,6 +24,7 @@ namespace RecipeWinForms
 
         string Deletecolname = "deletecol";
         int recipeID = 0;
+        int directionID = 0;
 
         public frmRecipe()
         {
@@ -96,17 +97,16 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname); 
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
-
+               
             dtrecipesteps = RecipeSteps.LoadByRecipeID(recipeID);
             gSteps.DataSource = dtrecipesteps;
+            if (!dtrecipesteps.Columns.Contains("directionsID"))
+            {
+                dtrecipesteps.Columns.Add("directionsID", typeof(int));
+            }
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
-
-
-
-
-
-        }
+         }
 
 
 
@@ -227,6 +227,8 @@ namespace RecipeWinForms
         {
             try
             {
+                //directionID=(directionID==0)?-1: directionID;
+                //recipeID = (recipeID==0)?-1: recipeID;
                 RecipeSteps.SaveTable(dtrecipesteps, recipeID);
             }
             catch (Exception ex)
