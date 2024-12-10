@@ -64,7 +64,7 @@ namespace RecipeWinForms
             dtRecipe.Columns["PublishedDate"].ReadOnly = true;
             dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
 
-            this.Text = GetRecipeDescription();
+            //this.Text = GetRecipeDescription();
 
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
@@ -265,7 +265,6 @@ namespace RecipeWinForms
             {
                 value = "Recipe" +  " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
             }
-
             return value;
         }
 

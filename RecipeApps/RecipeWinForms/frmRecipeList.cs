@@ -40,17 +40,17 @@ namespace RecipeWinForms
             // Load recipe details based on the selected id
             dtrecipe = Recipe.Load(id);  // This will now load the DataTable for the selected recipe
 
-            frmRecipe frm = new frmRecipe();
-            frm.MdiParent = this.MdiParent;
-            frm.LoadForm(id);  // Pass the recipe ID to the frmRecipe form
+            // Get the recipe description
+            string recipeDescription = Recipe.GetRecipeDescription(dtrecipe);
 
-            // Set the title of the current form (tab label) based on the loaded recipe's description
-            this.Text = Recipe.GetRecipeDescription(dtrecipe);  // Ensure dtrecipe has the loaded data
-
-            frm.Show();  // Show the recipe form
-
-            this.MdiParent.Refresh();
-            Debug.Print(id.ToString());
+            // Use OpenForm to open or focus the appropriate form
+            frmMain? mdiParent = this.MdiParent as frmMain;
+            if (mdiParent != null)
+            {
+                // Pass the form type and primary key (recipe ID) to OpenForm
+                mdiParent.OpenForm(typeof(frmRecipe), id);
+            }
+            frmRecipe.Text= recipeDescription;
         }
 
 
@@ -70,6 +70,7 @@ namespace RecipeWinForms
 
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+            
             ShowRecipeForm(e.RowIndex);
         }
 
