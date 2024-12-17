@@ -190,7 +190,7 @@ namespace RecipeTest
                             AND d.RecipeID IS NULL 
                             AND cmr.RecipeID IS NULL 
                             AND cbr.RecipeID IS NULL 
-                            AND (r.status = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
+                            AND (r.recipestatus = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;
 
@@ -246,7 +246,7 @@ namespace RecipeTest
                         left JOIN CookbookRecipe cbr 
                         ON r.RecipeID = cbr.RecipeID
                         where
-                        (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30)
+                        (r.recipeStatus = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30)
                         ";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeID = 0;

@@ -31,11 +31,11 @@
             tblMain = new TableLayoutPanel();
             lblCaptionCalories = new Label();
             lblCaptionArchivedDate = new Label();
-            lblCaptionStatus = new Label();
+            lblCaptionRecipeStatus = new Label();
             txtCalories = new TextBox();
             dtpDraftedDate = new DateTimePicker();
             txtArchivedDate = new TextBox();
-            txtStatus = new TextBox();
+            txtRecipeStatus = new TextBox();
             lblCaptionPublishedDate = new Label();
             txtPublishedDate = new TextBox();
             lblCaptionDraftedDate = new Label();
@@ -54,13 +54,13 @@
             tblSteps = new TableLayoutPanel();
             btnSaveSteps = new Button();
             gSteps = new DataGridView();
-            btnSave = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            btnDelete = new ToolStripButton();
             tblRecipeButtons = new TableLayoutPanel();
             btnSaveRecipe = new Button();
             btnDeleteRecipe = new Button();
             btnChangeStatusRecipe = new Button();
+            btnSave = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
             tblMain.SuspendLayout();
             tbRecipeChildRecords.SuspendLayout();
             tbIngredients.SuspendLayout();
@@ -79,11 +79,11 @@
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tblMain.Controls.Add(lblCaptionCalories, 0, 4);
             tblMain.Controls.Add(lblCaptionArchivedDate, 0, 7);
-            tblMain.Controls.Add(lblCaptionStatus, 0, 8);
+            tblMain.Controls.Add(lblCaptionRecipeStatus, 0, 8);
             tblMain.Controls.Add(txtCalories, 1, 4);
             tblMain.Controls.Add(dtpDraftedDate, 1, 5);
             tblMain.Controls.Add(txtArchivedDate, 1, 7);
-            tblMain.Controls.Add(txtStatus, 1, 8);
+            tblMain.Controls.Add(txtRecipeStatus, 1, 8);
             tblMain.Controls.Add(lblCaptionPublishedDate, 0, 6);
             tblMain.Controls.Add(txtPublishedDate, 1, 6);
             tblMain.Controls.Add(lblCaptionDraftedDate, 0, 5);
@@ -135,14 +135,14 @@
             lblCaptionArchivedDate.TabIndex = 4;
             lblCaptionArchivedDate.Text = "Archived Date";
             // 
-            // lblCaptionStatus
+            // lblCaptionRecipeStatus
             // 
-            lblCaptionStatus.AutoSize = true;
-            lblCaptionStatus.Location = new Point(3, 301);
-            lblCaptionStatus.Name = "lblCaptionStatus";
-            lblCaptionStatus.Size = new Size(49, 20);
-            lblCaptionStatus.TabIndex = 5;
-            lblCaptionStatus.Text = "Status";
+            lblCaptionRecipeStatus.AutoSize = true;
+            lblCaptionRecipeStatus.Location = new Point(3, 301);
+            lblCaptionRecipeStatus.Name = "lblCaptionRecipeStatus";
+            lblCaptionRecipeStatus.Size = new Size(49, 20);
+            lblCaptionRecipeStatus.TabIndex = 5;
+            lblCaptionRecipeStatus.Text = "Status";
             // 
             // txtCalories
             // 
@@ -169,13 +169,13 @@
             txtArchivedDate.Size = new Size(125, 27);
             txtArchivedDate.TabIndex = 18;
             // 
-            // txtStatus
+            // txtRecipeStatus
             // 
-            txtStatus.Location = new Point(468, 304);
-            txtStatus.Name = "txtStatus";
-            txtStatus.ReadOnly = true;
-            txtStatus.Size = new Size(125, 27);
-            txtStatus.TabIndex = 19;
+            txtRecipeStatus.Location = new Point(468, 304);
+            txtRecipeStatus.Name = "txtRecipeStatus";
+            txtRecipeStatus.ReadOnly = true;
+            txtRecipeStatus.Size = new Size(125, 27);
+            txtRecipeStatus.TabIndex = 19;
             // 
             // lblCaptionPublishedDate
             // 
@@ -328,7 +328,7 @@
             tbSteps.Location = new Point(4, 29);
             tbSteps.Name = "tbSteps";
             tbSteps.Padding = new Padding(3);
-            tbSteps.Size = new Size(916, 315);
+            tbSteps.Size = new Size(916, 282);
             tbSteps.TabIndex = 1;
             tbSteps.Text = "Steps";
             tbSteps.UseVisualStyleBackColor = true;
@@ -345,7 +345,7 @@
             tblSteps.RowCount = 2;
             tblSteps.RowStyles.Add(new RowStyle());
             tblSteps.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblSteps.Size = new Size(910, 309);
+            tblSteps.Size = new Size(910, 276);
             tblSteps.TabIndex = 0;
             // 
             // btnSaveSteps
@@ -365,26 +365,8 @@
             gSteps.Location = new Point(3, 52);
             gSteps.Name = "gSteps";
             gSteps.RowHeadersWidth = 51;
-            gSteps.Size = new Size(904, 254);
+            gSteps.Size = new Size(904, 221);
             gSteps.TabIndex = 1;
-            // 
-            // btnSave
-            // 
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(23, 23);
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 6);
-            // 
-            // btnDelete
-            // 
-            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDelete.ImageTransparentColor = Color.Magenta;
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(57, 24);
-            btnDelete.Text = "Delete";
             // 
             // tblRecipeButtons
             // 
@@ -436,6 +418,24 @@
             btnChangeStatusRecipe.TabIndex = 2;
             btnChangeStatusRecipe.Text = "Change Status";
             btnChangeStatusRecipe.UseVisualStyleBackColor = true;
+            // 
+            // btnSave
+            // 
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(23, 23);
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 6);
+            // 
+            // btnDelete
+            // 
+            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(57, 24);
+            btnDelete.Text = "Delete";
             // 
             // frmRecipe
             // 
@@ -496,5 +496,7 @@
         private Button btnSaveRecipe;
         private Button btnDeleteRecipe;
         private Button btnChangeStatusRecipe;
+        private Label lblCaptionRecipeStatus;
+        private TextBox txtRecipeStatus;
     }
 }

@@ -29,7 +29,7 @@ namespace RecipeWinForms
         public frmRecipe()
         {
             InitializeComponent();
-            btnDelete.Click += BtnDelete_Click;
+            btnDeleteRecipe.Click += BtnDelete_Click;
             btnSaveRecipe.Click+= BtnSave_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
@@ -73,7 +73,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
-            WindowsFormUtility.SetControlBinding(txtStatus, bindsource);
+            WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
 
 
 
@@ -152,7 +152,7 @@ namespace RecipeWinForms
         }
         private void delete()
         {
-            if (dtRecipe.Rows.Count > 0)
+            /*if (dtRecipe.Rows.Count > 0)
             {
                 string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "isdeleteallowed");
                 if (alloweddelete != "")
@@ -160,7 +160,7 @@ namespace RecipeWinForms
                     MessageBox.Show(alloweddelete);
                     return;
                 }
-            }
+            }*/
             var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {

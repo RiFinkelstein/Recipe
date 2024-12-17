@@ -4,15 +4,15 @@ CREATE OR ALTER PROC dbo.Recipepdate(
     @UsersID int,
     @RecipeName varchar(50),
     @Calories int, 
-    @DraftedDate datetime)
+    @DraftedDate DATETIME2)
 AS
 BEGIN
     DECLARE @return int = 0;
 
     IF @RecipeID = 0
     BEGIN
-        INSERT INTO recipe (CuisineID, UsersID, RecipeName, Calories)
-        VALUES (@CuisineID, @UsersID, @RecipeName, @Calories);
+        INSERT INTO recipe (CuisineID, UsersID, RecipeName, Calories, DraftedDate)
+        VALUES (@CuisineID, @UsersID, @RecipeName, @Calories, @drafteddate);
         SELECT @RecipeID = SCOPE_IDENTITY();
     END
     ELSE
@@ -22,8 +22,9 @@ BEGIN
             CuisineID = @CuisineID,
             UsersID = @UsersID,
             RecipeName = @RecipeName,
-            Calories = @Calories, 
-            DraftedDate= @drafteddate
+                        DraftedDate= @drafteddate,
+
+            Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END
 

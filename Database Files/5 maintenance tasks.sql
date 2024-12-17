@@ -191,7 +191,7 @@ on r.UsersID = u.UsersID
 cross join x
 -- SM Instead of doing calculation. Use where datediff() > avg.
 where DATEDIFF(HOUR, r.DraftedDate, r.PublishedDate)-x.Averafetimeindrafts > 0 and 
-r.status= 'Drafted'
+r.recipestatus= 'Drafted'
 
 /*
 6) We want to send out marketing emails for books. Produce a result set with one row and one column "Email Body" as specified below.
