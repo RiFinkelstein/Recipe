@@ -50,7 +50,6 @@ namespace RecipeWinForms
                 // Pass the form type and primary key (recipe ID) to OpenForm
                 mdiParent.OpenForm(typeof(frmRecipe), id);
             }
-            frmRecipe.Text= recipeDescription;
         }
 
 

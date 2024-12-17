@@ -30,7 +30,7 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             btnDelete.Click += BtnDelete_Click;
-            btnSave1.Click+= BtnSave_Click;
+            btnSaveRecipe.Click+= BtnSave_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
             btnSaveSteps.Click += BtnSaveSteps_Click;
