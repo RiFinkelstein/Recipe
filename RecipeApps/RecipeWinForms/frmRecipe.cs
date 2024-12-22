@@ -152,7 +152,7 @@ namespace RecipeWinForms
         }
         private void delete()
         {
-            /*if (dtRecipe.Rows.Count > 0)
+            if (dtRecipe.Rows.Count > 0)
             {
                 string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "isdeleteallowed");
                 if (alloweddelete != "")
@@ -160,7 +160,7 @@ namespace RecipeWinForms
                     MessageBox.Show(alloweddelete);
                     return;
                 }
-            }*/
+            }
             var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {
@@ -285,8 +285,8 @@ namespace RecipeWinForms
                         }
                         break;
                     case DialogResult.No:
-                        e.Cancel= true;
-                        this.Activate();
+                        e.Cancel= false;
+                        //this.Activate();
                         break;
                 }
             }

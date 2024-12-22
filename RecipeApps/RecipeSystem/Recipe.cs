@@ -61,6 +61,7 @@ namespace RecipeSystem
                 throw new Exception("cannot call recipe save method becasue there are no rows in the table");
             }
             DataRow r = dtRecipe.Rows[0];
+            Debug.Print(dtRecipe.Rows[0]["drafteddate"].ToString());
             SQLUtility.SaveDataRow(r, "recipeupdate");
         }
 
