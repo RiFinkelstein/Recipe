@@ -5,7 +5,7 @@ create or alter procedure dbo.RecipeGet (
 as
 begin 
 	select @RecipeName = nullif(@RecipeName, '')
-	select r.usersid, r.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.recipestatus 	
+	select r.usersid, r.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.RecipeStatus 	
 
 	from recipe r
 	where (@recipeid <>0 and r.recipeid= @recipeid)

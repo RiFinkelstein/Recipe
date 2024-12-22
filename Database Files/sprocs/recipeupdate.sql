@@ -4,7 +4,7 @@ CREATE OR ALTER PROC dbo.Recipepdate(
     @UsersID int,
     @RecipeName varchar(50),
     @Calories int, 
-    @DraftedDate DATETIME2)
+    @DraftedDate DATETIME)
 AS
 BEGIN
     DECLARE @return int = 0;

@@ -59,7 +59,7 @@ CREATE table dbo.recipe(
     ArchivedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
     Picture as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
 -- SM Column name should be RecipeStatus as Status is a reserved word.
-    Status as case
+    RecipeStatus as case
         when PublishedDate is null and ArchivedDate is null then 'Drafted' 
         when PublishedDate is not null and ArchivedDate is null then 'Published'
         else 'Archived' 
