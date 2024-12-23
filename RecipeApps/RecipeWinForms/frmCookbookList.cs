@@ -1,6 +1,7 @@
 ﻿using CPUFramework;
 using CPUWindowsFormFramework;
 using Microsoft.Data.SqlClient;
+using RecipeSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +16,37 @@ namespace RecipeWinForms
 {
     public partial class frmCookbookList : Form
     {
+        DataTable dtcookbook;
+
         public frmCookbookList()
         {
             InitializeComponent();
             this.Activated += FrmCookbookList_Activated;
             gCookbooklist.CellDoubleClick += GCookbooklist_CellDoubleClick;
 
+        }
+
+
+        private void ShowCookbookForm(int RowIndex)
+        {
+            int id = 0;
+            if (RowIndex > -1)
+            {
+                id = (int)gCookbooklist.Rows[RowIndex].Cells["CookbookID"].Value;
+            }
+
+            dtcookbook = Cookbook.Load(id);  
+
+            // Get the cookbook description
+            string cookbookDescription = Cookbook.GetCookbookDescription(dtcookbook);
+
+            // Use OpenForm to open or focus the appropriate form
+            frmMain? mdiParent = this.MdiParent as frmMain;
+            if (mdiParent != null)
+            {
+                // Pass the form type and primary key (cookbook ID) to OpenForm
+                mdiParent.OpenForm(typeof(frmCookbook), id);
+            }
         }
 
         public static DataTable GetcookbookList()
@@ -36,6 +62,7 @@ namespace RecipeWinForms
         }
         private void GCookbooklist_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+
         }
 
         private void FrmCookbookList_Activated(object? sender, EventArgs e)
