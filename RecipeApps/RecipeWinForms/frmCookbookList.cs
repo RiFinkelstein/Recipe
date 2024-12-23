@@ -62,7 +62,7 @@ namespace RecipeWinForms
         }
         private void GCookbooklist_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-
+            ShowCookbookForm(-1);
         }
 
         private void FrmCookbookList_Activated(object? sender, EventArgs e)
