@@ -11,8 +11,8 @@ BEGIN
 
     IF @RecipeID = 0
     BEGIN
-        INSERT INTO recipe (CuisineID, UsersID, RecipeName, Calories, DraftedDate)
-        VALUES (@CuisineID, @UsersID, @RecipeName, @Calories, @drafteddate);
+        INSERT INTO recipe (CuisineID, UsersID, RecipeName,DraftedDate, Calories)
+        VALUES (@CuisineID, @UsersID, @RecipeName,@drafteddate, @Calories);
         SELECT @RecipeID = SCOPE_IDENTITY();
     END
     ELSE
@@ -22,8 +22,7 @@ BEGIN
             CuisineID = @CuisineID,
             UsersID = @UsersID,
             RecipeName = @RecipeName,
-                        DraftedDate= @drafteddate,
-
+            DraftedDate= @drafteddate,
             Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END

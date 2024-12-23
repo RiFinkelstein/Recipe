@@ -9,7 +9,7 @@ begin
     if @deleteallowed <> ''
 
 
-if exists (SELECT* from recipe r where r.RecipeID=@recipeid and (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30))
+--if exists (SELECT* from recipe r where r.RecipeID=@recipeid and (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30))
 
 BEGIN
   SELECT @Return =1, @message= @deleteallowed

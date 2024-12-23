@@ -20,7 +20,6 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             this.Activated += FrmMealList_Activated;
-            gMealList.CellDoubleClick += GMealList_CellDoubleClick;
         }
 
 
@@ -31,15 +30,12 @@ namespace RecipeWinForms
             return SQLUtility.GetDataTable(cmd);
         }
 
+        
+
         private void BindData()
         {
             gMealList.DataSource = GetMealList();
             WindowsFormUtility.FormatGridLforSearchResults(gMealList, "Meal");
-        }
-
-        private void GMealList_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void FrmMealList_Activated(object? sender, EventArgs e)
