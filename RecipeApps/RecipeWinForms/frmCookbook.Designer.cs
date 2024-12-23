@@ -42,8 +42,13 @@
             txtPrice = new TextBox();
             dtpDateCreated = new DateTimePicker();
             ChbActive = new CheckBox();
+            tblCookbookChildRecords = new TableLayoutPanel();
+            btnSaveCookbookRecipe = new Button();
+            gCookbookRecipe = new DataGridView();
             tblMain.SuspendLayout();
             tblPriceDateCreated.SuspendLayout();
+            tblCookbookChildRecords.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gCookbookRecipe).BeginInit();
             SuspendLayout();
             // 
             // tblMain
@@ -61,6 +66,7 @@
             tblMain.Controls.Add(tblPriceDateCreated, 1, 3);
             tblMain.Controls.Add(ChbActive, 1, 4);
             tblMain.Controls.Add(lblCaptionPrice, 0, 3);
+            tblMain.Controls.Add(tblCookbookChildRecords, 1, 5);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -70,6 +76,7 @@
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tblMain.Size = new Size(800, 450);
             tblMain.TabIndex = 0;
@@ -203,6 +210,41 @@
             ChbActive.TabIndex = 9;
             ChbActive.UseVisualStyleBackColor = false;
             // 
+            // tblCookbookChildRecords
+            // 
+            tblCookbookChildRecords.ColumnCount = 1;
+            tblMain.SetColumnSpan(tblCookbookChildRecords, 2);
+            tblCookbookChildRecords.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblCookbookChildRecords.Controls.Add(btnSaveCookbookRecipe, 0, 0);
+            tblCookbookChildRecords.Controls.Add(gCookbookRecipe, 0, 1);
+            tblCookbookChildRecords.Dock = DockStyle.Fill;
+            tblCookbookChildRecords.Location = new Point(3, 270);
+            tblCookbookChildRecords.Name = "tblCookbookChildRecords";
+            tblCookbookChildRecords.RowCount = 2;
+            tblCookbookChildRecords.RowStyles.Add(new RowStyle());
+            tblCookbookChildRecords.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblCookbookChildRecords.Size = new Size(794, 177);
+            tblCookbookChildRecords.TabIndex = 10;
+            // 
+            // btnSaveCookbookRecipe
+            // 
+            btnSaveCookbookRecipe.Location = new Point(3, 3);
+            btnSaveCookbookRecipe.Name = "btnSaveCookbookRecipe";
+            btnSaveCookbookRecipe.Size = new Size(94, 29);
+            btnSaveCookbookRecipe.TabIndex = 0;
+            btnSaveCookbookRecipe.Text = "Save";
+            btnSaveCookbookRecipe.UseVisualStyleBackColor = true;
+            // 
+            // gCookbookRecipe
+            // 
+            gCookbookRecipe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gCookbookRecipe.Dock = DockStyle.Fill;
+            gCookbookRecipe.Location = new Point(3, 38);
+            gCookbookRecipe.Name = "gCookbookRecipe";
+            gCookbookRecipe.RowHeadersWidth = 51;
+            gCookbookRecipe.Size = new Size(788, 136);
+            gCookbookRecipe.TabIndex = 1;
+            // 
             // frmCookbook
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -215,6 +257,8 @@
             tblMain.PerformLayout();
             tblPriceDateCreated.ResumeLayout(false);
             tblPriceDateCreated.PerformLayout();
+            tblCookbookChildRecords.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gCookbookRecipe).EndInit();
             ResumeLayout(false);
         }
 
@@ -234,5 +278,8 @@
         private TextBox txtPrice;
         private DateTimePicker dtpDateCreated;
         private CheckBox ChbActive;
+        private TableLayoutPanel tblCookbookChildRecords;
+        private Button btnSaveCookbookRecipe;
+        private DataGridView gCookbookRecipe;
     }
 }
