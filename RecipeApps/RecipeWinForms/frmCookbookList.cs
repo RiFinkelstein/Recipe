@@ -17,6 +17,7 @@ namespace RecipeWinForms
     public partial class frmCookbookList : Form
     {
         DataTable dtcookbook;
+        frmCookbook frm;
 
         public frmCookbookList()
         {
@@ -35,19 +36,27 @@ namespace RecipeWinForms
                 id = (int)gCookbooklist.Rows[RowIndex].Cells["CookbookID"].Value;
             }
 
+
             dtcookbook = Cookbook.Load(id);  
 
             // Get the cookbook description
+
             string cookbookDescription = Cookbook.GetCookbookDescription(dtcookbook);
 
-            // Use OpenForm to open or focus the appropriate form
             frmMain? mdiParent = this.MdiParent as frmMain;
+
+            // Use OpenForm to open or focus the appropriate form
             if (mdiParent != null)
             {
                 // Pass the form type and primary key (cookbook ID) to OpenForm
                 mdiParent.OpenForm(typeof(frmCookbook), id);
+                //if (frm != null)
+                //{
+                 //   frm.LoadForm(id);
+                //}
             }
         }
+
 
         public static DataTable GetcookbookList()
         {

@@ -23,7 +23,11 @@ namespace RecipeWinForms
         public frmCookbook()
         {
            InitializeComponent();
-            this.Load += FrmCookbook_Load;
+           foreach (Control c in tblMain.Controls)
+            {
+                c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+            }
+
         }
 
 
@@ -37,18 +41,21 @@ namespace RecipeWinForms
             {
                 dtCookbook.Rows.Add();
             }
+            txtCookbookName.DataBindings.Clear(); 
+            txtPrice.DataBindings.Clear(); 
+            dtpDateCreated.DataBindings.Clear(); 
+            ChbActive.DataBindings.Clear(); lstUsersName.DataBindings.Clear();
+
             DataTable dtUsers = Recipe.GetUserList();
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
-            WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
+            //WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
         }
 
 
-        private void FrmCookbook_Load(object? sender, EventArgs e)
-        {
-            //LoadForm(e.rowindex)
-        }
+
+
     }
 }
