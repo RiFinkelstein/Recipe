@@ -51,7 +51,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
-            //WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
+            //WindowsFormUtility.SetCheckBoxBinding(ChbActive, bindsource, "active");
         }
 
 

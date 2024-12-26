@@ -7,8 +7,8 @@ begin
     on u.UsersID= cb.UsersID
     join CookbookRecipe CBR 
     on CBR.cookbookID= cb.CookbookID
-    where CB.Active = 1
-    GROUP BY cb.CookbookID,.cookbookname, u.UsersFirstName, u.UsersLastName, cb.Price
+    --where CB.Active = 1
+    GROUP BY cb.CookbookID, cb.cookbookname, u.UsersFirstName, u.UsersLastName, cb.Price
     order by cb.CookbookName
 end 
 go
