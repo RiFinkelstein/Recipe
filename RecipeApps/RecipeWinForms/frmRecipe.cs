@@ -286,7 +286,6 @@ namespace RecipeWinForms
                         break;
                     case DialogResult.No:
                         e.Cancel= false;
-                        //this.Activate();
                         break;
                 }
             }

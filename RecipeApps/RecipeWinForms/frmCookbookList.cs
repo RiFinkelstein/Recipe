@@ -26,7 +26,7 @@ namespace RecipeWinForms
             gCookbooklist.CellDoubleClick += GCookbooklist_CellDoubleClick;
 
         }
-
+        //why is the rowindex not working and opens the saem cookbook each time?
 
         private void ShowCookbookForm(int RowIndex)
         {
@@ -37,7 +37,7 @@ namespace RecipeWinForms
             }
 
 
-            dtcookbook = Cookbook.Load(id);  
+            dtcookbook = Cookbook.Load(id);
 
             // Get the cookbook description
 
@@ -50,10 +50,10 @@ namespace RecipeWinForms
             {
                 // Pass the form type and primary key (cookbook ID) to OpenForm
                 mdiParent.OpenForm(typeof(frmCookbook), id);
-                //if (frm != null)
-                //{
-                 //   frm.LoadForm(id);
-                //}
+                if (frm != null)
+                {
+                  frm.LoadForm(id);
+                }
             }
         }
 

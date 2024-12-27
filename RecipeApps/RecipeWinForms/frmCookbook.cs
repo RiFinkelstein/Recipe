@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -35,23 +36,26 @@ namespace RecipeWinForms
         {
             cookbookID= cookbookval;
             this.Tag = cookbookID;
+            Debug.Print($"frmcookbook tag is set to: {this.Tag}");   
             dtCookbook = Cookbook.Load(cookbookID);
             bindsource.DataSource = dtCookbook;
             if(cookbookID == 0)
             {
                 dtCookbook.Rows.Add();
             }
-            txtCookbookName.DataBindings.Clear(); 
+           txtCookbookName.DataBindings.Clear(); 
             txtPrice.DataBindings.Clear(); 
             dtpDateCreated.DataBindings.Clear(); 
-            ChbActive.DataBindings.Clear(); lstUsersName.DataBindings.Clear();
+            ChbActive.DataBindings.Clear();
+            lstUsersName.DataBindings.Clear();
 
             DataTable dtUsers = Recipe.GetUserList();
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
-            //WindowsFormUtility.SetCheckBoxBinding(ChbActive, bindsource, "active");
+            WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
+            this.Refresh();
         }
 
 

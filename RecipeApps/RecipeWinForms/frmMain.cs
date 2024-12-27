@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace RecipeWinForms
                 }
                 else if(frmType== typeof(frmCookbook))
                 {
+                    Debug.Print($"opening form with pkvalue: {pkvalue}");
                     frmCookbook f= new();
                     newfrm = f;
                     f.LoadForm(pkvalue);
