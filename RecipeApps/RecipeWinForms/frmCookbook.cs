@@ -31,31 +31,30 @@ namespace RecipeWinForms
 
         }
 
-
-        public void LoadForm(int cookbookval)
+        public void LoadForm(int cookbookIDVal)
         {
-            cookbookID= cookbookval;
+            cookbookID = cookbookIDVal;
             this.Tag = cookbookID;
-            Debug.Print($"frmcookbook tag is set to: {this.Tag}");   
             dtCookbook = Cookbook.Load(cookbookID);
             bindsource.DataSource = dtCookbook;
-            if(cookbookID == 0)
+            if (cookbookID == 0)
             {
                 dtCookbook.Rows.Add();
             }
-           txtCookbookName.DataBindings.Clear(); 
-            txtPrice.DataBindings.Clear(); 
-            dtpDateCreated.DataBindings.Clear(); 
-            ChbActive.DataBindings.Clear();
-            lstUsersName.DataBindings.Clear();
 
-            DataTable dtUsers = Recipe.GetUserList();
+            DataTable dtUsers = Recipe.GetUserList(); 
+
+            dtCookbook.Columns["CookbookID"].ReadOnly = false;
+            dtUsers.Columns["usersid"].ReadOnly = false;
+
+            // Bind controls
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
-            this.Refresh();
+
+
         }
 
 
