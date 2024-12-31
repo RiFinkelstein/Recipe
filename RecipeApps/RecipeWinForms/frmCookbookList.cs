@@ -27,7 +27,6 @@ namespace RecipeWinForms
             gCookbooklist.CellDoubleClick += GCookbooklist_CellDoubleClick;
 
         }
-        //why is the rowindex not working and opens the saem cookbook each time?
 
 
         private void ShowCookbookForm(int RowIndex)

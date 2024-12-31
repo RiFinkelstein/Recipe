@@ -54,7 +54,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
 
-
         }
 
 
