@@ -55,6 +55,8 @@ namespace RecipeWinForms
             {
                 dtRecipe.Rows.Add();
             }
+            this.Text = GetRecipeDescription();
+
             DataTable dtUsers = Recipe.GetUserList();
             DataTable dtCuisine = Recipe.GetCuisineList();
             dtRecipe.Columns["RecipeID"].ReadOnly = false;
@@ -64,7 +66,6 @@ namespace RecipeWinForms
             dtRecipe.Columns["PublishedDate"].ReadOnly = true;
             dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
 
-            //this.Text = GetRecipeDescription();
 
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");

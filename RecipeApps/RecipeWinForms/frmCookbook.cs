@@ -42,6 +42,7 @@ namespace RecipeWinForms
                 dtCookbook.Rows.Add();
             }
 
+            this.Text = Cookbook.GetCookbookDescription(dtCookbook);
             DataTable dtUsers = Recipe.GetUserList(); 
 
             dtCookbook.Columns["CookbookID"].ReadOnly = false;
