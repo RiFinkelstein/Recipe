@@ -9,7 +9,8 @@ AS
 BEGIN
     DECLARE @return int = 0;
 
-    IF @RecipeID = 0
+    IF @RecipeID IS NULL or @RecipeID=0
+
     BEGIN
         INSERT INTO recipe (CuisineID, UsersID, RecipeName,DraftedDate, Calories)
         VALUES (@CuisineID, @UsersID, @RecipeName,@drafteddate, @Calories);
