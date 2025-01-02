@@ -1,6 +1,6 @@
 create or alter procedure dbo.CookbookGet (
 	@cookbookID int = 0,
-	@All bit= 1
+	@All bit= 0
 	)
 as
 begin 
@@ -11,5 +11,5 @@ begin
 end 
 go
 
-exec dbo.CookbookGet 
+exec dbo.CookbookGet @all= 1
 exec dbo.CookbookGet  @cookbookID = 1

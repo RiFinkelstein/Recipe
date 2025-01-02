@@ -1,4 +1,4 @@
-CREATE OR ALTER PROC dbo.Recipepdate(
+CREATE OR ALTER PROC dbo.Recipeupdate(
     @RecipeID int OUTPUT,
     @CuisineID int,
     @UsersID int,

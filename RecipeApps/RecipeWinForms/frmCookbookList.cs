@@ -25,6 +25,7 @@ namespace RecipeWinForms
             InitializeComponent();
             this.Activated += FrmCookbookList_Activated;
             gCookbooklist.CellDoubleClick += GCookbooklist_CellDoubleClick;
+            btnNewcookbook.Click += BtnNewcookbook_Click;
 
         }
 
@@ -74,5 +75,10 @@ namespace RecipeWinForms
         {
             BindData();
         }
+        private void BtnNewcookbook_Click(object? sender, EventArgs e)
+        {
+            ShowCookbookForm(-1);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using CPUWindowsFormFramework;
+﻿using CPUFramework;
+using CPUWindowsFormFramework;
 using RecipeSystem;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,16 @@ namespace RecipeWinForms
         public frmCookbook()
         {
            InitializeComponent();
+            btnSave.Click += BtnSave_Click;
+            btnDelete.Click += BtnDelete_Click;
            foreach (Control c in tblMain.Controls)
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
 
         }
+
+
 
         public void LoadForm(int cookbookIDVal)
         {
@@ -47,16 +52,47 @@ namespace RecipeWinForms
 
             dtCookbook.Columns["CookbookID"].ReadOnly = false;
             dtUsers.Columns["usersid"].ReadOnly = false;
-
             // Bind controls
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
-
         }
 
+        public bool Save()
+        {
+            bool b = false;
+            Application.UseWaitCursor = true;
+            try
+            {
+                Cookbook.Save(dtCookbook); // Save the cookbook data
+                b = true;
+                bindsource.ResetBindings(false);
+                cookbookID = SQLUtility.GetValueFromFirstRowAsInt(dtCookbook, "cookbookid"); // Update the cookbookID
+                this.Tag = cookbookID;
+                //SetButtonsEnabledBasedOnNewRecord();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+            return b;
+        }
+
+
+        private void BtnDelete_Click(object? sender, EventArgs e)
+        {
+        }
+
+        private void BtnSave_Click(object? sender, EventArgs e)
+        {
+            Save();
+        }
 
 
 
