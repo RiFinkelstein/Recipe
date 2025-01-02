@@ -33,7 +33,6 @@
             lblCaptionArchivedDate = new Label();
             lblCaptionRecipeStatus = new Label();
             txtCalories = new TextBox();
-            dtpDraftedDate = new DateTimePicker();
             txtArchivedDate = new TextBox();
             txtRecipeStatus = new TextBox();
             lblCaptionPublishedDate = new Label();
@@ -58,6 +57,7 @@
             btnSaveRecipe = new Button();
             btnDeleteRecipe = new Button();
             btnChangeStatusRecipe = new Button();
+            dtpDraftedDate = new DateTimePicker();
             btnSave = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
@@ -81,7 +81,6 @@
             tblMain.Controls.Add(lblCaptionArchivedDate, 0, 7);
             tblMain.Controls.Add(lblCaptionRecipeStatus, 0, 8);
             tblMain.Controls.Add(txtCalories, 1, 4);
-            tblMain.Controls.Add(dtpDraftedDate, 1, 5);
             tblMain.Controls.Add(txtArchivedDate, 1, 7);
             tblMain.Controls.Add(txtRecipeStatus, 1, 8);
             tblMain.Controls.Add(lblCaptionPublishedDate, 0, 6);
@@ -95,6 +94,7 @@
             tblMain.Controls.Add(lstCuisineName, 1, 3);
             tblMain.Controls.Add(tbRecipeChildRecords, 0, 9);
             tblMain.Controls.Add(tblRecipeButtons, 0, 0);
+            tblMain.Controls.Add(dtpDraftedDate, 1, 5);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -151,14 +151,6 @@
             txtCalories.Name = "txtCalories";
             txtCalories.Size = new Size(125, 27);
             txtCalories.TabIndex = 7;
-            // 
-            // dtpDraftedDate
-            // 
-            dtpDraftedDate.Format = DateTimePickerFormat.Short;
-            dtpDraftedDate.Location = new Point(468, 205);
-            dtpDraftedDate.Name = "dtpDraftedDate";
-            dtpDraftedDate.Size = new Size(125, 27);
-            dtpDraftedDate.TabIndex = 13;
             // 
             // txtArchivedDate
             // 
@@ -419,6 +411,13 @@
             btnChangeStatusRecipe.Text = "Change Status";
             btnChangeStatusRecipe.UseVisualStyleBackColor = true;
             // 
+            // dtpDraftedDate
+            // 
+            dtpDraftedDate.Location = new Point(468, 205);
+            dtpDraftedDate.Name = "dtpDraftedDate";
+            dtpDraftedDate.Size = new Size(250, 27);
+            dtpDraftedDate.TabIndex = 28;
+            // 
             // btnSave
             // 
             btnSave.Name = "btnSave";
@@ -474,7 +473,6 @@
         private ToolStripButton btnSave;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnDelete;
-        private DateTimePicker dtpDraftedDate;
         private DateTimePicker dtpPublishedDate;
         private TextBox txtArchivedDate;
         private TextBox txtRecipeName;
@@ -498,5 +496,6 @@
         private Button btnChangeStatusRecipe;
         private Label lblCaptionRecipeStatus;
         private TextBox txtRecipeStatus;
+        private DateTimePicker dtpDraftedDate;
     }
 }

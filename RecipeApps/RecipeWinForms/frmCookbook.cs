@@ -83,10 +83,42 @@ namespace RecipeWinForms
             }
             return b;
         }
+        private void Delete()
+        {
+            if (dtCookbook.Rows.Count > 0)
+            {
+                string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtCookbook, "isdeleteallowed");
+                if (alloweddelete != "")
+                {
+                    MessageBox.Show(alloweddelete);
+                    return;
+                }
+            }
+            var response = MessageBox.Show("are you sure you want to delete this cookbook?", "Hearty Health", MessageBoxButtons.YesNo);
+            if (response == DialogResult.No)
+            {
+                return;
+            }
+            try
+            {
+                Cookbook.Delete(dtCookbook);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hearty Health");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+        }
+
 
 
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
+            Delete();
         }
 
         private void BtnSave_Click(object? sender, EventArgs e)
