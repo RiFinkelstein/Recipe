@@ -85,15 +85,15 @@ namespace RecipeWinForms
         }
         private void Delete()
         {
-            if (dtCookbook.Rows.Count > 0)
-            {
-                string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtCookbook, "isdeleteallowed");
-                if (alloweddelete != "")
-                {
-                    MessageBox.Show(alloweddelete);
-                    return;
-                }
-            }
+            //if (dtCookbook.Rows.Count > 0)
+            //{
+            //    string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtCookbook, "isdeleteallowed");
+            //    if (alloweddelete != "")
+            //    {
+            //        MessageBox.Show(alloweddelete);
+            //        return;
+            //    }
+            //}
             var response = MessageBox.Show("are you sure you want to delete this cookbook?", "Hearty Health", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {
