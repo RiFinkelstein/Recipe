@@ -53,7 +53,9 @@ namespace RecipeWinForms
             bindsource.DataSource = dtRecipe;
             if (recipeID == 0)
             {
-                dtRecipe.Rows.Add();
+                DataRow newRow = dtRecipe.NewRow();
+                newRow["drafteddate"] = DateTime.Now;
+                dtRecipe.Rows.Add(newRow);
             }
             this.Text = GetRecipeDescription();
 
@@ -72,7 +74,11 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
-            //WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
+            if(dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate")) 
+                {
+                dtRecipe.Rows[0]["drafteddate"] = DateTime.Now;
+                }
+
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
@@ -140,7 +146,6 @@ namespace RecipeWinForms
                 recipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "recipeid");
                 this.Tag = recipeID;
                 SetButtonsEnabledBasedOnNewRecord();
-                this.Text = GetRecipeDescription();
             }
             catch (Exception ex)
             {

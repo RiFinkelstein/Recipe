@@ -54,7 +54,7 @@ CREATE table dbo.recipe(
             constraint u_Recipe_Recipe_name_is_unique UNIQUE,
     Calories int not null constraint ck_calories_not_less_than_0 CHECK(calories>0), 
 -- SM Tip: DraftedDate should be defaulted to current date
-    DraftedDate DATETIME not null  DEFAULT GETDATE() constraint ck_recipe_Drafted_date_is_not_in_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
+    DraftedDate date not null  DEFAULT GETDATE() constraint ck_recipe_Drafted_date_is_not_in_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
     PublishedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe__Published_Dateis_not_in_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
     ArchivedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
     Picture as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
@@ -65,7 +65,7 @@ CREATE table dbo.recipe(
         else 'Archived' 
         end,
 -- SM Tip: You can combine two of the following constraints with between.
-    CONSTRAINT ck_archive_date_is_after_publshed_date check(PublishedDate <ArchivedDate),
+    CONSTRAINT ck_archive_date_is_after_publshed_date check(PublishedDate >ArchivedDate),
     constraint ck_published_date_is_after_drafted_date CHECK(DraftedDate<PublishedDate), 
     constraint ck_drafted_date_is_before_published_date CHECK(DraftedDate<ArchivedDate)
 )
