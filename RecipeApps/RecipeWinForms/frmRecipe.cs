@@ -82,14 +82,25 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
+            LoadRecipeIngredient();
+
+
+         }
+
+
+        private void LoadRecipeIngredient()
+        {
+           dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
+           gIngredients.Columns.Clear();
+           gIngredients.DataSource = dtrecipeingredient;
+           WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
+           WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
 
 
-
-            
             // Load ingredients for the recipe
             dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
-            gIngredients.DataSource = dtrecipeingredient; 
+            gIngredients.DataSource = dtrecipeingredient;
             // Load ingredient data and add combo box
             if (dtrecipeingredient.Columns.Contains("ingredientname"))
             {
@@ -99,17 +110,16 @@ namespace RecipeWinForms
             {
                 dtrecipeingredient.Columns.Remove("Measurement");
             }
-            DataTable dtingredient = Data_Maintenance.GetDataList("ingredient"); 
+            DataTable dtingredient = Data_Maintenance.GetDataList("ingredient");
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtingredient, "ingredient", "ingredientname");
             DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
 
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
 
             //Add delete button and format the grid
-            WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname); 
+            WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
-               
             dtrecipesteps = RecipeSteps.LoadByRecipeID(recipeID);
             gSteps.DataSource = dtrecipesteps;
             if (!dtrecipesteps.Columns.Contains("directionsID"))
@@ -120,17 +130,6 @@ namespace RecipeWinForms
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
-         }
-
-
-
-        private void LoadRecipeIngredient()
-        {
-           dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
-           gIngredients.Columns.Clear();
-           gIngredients.DataSource = dtrecipeingredient;
-           WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
-           WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
         }
 
