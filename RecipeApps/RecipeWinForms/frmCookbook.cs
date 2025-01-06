@@ -19,6 +19,7 @@ namespace RecipeWinForms
         DataTable dtCookbook = new DataTable();
         BindingSource bindsource = new BindingSource();
 
+        DataTable dtcookbookrecipe = new DataTable();
 
         int cookbookID = 0;
 
@@ -58,8 +59,18 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
+            LoadCookbookRecipe();
         }
 
+        private void LoadCookbookRecipe()
+        {
+            dtcookbookrecipe = CookbookRecipe.LoadByCookbookID(cookbookID);
+            gCookbookRecipe.Columns.Clear();
+            gCookbookRecipe.DataSource= dtcookbookrecipe;
+            //windowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
+            // WindowsFormUtility.FormatGridforEdit(gCookbookRecipe, tcookbookrecipe");
+
+        }
         public bool Save()
         {
             bool b = false;

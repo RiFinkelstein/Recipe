@@ -126,7 +126,7 @@ namespace RecipeWinForms
 
         private void LoadRecipeIngredient()
         {
-            dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
+           dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
            gIngredients.Columns.Clear();
            gIngredients.DataSource = dtrecipeingredient;
            WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
