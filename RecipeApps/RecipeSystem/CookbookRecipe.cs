@@ -26,8 +26,6 @@ namespace RecipeSystem
             {
                 r["cookbookID"] = cookbookID;
             }
-            dt.Columns["CookbookRecipeID"].ReadOnly = false;
-
             SQLUtility.SaveDataTable(dt, "CookbookRecipeUpdate");
 
         }
