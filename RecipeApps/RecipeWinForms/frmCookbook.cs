@@ -79,7 +79,7 @@ namespace RecipeWinForms
 
             dtcookbookrecipe.Columns["CookbookRecipeID"].ReadOnly = false;
 
-            
+
             // Remove the existing RecipeName column if it exists
             if (gCookbookRecipe.Columns.Contains("RecipeName"))
             {
@@ -89,20 +89,19 @@ namespace RecipeWinForms
             // Add the dropdown column for RecipeName
             DataGridViewComboBoxColumn recipeDropdown = new DataGridViewComboBoxColumn
             {
-                DataPropertyName = "RecipeID", // Bind to RecipeName in dtcookbookrecipe
+                DataPropertyName = "RecipeID", // This must match the column name in dtcookbookrecipe
                 HeaderText = "Recipe",
-                DataSource = dtrecipe,
-                DisplayMember = "RecipeName", // The column to display in the dropdown
-                ValueMember = "RecipeID",   // The column to use as the value
+                DataSource = dtrecipe, // Source of dropdown values
+                DisplayMember = "RecipeName", // Displayed text in the dropdown
+                ValueMember = "RecipeID",     // Underlying value bound to dtcookbookrecipe
                 Name = "RecipeDropdown",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             };
 
             // Insert the dropdown column at the original position of RecipeName
-            //int recipeColumnIndex = dtcookbookrecipe.Columns["RecipeName"].Ordinal;
-            //gCookbookRecipe.Columns.Insert(recipeColumnIndex, recipeDropdown);
+            int recipeColumnIndex = dtcookbookrecipe.Columns["RecipeName"].Ordinal;
+            gCookbookRecipe.Columns.Insert(recipeColumnIndex, recipeDropdown);
 
-            gCookbookRecipe.Columns.Add(recipeDropdown);
             // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
 
