@@ -36,5 +36,13 @@ namespace RecipeSystem
             cmd.Parameters["@CookbookRecipeID"].Value = CookbookRecipeID;
             SQLUtility.ExecuteSQL(cmd);
         }
+
+        public static DataTable GetRecipeList()
+        {
+            DataTable dt= new DataTable();
+            SqlCommand cmd = SQLUtility.GetSqlcommand("recipegetall");
+            dt= SQLUtility.GetDataTable(cmd);
+            return dt;
+        }
     }
 }

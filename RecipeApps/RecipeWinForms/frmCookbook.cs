@@ -67,14 +67,44 @@ namespace RecipeWinForms
 
         private void LoadCookbookRecipe()
         {
+            // Load data
             dtcookbookrecipe = CookbookRecipe.LoadByCookbookID(cookbookID);
+            DataTable dtrecipe = CookbookRecipe.GetRecipeList();
+
+            // Clear existing columns
             gCookbookRecipe.Columns.Clear();
-            gCookbookRecipe.DataSource= dtcookbookrecipe;
+
+            // Bind the grid to the data source
+            gCookbookRecipe.DataSource = dtcookbookrecipe;
+
+            // Remove the existing RecipeName column if it exists
+            if (gCookbookRecipe.Columns.Contains("RecipeName"))
+            {
+                gCookbookRecipe.Columns.Remove("RecipeName");
+            }
+
+            // Add the dropdown column for RecipeName
+            DataGridViewComboBoxColumn recipeDropdown = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "RecipeName", // Bind to RecipeName in dtcookbookrecipe
+                HeaderText = "Recipe",
+                DataSource = dtrecipe,
+                DisplayMember = "RecipeName", // The column to display in the dropdown
+                ValueMember = "RecipeName",   // The column to use as the value
+                Name = "RecipeDropdown",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+
+            // Insert the dropdown column at the original position of RecipeName
+            int recipeColumnIndex = dtcookbookrecipe.Columns["RecipeName"].Ordinal;
+            gCookbookRecipe.Columns.Insert(recipeColumnIndex, recipeDropdown);
+
+            // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
+
+            // Format the grid for editing
             WindowsFormUtility.FormatGridforEdit(gCookbookRecipe, "cookbookrecipe");
-
         }
-
 
         private void DeleteCookbookRecipe(int rowIndex)
         {
