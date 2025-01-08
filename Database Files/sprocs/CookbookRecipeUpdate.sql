@@ -1,7 +1,7 @@
 CREATE or alter PROCEDURE dbo.cookbookrecipeupdate(
     @cookbookrecipeID int output, 
     @cookbookID int, 
-    @recipeid VARCHAR (100),
+    @recipeid int,
     @Message varchar(500) = ''  output
 )
 
