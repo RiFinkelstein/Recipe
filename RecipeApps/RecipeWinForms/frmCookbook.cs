@@ -79,7 +79,7 @@ namespace RecipeWinForms
 
             dtcookbookrecipe.Columns["CookbookRecipeID"].ReadOnly = false;
 
-
+            /*
             // Remove the existing RecipeName column if it exists
             if (gCookbookRecipe.Columns.Contains("RecipeName"))
             {
@@ -101,7 +101,7 @@ namespace RecipeWinForms
             // Insert the dropdown column at the original position of RecipeName
             int recipeColumnIndex = dtcookbookrecipe.Columns["RecipeName"].Ordinal;
             gCookbookRecipe.Columns.Insert(recipeColumnIndex, recipeDropdown);
-
+            */
             // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
 
