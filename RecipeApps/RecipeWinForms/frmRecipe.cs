@@ -90,9 +90,7 @@ namespace RecipeWinForms
 
         private void LoadRecipeIngredient()
         {
-           dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
-           gIngredients.Columns.Clear();
-           gIngredients.DataSource = dtrecipeingredient;
+            gIngredients.Columns.Clear();
             // Load ingredients for the recipe
             dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
             gIngredients.DataSource = dtrecipeingredient;
