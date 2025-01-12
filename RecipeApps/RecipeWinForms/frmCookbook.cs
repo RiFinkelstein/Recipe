@@ -68,40 +68,23 @@ namespace RecipeWinForms
         private void LoadCookbookRecipe()
         {
             // Load data
-            dtcookbookrecipe = CookbookRecipe.LoadByCookbookID(cookbookID);
-            DataTable dtrecipe = CookbookRecipe.GetRecipeList();
-
-            // Clear existing columns
             gCookbookRecipe.Columns.Clear();
-
-            // Bind the grid to the data source
+            dtcookbookrecipe = CookbookRecipe.LoadByCookbookID(cookbookID);
             gCookbookRecipe.DataSource = dtcookbookrecipe;
+
+            if (dtcookbookrecipe.Columns.Contains("recipename"))
+            {
+                dtcookbookrecipe.Columns.Remove("recipename");
+            }
+
+            
+            DataTable dtrecipe= CookbookRecipe.GetRecipeList();
+
+            WindowsFormUtility.AddComboBoxToGrid(gCookbookRecipe, dtrecipe, "recipe", "Recipename");
 
             dtcookbookrecipe.Columns["CookbookRecipeID"].ReadOnly = false;
 
-            /*
-            // Remove the existing RecipeName column if it exists
-            if (gCookbookRecipe.Columns.Contains("RecipeName"))
-            {
-                gCookbookRecipe.Columns.Remove("RecipeName");
-            }
-
-            // Add the dropdown column for RecipeName
-            DataGridViewComboBoxColumn recipeDropdown = new DataGridViewComboBoxColumn
-            {
-                DataPropertyName = "RecipeID", // This must match the column name in dtcookbookrecipe
-                HeaderText = "Recipe",
-                DataSource = dtrecipe, // Source of dropdown values
-                DisplayMember = "RecipeName", // Displayed text in the dropdown
-                ValueMember = "RecipeID",     // Underlying value bound to dtcookbookrecipe
-                Name = "RecipeDropdown",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            };
-
-            // Insert the dropdown column at the original position of RecipeName
-            int recipeColumnIndex = dtcookbookrecipe.Columns["RecipeName"].Ordinal;
-            gCookbookRecipe.Columns.Insert(recipeColumnIndex, recipeDropdown);
-            */
+         
             // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
 
