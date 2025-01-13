@@ -22,8 +22,6 @@ namespace RecipeSystem
             }
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
-
-
         }
 
         public static void SaveDataList(DataTable dt, string tablename)

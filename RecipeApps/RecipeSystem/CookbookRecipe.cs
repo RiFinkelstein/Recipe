@@ -37,15 +37,11 @@ namespace RecipeSystem
             SQLUtility.ExecuteSQL(cmd);
         }
 
-        public static DataTable GetRecipeList(bool IncludeBlank = false)
+        public static DataTable GetRecipeList()
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSqlcommand("recipegetall");
             SQLUtility.SetParamValue(cmd, "@all", 1);
-            if (IncludeBlank == true)
-            {
-                SQLUtility.SetParamValue(cmd, "@IncludeBlank", IncludeBlank);
-            }
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }

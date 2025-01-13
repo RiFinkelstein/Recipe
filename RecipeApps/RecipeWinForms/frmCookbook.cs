@@ -78,7 +78,8 @@ namespace RecipeWinForms
             }
 
             //DataTable dtrecipe = Data_Maintenance.GetDataList("Recipe");
-            DataTable dtrecipe= CookbookRecipe.GetRecipeList();
+            //DataTable dtrecipe= CookbookRecipe.GetRecipeList();
+            DataTable dtrecipe = CookbookRecipe.GetRecipeList();
 
             WindowsFormUtility.AddComboBoxToGrid(gCookbookRecipe, dtrecipe, "recipe", "Recipename");
 
