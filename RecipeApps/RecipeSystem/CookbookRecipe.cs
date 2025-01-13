@@ -40,7 +40,7 @@ namespace RecipeSystem
         public static DataTable GetRecipeList()
         {
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSqlcommand("recipegetall");
+            SqlCommand cmd = SQLUtility.GetSqlcommand("recipeget");
             SQLUtility.SetParamValue(cmd, "@all", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
