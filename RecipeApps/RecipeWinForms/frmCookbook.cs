@@ -79,12 +79,12 @@ namespace RecipeWinForms
 
             DataTable dtrecipe = Data_Maintenance.GetDataList("recipe");
 
-
-            WindowsFormUtility.AddComboBoxToGrid(gCookbookRecipe, dtrecipe, "recipe", "Recipename");
-
             dtcookbookrecipe.Columns["CookbookRecipeID"].ReadOnly = false;
+            dtcookbookrecipe.Columns["recipeid"].ReadOnly = false;
 
-         
+            WindowsFormUtility.AddComboBoxToGrid(gCookbookRecipe, dtrecipe, "recipe", "recipename");
+
+
             // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
 

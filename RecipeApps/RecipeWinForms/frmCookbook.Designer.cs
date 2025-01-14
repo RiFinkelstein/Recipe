@@ -33,7 +33,6 @@
             btnDelete = new Button();
             label1lblCaptionCookbookName = new Label();
             lblCaptionUser = new Label();
-            lblCaptionPrice = new Label();
             lblCaptionActive = new Label();
             txtCookbookName = new TextBox();
             lstUsersName = new ComboBox();
@@ -42,6 +41,7 @@
             txtPrice = new TextBox();
             dtpDateCreated = new DateTimePicker();
             ChbActive = new CheckBox();
+            lblCaptionPrice = new Label();
             tblCookbookChildRecords = new TableLayoutPanel();
             btnSaveCookbookRecipe = new Button();
             gCookbookRecipe = new DataGridView();
@@ -121,17 +121,6 @@
             lblCaptionUser.TabIndex = 3;
             lblCaptionUser.Text = "User";
             // 
-            // lblCaptionPrice
-            // 
-            lblCaptionPrice.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            lblCaptionPrice.AutoSize = true;
-            lblCaptionPrice.Location = new Point(10, 177);
-            lblCaptionPrice.Margin = new Padding(10);
-            lblCaptionPrice.Name = "lblCaptionPrice";
-            lblCaptionPrice.Size = new Size(41, 20);
-            lblCaptionPrice.TabIndex = 4;
-            lblCaptionPrice.Text = "Price";
-            // 
             // lblCaptionActive
             // 
             lblCaptionActive.AutoSize = true;
@@ -210,6 +199,17 @@
             ChbActive.TabIndex = 9;
             ChbActive.UseVisualStyleBackColor = false;
             // 
+            // lblCaptionPrice
+            // 
+            lblCaptionPrice.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblCaptionPrice.AutoSize = true;
+            lblCaptionPrice.Location = new Point(10, 177);
+            lblCaptionPrice.Margin = new Padding(10);
+            lblCaptionPrice.Name = "lblCaptionPrice";
+            lblCaptionPrice.Size = new Size(41, 20);
+            lblCaptionPrice.TabIndex = 4;
+            lblCaptionPrice.Text = "Price";
+            // 
             // tblCookbookChildRecords
             // 
             tblCookbookChildRecords.ColumnCount = 1;
@@ -237,6 +237,7 @@
             // 
             // gCookbookRecipe
             // 
+            gCookbookRecipe.AllowDrop = true;
             gCookbookRecipe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gCookbookRecipe.Dock = DockStyle.Fill;
             gCookbookRecipe.Location = new Point(3, 38);
