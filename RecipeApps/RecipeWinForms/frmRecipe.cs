@@ -104,7 +104,10 @@ namespace RecipeWinForms
                 dtrecipeingredient.Columns.Remove("Measurement");
             }
             DataTable dtingredient = Data_Maintenance.GetDataList("ingredient");
+            dtrecipeingredient.Columns["ingredientID"].ReadOnly = false;
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtingredient, "ingredient", "ingredientname");
+
+            dtrecipeingredient.Columns["MeasurementID"].ReadOnly = false;
             DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
 
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
