@@ -1,18 +1,18 @@
 create or alter PROCEDURE dbo.IngredientUpdate(
     @IngredientID int OUTPUT, 
     @IngredientName VARCHAR (100), 
-    @message VARCHAR(500) = '' OUTPUT
+    @Message VARCHAR(500) = '' OUTPUT
 )
 
 as 
 BEGIN   
-    declare @return int =0
+    declare @Return int =0
 
     select @IngredientID= isnull(@IngredientID, 0)
 
     if @IngredientID= 0
     begin 
-        insert ingredient(ingredientName)
+        insert Ingredient(IngredientName)
         VALUES(@IngredientName)
 
         SELECT @IngredientID = SCOPE_IDENTITY() 
@@ -20,13 +20,13 @@ BEGIN
 
     ELSE
     BEGIN
-        UPDATE ingredient
+        UPDATE Ingredient
         set 
-            ingredientName= @IngredientName
-        where ingredientID= @IngredientID
+            IngredientName= @IngredientName
+        where IngredientID= @IngredientID
     END
 
-    RETURN @return
+    RETURN @Return
 
 
 end 

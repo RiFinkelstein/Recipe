@@ -1,5 +1,5 @@
 CREATE or ALTER PROCEDURE dbo.RecipeDelete(
-    @RecipeId INT,
+    @RecipeID INT,
     @Message VARCHAR(500) = '' OUTPUT
 )
 as 
@@ -20,7 +20,7 @@ END
 begin try
 begin tran
     delete ri from RecipeIngredient ri where ri.recipeID= @recipeid
-    delete d from Directions d where RecipeID= @recipeid
+    delete d from Directions d where RecipeID= @recipeID
     delete r from recipe r where RecipeID= @recipeid
 
   commit

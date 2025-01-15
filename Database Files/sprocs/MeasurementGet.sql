@@ -5,18 +5,18 @@ create or alter procedure dbo.MeasurementGet(
 )
 as
 begin
-	declare @return int = 0
+	declare @Return int = 0
 
 	select @All = isnull(@All,0), @MeasurementID = isnull(@MeasurementID,0)
 
         SELECT m.MeasurementID, m.MeasurementName
         from Measurement m 
         where MeasurementID= @MeasurementID
-        or @all=1
+        or @All=1
 
 
-	return @return
+	return @Return
 end
 go
 
-EXEC MeasurementGet @all= 1
+--EXEC MeasurementGet @all= 1

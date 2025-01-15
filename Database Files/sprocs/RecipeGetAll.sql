@@ -6,17 +6,17 @@ CREATE or ALTER PROCEDURE dbo.recipegetall (
 as
 begin 
 
-	declare @return int = 0
+	declare @Return int = 0
 
-	select @All = isnull(@All,0), @recipeid = isnull(@recipeid,0)
+	select @All = isnull(@All,0), @RecipeID = isnull(@RecipeID,0)
 
     SELECT r.RecipeName, r.RecipeID
     from recipe r
-    where RecipeID= @recipeid
+    where RecipeID= @RecipeID
     or @all= 1
 
-    RETURN @return
+    RETURN @Return
 end 
 go
 
-exec recipegetall @all=1
+--exec recipegetall @all=1

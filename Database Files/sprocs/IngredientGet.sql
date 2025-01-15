@@ -5,13 +5,13 @@ create or alter procedure dbo.IngredientGet(
 )
 as
 begin
-	declare @return int = 0
+	declare @Return int = 0
 
 	select @All = isnull(@All,0), @IngredientID = isnull(@IngredientID,0)
 
-        SELECT i.ingredientID, i.ingredientName
+        SELECT i.IngredientID, i.IngredientName
         from ingredient i 
-        where ingredientID= @IngredientID
+        where IngredientID= @IngredientID
         or @all=1
 
 
@@ -19,4 +19,4 @@ begin
 end
 go
 
-EXEC IngredientGet
+--EXEC IngredientGet

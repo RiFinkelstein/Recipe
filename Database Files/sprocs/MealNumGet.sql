@@ -4,15 +4,15 @@ create or alter procedure dbo.MealNumGet (
 as
 begin 
     select @MealNum = count(*) 
-    from meal m 
+    from Meal m 
     return 0;
 end 
 go
-
+/*
 DECLARE @numofmeal int
 
 EXEC MealNumGet @MealNum= @numofmeal output
 
 SELECT @numofmeal as MealCount
-
+*/
 

@@ -1,17 +1,17 @@
 create or alter procedure dbo.RecipeGet (
-	@RecipeId int = 0, 
+	@RecipeID int = 0, 
 	@All bit= 0, 
 	@RecipeName varchar(50)=null)
 as
 begin 
 	select @RecipeName = nullif(@RecipeName, '')
-	select r.usersid, r.CuisineID, r.recipeid, r.recipename, r.calories, r.DraftedDate, r.PublishedDate, r.archiveddate, r.picture, r.RecipeStatus 	
+	select r.UsersID, r.CuisineID, r.RecipeID, r.RecipeName, r.Calories, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Picture, r.RecipeStatus 	
 
 	from recipe r
-	where (@recipeid <>0 and r.recipeid= @recipeid)
+	where (@RecipeID <>0 and r.recipeID= @recipeID)
 	or @All= 1
-	or (r.recipename is not null and r.RecipeName like '%'+ @recipename +'%')
-	order by r.recipename
+	or (r.RecipeName is not null and r.RecipeName like '%'+ @RecipeName +'%')
+	order by r.RecipeName
 end 
 go
 
