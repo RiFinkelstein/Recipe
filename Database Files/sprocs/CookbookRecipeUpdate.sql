@@ -1,7 +1,7 @@
 CREATE or alter PROCEDURE dbo.cookbookrecipeupdate(
-    @cookbookrecipeID int output, 
-    @cookbookID int, 
-    @recipeid int,
+    @CookbookRecipeID int output, 
+    @CookbookID int, 
+    @RecipeID int,
     @Message varchar(500) = ''  output
 )
 
@@ -21,9 +21,9 @@ begin
             begin
                 update CookbookRecipe
                 set
-                    cookbookID = @cookbookID, 
-                    RecipeID = @recipeid
-                where CookbookRecipeID = @cookbookrecipeID
+                    CookbookID = @CookbookID, 
+                    RecipeID = @RecipeID
+                where CookbookRecipeID = @CookbookRecipeID
             end
         RETURN @return;
 end

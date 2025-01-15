@@ -1,5 +1,5 @@
 CREATE or alter PROCEDURE dbo.cookbookrecipeDelete(
-    @cookbookrecipeID int =0, 
+    @CookbookRecipeID int =0, 
     @Message varchar(500) = ''  output
 )
 
@@ -7,9 +7,9 @@ as
 begin 
         DECLARE @return INT = 0;
         
-        select @cookbookrecipeID = isnull(@cookbookrecipeID,0)
+        select @CookbookRecipeID = isnull(@CookbookRecipeID,0)
 
-        delete cookbookrecipe where cookbookrecipeID = @cookbookrecipeID
+        delete CookbookRecipe where CookbookRecipeID = @CookbookRecipeID
         
         RETURN @return;
 end

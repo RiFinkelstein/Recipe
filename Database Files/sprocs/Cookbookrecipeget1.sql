@@ -1,6 +1,6 @@
 CREATE OR ALTER procedure dbo.CookbookRecipeGet (
     @CookbookRecipeID INT = 0,
-    @cookbookid INT = 0,
+    @CookbookID INT = 0,
     @all BIT = 1,
     @message VARCHAR(500) = '' OUTPUT
 )
@@ -11,13 +11,13 @@ BEGIN
     SELECT
         @all = ISNULL(@all, 0),
         @CookbookRecipeID = ISNULL(@CookbookRecipeID, 0),
-        @cookbookid = ISNULL(@cookbookid, 0);
+        @CookbookID = ISNULL(@CookbookID, 0);
 
-        SELECT r.RecipeName, cr.CookBookSequenceNumber, cr.CookbookRecipeID, r.recipeid, cr.cookbookID
+        SELECT r.RecipeName, cr.CookBookSequenceNumber, cr.CookbookRecipeID, r.RecipeID, cr.CookbookID
         FROM recipe r
         JOIN CookbookRecipe cr 
-        ON r.recipeID = cr.recipeID
-        WHERE cr.cookbookID = @cookbookid
+        ON r.RecipeID = cr.RecipeID
+        WHERE cr.CookbookID = @CookbookID
         order by cr.CookBookSequenceNumber
 
     

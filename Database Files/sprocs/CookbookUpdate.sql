@@ -1,20 +1,20 @@
 CREATE OR ALTER PROC dbo.CookbookUpdate(
-    @cookbookID int OUTPUT, -- Corrected parameter name
+    @CookbookID int OUTPUT, -- Corrected parameter name
     @UsersID int,
-    @cookbookName varchar(100),
-    @price int,
-    @datecreated DATETIME
+    @CookbookName varchar(100),
+    @Price int,
+    @DateCreated DATETIME
 )
 AS
 BEGIN
     DECLARE @return int = 0;
 
-    IF @cookbookID IS NULL or @cookbookID=0
+    IF @CookbookID IS NULL or @CookbookID=0
     BEGIN
         INSERT Cookbook (UsersID, CookbookName, Price, DateCreated)
-        VALUES (@UsersID, @cookbookName, @price, @datecreated);
+        VALUES (@UsersID, @CookbookName, @Price, @DateCreated);
         -- Capture the newly inserted ID
-        SELECT @cookbookID = SCOPE_IDENTITY();
+        SELECT @CookbookID = SCOPE_IDENTITY();
     END
     ELSE
     BEGIN
@@ -22,9 +22,9 @@ BEGIN
         UPDATE Cookbook
         SET
             UsersID = @UsersID,
-            CookbookName = @cookbookName,
-            Price = @price,
-            DateCreated = @datecreated
+            CookbookName = @CookbookName,
+            Price = @Price,
+            DateCreated = @DateCreated
         WHERE CookbookID = @cookbookID;
     END
 

@@ -9,7 +9,7 @@ begin
 
 	from recipe r
 	where (@recipeid <>0 and r.recipeid= @recipeid)
-	or (@All= 1)
+	or @All= 1
 	or (r.recipename is not null and r.RecipeName like '%'+ @recipename +'%')
 	order by r.recipename
 end 
