@@ -8,10 +8,10 @@ create or alter PROCEDURE RecipeStepsGet(
 
 as 
 begin
-        SELECT d.zdirection, d.StepNumber, r.RecipeID, d.DirectionsID
+        SELECT d.direction, d.StepNumber, r.RecipeID, d.DirectionsID
         from Recipe R
         join Directions d
-        on d.EecipeID = r.RecipeID
+        on d.RecipeID = r.RecipeID
         where @RecipeID= r.RecipeID
         order by d.StepNumber
 end 

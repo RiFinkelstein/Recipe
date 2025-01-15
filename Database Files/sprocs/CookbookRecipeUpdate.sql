@@ -2,6 +2,7 @@ CREATE or alter PROCEDURE dbo.cookbookrecipeupdate(
     @CookbookRecipeID int output, 
     @CookbookID int, 
     @RecipeID int,
+    @CookBookSequenceNumber int,
     @Message varchar(500) = ''  output
 )
 
@@ -12,8 +13,8 @@ begin
 
             if @cookbookrecipeID = 0
             begin
-                insert CookbookRecipe(cookbookID, RecipeID)
-                values(@cookbookID, @recipeid)
+                insert CookbookRecipe(cookbookID, RecipeID, CookBookSequenceNumber)
+                values(@cookbookID, @recipeid, @CookBookSequenceNumber)
 
                 select @cookbookrecipeID= scope_identity()
             end
@@ -22,7 +23,8 @@ begin
                 update CookbookRecipe
                 set
                     CookbookID = @CookbookID, 
-                    RecipeID = @RecipeID
+                    RecipeID = @RecipeID,
+                    CookBookSequenceNumber= @CookBookSequenceNumber
                 where CookbookRecipeID = @CookbookRecipeID
             end
         RETURN @return;
