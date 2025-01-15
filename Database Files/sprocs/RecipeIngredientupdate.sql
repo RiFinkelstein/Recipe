@@ -1,7 +1,7 @@
 CREATE OR ALTER PROCEDURE dbo.RecipeIngredientUpdate(
-    @RecipeIngredientId INT OUTPUT,
-    @RecipeId INT,
-    @IngredientId INT,
+    @RecipeIngredientID INT OUTPUT,
+    @RecipeID INT,
+    @IngredientID INT,
     @MeasurementName VARCHAR(35) = NULL, -- Optional
     @Amount DECIMAL(5,2) = NULL,         -- Optional
     @IngredientName VARCHAR(35) = NULL -- Optional
@@ -12,24 +12,24 @@ BEGIN
     SET NOCOUNT ON;
     DECLARE @return INT = 0;
 
-    -- Default RecipeIngredientId to 0 if NULL
-    SELECT @RecipeIngredientId = ISNULL(@RecipeIngredientId, 0);
+    -- Default RecipeIngredientID to 0 if NULL
+    SELECT @RecipeIngredientID = ISNULL(@RecipeIngredientID, 0);
 
     BEGIN TRY
-        IF @RecipeIngredientId = 0
+        IF @RecipeIngredientID = 0
         BEGIN
             -- Insert New Recipe Ingredient
             INSERT INTO RecipeIngredient (RecipeID, IngredientID, MeasurementID, Amount, SequenceNumber)
             VALUES (
-                @RecipeId,
-                @IngredientId,
+                @RecipeID,
+                @IngredientID,
                 (SELECT MeasurementID FROM Measurement WHERE MeasurementName = @MeasurementName),
                 @Amount,
-                (SELECT ISNULL(MAX(SequenceNumber), 0) + 1 FROM RecipeIngredient WHERE RecipeID = @RecipeId)
+                (SELECT ISNULL(MAX(SequenceNumber), 0) + 1 FROM RecipeIngredient WHERE RecipeID = @RecipeID)
             );
 
             -- Capture the new ID
-            SELECT @RecipeIngredientId = SCOPE_IDENTITY();
+            SELECT @RecipeIngredientID = SCOPE_IDENTITY();
             --SET @Message = 'Recipe ingredient successfully added.';
         END
         ELSE
@@ -37,11 +37,11 @@ BEGIN
             -- Update existing RecipeIngredient
             UPDATE RecipeIngredient
             SET
-                RecipeID = @RecipeId,
-                IngredientID = @IngredientId,
+                RecipeID = @RecipeID,
+                IngredientID = @IngredientID,
                 MeasurementID = (SELECT MeasurementID FROM Measurement WHERE MeasurementName = @MeasurementName),
                 Amount = @Amount
-            WHERE RecipeIngredientID = @RecipeIngredientId;
+            WHERE RecipeIngredientID = @RecipeIngredientID;
 
             IF @@ROWCOUNT = 0
             BEGIN
@@ -50,12 +50,12 @@ BEGIN
                 RETURN @return;
             END
 
-            -- Update IngredientName if provided
+            -- Update IngredientName if provIDed
             IF @IngredientName IS NOT NULL
             BEGIN
                 UPDATE Ingredient
                 SET IngredientName = @IngredientName
-                WHERE IngredientID = @IngredientId;
+                WHERE IngredientID = @IngredientID;
 
                 IF @@ROWCOUNT = 0
                 BEGIN

@@ -5,17 +5,17 @@ CREATE OR ALTER PROC dbo.Recipeupdate(
     @RecipeName varchar(50),
     @Calories int, 
     @DraftedDate DATE, 
-    @publisheddate date= null, 
-    @archiveddate date= null)
+    @Publisheddate date= null, 
+    @Archiveddate date= null)
 AS
 BEGIN
-    DECLARE @return int = 0;
+    DECLARE @Return int = 0;
 
     IF @RecipeID IS NULL or @RecipeID=0
 
     BEGIN
-        INSERT INTO recipe (CuisineID, UsersID, RecipeName,DraftedDate, PublishedDate, ArchivedDate, Calories)
-        VALUES (@CuisineID, @UsersID, @RecipeName,isnull(@drafteddate, GETDATE()), @publisheddate, @archiveddate, @Calories);
+        INSERT INTO Recipe (CuisineID, UsersID, RecipeName, DraftedDate, PublishedDate, ArchivedDate, Calories)
+        VALUES (@CuisineID, @UsersID, @RecipeName,isnull(@DraftedDate, GETDATE()), @PublishedDate, @ArchivedDate, @Calories);
         SELECT @RecipeID = SCOPE_IDENTITY();
     END
     ELSE
@@ -25,11 +25,11 @@ BEGIN
             CuisineID = @CuisineID,
             UsersID = @UsersID,
             RecipeName = @RecipeName,
-            DraftedDate= isnull(@drafteddate, DraftedDate),
+            DraftedDate= isnull(@DraftedDate, DraftedDate),
             Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END
 
-    RETURN @return;
+    RETURN @Return;
 END
 GO

@@ -1,30 +1,30 @@
 CREATE OR ALTER PROCEDURE dbo.RecipeStepsUpdate(
-    @directionsID INT OUTPUT ,
-    @recipeId  INT,
+    @DirectionsID INT OUTPUT ,
+    @RecipeID  INT,
     @Direction VARCHAR(1000) = null,
-    @stepnumber INT= null
+    @StepNumber INT= null
 )
 AS
 BEGIN
-    DECLARE @return int = 0;
+    DECLARE @Return int = 0;
 
-    if @directionsID = 0 
+    if @DirectionsID = 0 
     begin 
     insert into Directions (RecipeID, Direction, StepNumber)
-    VALUEs (@recipeId, @Direction, @stepnumber);
-    SELECT @directionsID= SCOPE_IDENTITY();
+    VALUEs (@RecipeID, @Direction, @StepNumber);
+    SELECT @DirectionsID= SCOPE_IDENTITY();
 end 
     ELSE
     begin 
     UPDATE Directions
         set 
-        RecipeID= @recipeId, 
+        RecipeID= @RecipeID, 
         Direction= @Direction, 
-        StepNumber= @stepnumber
-    WHERE directionsID = @directionsID;
+        StepNumber= @StepNumber
+    WHERE DirectionsID = @DirectionsID;
 
 END
-RETURN @return;
+RETURN @Return;
 
 
 end 

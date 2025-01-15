@@ -1,13 +1,16 @@
-create or alter procedure dbo.UserGet (@UsersId int = 0, @All bit= 0, @LastName varchar(35)='')
+create or alter procedure dbo.UserGet (
+	@UsersID int = 0, 
+	@All bit= 0, 
+	@LastName varchar(35)='')
 as
 begin 
 	select @LastName = nullif(@LastName, '')
-    select u.usersid, u.UsersFirstName, u.userslastname, u.usersname 
-    from users u
-	where u.usersid= @usersid
+    select u.UsersID, u.UsersFirstName, u.userslastname, u.usersname 
+    from Users u
+	where u.UsersID= @UsersID
 	or @All= 1
-	or u.userslastname like '%'+ @lastname + '%'
-	order by u.usersname
+	or u.UsersLastName like '%'+ @LastName + '%'
+	order by u.UsersName
 end 
 go
 

@@ -3,16 +3,17 @@ create or alter procedure dbo.RecipeNumGet (
 )
 as
 begin 
-    select @recipenum = count(*) 
-    from recipe r 
+    select @RecipeNum = count(*) 
+    from Recipe r 
     return 0;
 end 
 go
-
+/*
 DECLARE @numofrecipes int
 
 EXEC RecipeNumGet @recipenum= @numofrecipes output
 
 SELECT @numofrecipes as RecipeCount
+*/
 
 
