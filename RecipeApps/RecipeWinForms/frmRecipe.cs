@@ -31,6 +31,7 @@ namespace RecipeWinForms
             InitializeComponent();
             btnDeleteRecipe.Click += BtnDelete_Click;
             btnSaveRecipe.Click+= BtnSave_Click;
+            btnChangeStatusRecipe.Click += BtnChangeStatusRecipe_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
             btnSaveSteps.Click += BtnSaveSteps_Click;
@@ -130,6 +131,11 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
         }
+
+        private void ChangeStatus()
+        { 
+        }
+
 
         public bool Save()
         {
@@ -321,6 +327,10 @@ namespace RecipeWinForms
         private void BtnSaveIngredients_Click(object? sender, EventArgs e)
         {
             SaveRecipeIngredient();
+        }
+        private void BtnChangeStatusRecipe_Click(object? sender, EventArgs e)
+        {
+            ChangeStatus();
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
