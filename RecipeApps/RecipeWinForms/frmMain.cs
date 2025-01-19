@@ -48,12 +48,18 @@ namespace RecipeWinForms
                     newfrm = f;
                     f.LoadForm(pkvalue);
                 }
+
                 else if(frmType== typeof(frmCookbook))
                 {
                     Debug.Print($"opening form with pkvalue: {pkvalue}");
                     frmCookbook f= new();
                     newfrm = f;
                     f.LoadForm(pkvalue);
+                }
+                else if (frmType== typeof(frmChangeRecipeStatus))
+                {
+                    frmChangeRecipeStatus f= new();
+                    newfrm = f;
                 }
 
                 else if (frmType == typeof(frmRecipeList))

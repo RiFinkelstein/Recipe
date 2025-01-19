@@ -37,12 +37,12 @@
             lblStatusDates = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             lblDrafted = new Label();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            tableLayoutPanel4 = new TableLayoutPanel();
-            lblPublished = new Label();
-            lblArchived = new Label();
             lblDraftedDate = new Label();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            lblPublished = new Label();
             lblPublishedDate = new Label();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            lblArchived = new Label();
             lblArchivedDate = new Label();
             tblButtons = new TableLayoutPanel();
             brnDraft = new Button();
@@ -185,6 +185,17 @@
             lblDrafted.Text = "Drafted";
             lblDrafted.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblDraftedDate
+            // 
+            lblDraftedDate.AutoSize = true;
+            lblDraftedDate.Dock = DockStyle.Fill;
+            lblDraftedDate.Font = new Font("Segoe UI", 14F);
+            lblDraftedDate.Location = new Point(3, 50);
+            lblDraftedDate.Name = "lblDraftedDate";
+            lblDraftedDate.Size = new Size(186, 50);
+            lblDraftedDate.TabIndex = 1;
+            lblDraftedDate.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 1;
@@ -199,6 +210,29 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.Size = new Size(192, 100);
             tableLayoutPanel3.TabIndex = 2;
+            // 
+            // lblPublished
+            // 
+            lblPublished.AutoSize = true;
+            lblPublished.Dock = DockStyle.Fill;
+            lblPublished.Font = new Font("Segoe UI", 14F);
+            lblPublished.Location = new Point(3, 0);
+            lblPublished.Name = "lblPublished";
+            lblPublished.Size = new Size(186, 50);
+            lblPublished.TabIndex = 0;
+            lblPublished.Text = "Published";
+            lblPublished.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblPublishedDate
+            // 
+            lblPublishedDate.AutoSize = true;
+            lblPublishedDate.Dock = DockStyle.Fill;
+            lblPublishedDate.Font = new Font("Segoe UI", 14F);
+            lblPublishedDate.Location = new Point(3, 50);
+            lblPublishedDate.Name = "lblPublishedDate";
+            lblPublishedDate.Size = new Size(186, 50);
+            lblPublishedDate.TabIndex = 1;
+            lblPublishedDate.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel4
             // 
@@ -216,18 +250,6 @@
             tableLayoutPanel4.Size = new Size(194, 100);
             tableLayoutPanel4.TabIndex = 3;
             // 
-            // lblPublished
-            // 
-            lblPublished.AutoSize = true;
-            lblPublished.Dock = DockStyle.Fill;
-            lblPublished.Font = new Font("Segoe UI", 14F);
-            lblPublished.Location = new Point(3, 0);
-            lblPublished.Name = "lblPublished";
-            lblPublished.Size = new Size(186, 50);
-            lblPublished.TabIndex = 0;
-            lblPublished.Text = "Published";
-            lblPublished.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // lblArchived
             // 
             lblArchived.AutoSize = true;
@@ -239,28 +261,6 @@
             lblArchived.TabIndex = 0;
             lblArchived.Text = "Archived";
             lblArchived.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblDraftedDate
-            // 
-            lblDraftedDate.AutoSize = true;
-            lblDraftedDate.Dock = DockStyle.Fill;
-            lblDraftedDate.Font = new Font("Segoe UI", 14F);
-            lblDraftedDate.Location = new Point(3, 50);
-            lblDraftedDate.Name = "lblDraftedDate";
-            lblDraftedDate.Size = new Size(186, 50);
-            lblDraftedDate.TabIndex = 1;
-            lblDraftedDate.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblPublishedDate
-            // 
-            lblPublishedDate.AutoSize = true;
-            lblPublishedDate.Dock = DockStyle.Fill;
-            lblPublishedDate.Font = new Font("Segoe UI", 14F);
-            lblPublishedDate.Location = new Point(3, 50);
-            lblPublishedDate.Name = "lblPublishedDate";
-            lblPublishedDate.Size = new Size(186, 50);
-            lblPublishedDate.TabIndex = 1;
-            lblPublishedDate.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblArchivedDate
             // 
@@ -333,7 +333,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(tblMain);
             Name = "frmChangeRecipeStatus";
-            Text = "Recipe - Change Stauts";
+            Text = "Recipe - Change Status";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
             tblStatus.ResumeLayout(false);

@@ -134,6 +134,11 @@ namespace RecipeWinForms
 
         private void ChangeStatus()
         { 
+            frmChangeRecipeStatus changeRecipeStatus = new frmChangeRecipeStatus();
+            changeRecipeStatus.LoadForm(recipeID);
+            changeRecipeStatus.MdiParent = this.MdiParent;
+            changeRecipeStatus.Show();
+            
         }
 
 
