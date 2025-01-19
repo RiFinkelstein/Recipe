@@ -32,9 +32,8 @@
             mnuFile = new ToolStripMenuItem();
             mnuDashboard = new ToolStripMenuItem();
             mnuRecipe = new ToolStripMenuItem();
-            mnuSearchRecipe = new ToolStripMenuItem();
-            mnuNewRecipe = new ToolStripMenuItem();
             mnuListRecipe = new ToolStripMenuItem();
+            mnuNewRecipe = new ToolStripMenuItem();
             mnuClonearecipe = new ToolStripMenuItem();
             mnuMeals = new ToolStripMenuItem();
             MnuMealsList = new ToolStripMenuItem();
@@ -70,33 +69,27 @@
             // mnuDashboard
             // 
             mnuDashboard.Name = "mnuDashboard";
-            mnuDashboard.Size = new Size(194, 32);
+            mnuDashboard.Size = new Size(224, 32);
             mnuDashboard.Text = "Dashboard";
             // 
             // mnuRecipe
             // 
-            mnuRecipe.DropDownItems.AddRange(new ToolStripItem[] { mnuListRecipe, mnuNewRecipe, mnuClonearecipe, mnuSearchRecipe });
+            mnuRecipe.DropDownItems.AddRange(new ToolStripItem[] { mnuListRecipe, mnuNewRecipe, mnuClonearecipe });
             mnuRecipe.Name = "mnuRecipe";
             mnuRecipe.Size = new Size(83, 32);
             mnuRecipe.Text = "Recipe";
-            // 
-            // mnuSearchRecipe
-            // 
-            mnuSearchRecipe.Name = "mnuSearchRecipe";
-            mnuSearchRecipe.Size = new Size(225, 32);
-            mnuSearchRecipe.Text = "Search";
-            // 
-            // mnuNewRecipe
-            // 
-            mnuNewRecipe.Name = "mnuNewRecipe";
-            mnuNewRecipe.Size = new Size(225, 32);
-            mnuNewRecipe.Text = "New Recipe";
             // 
             // mnuListRecipe
             // 
             mnuListRecipe.Name = "mnuListRecipe";
             mnuListRecipe.Size = new Size(225, 32);
             mnuListRecipe.Text = "List";
+            // 
+            // mnuNewRecipe
+            // 
+            mnuNewRecipe.Name = "mnuNewRecipe";
+            mnuNewRecipe.Size = new Size(225, 32);
+            mnuNewRecipe.Text = "New Recipe";
             // 
             // mnuClonearecipe
             // 
@@ -114,7 +107,7 @@
             // MnuMealsList
             // 
             MnuMealsList.Name = "MnuMealsList";
-            MnuMealsList.Size = new Size(224, 32);
+            MnuMealsList.Size = new Size(127, 32);
             MnuMealsList.Text = "List";
             // 
             // mnuCookbooks
@@ -152,7 +145,7 @@
             // mnuEditdata
             // 
             mnuEditdata.Name = "mnuEditdata";
-            mnuEditdata.Size = new Size(224, 32);
+            mnuEditdata.Size = new Size(178, 32);
             mnuEditdata.Text = "Edit Data";
             // 
             // mnuWindows
@@ -191,7 +184,6 @@
 
         private MenuStrip mnuMain;
         private ToolStripMenuItem mnuRecipe;
-        private ToolStripMenuItem mnuSearchRecipe;
         private ToolStripMenuItem mnuNewRecipe;
         private ToolStrip tsMain;
         private ToolStripMenuItem mnuFile;

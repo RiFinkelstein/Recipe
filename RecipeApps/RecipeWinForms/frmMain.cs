@@ -19,7 +19,6 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             mnuDashboard.Click += MnuDashboard_Click;
-            mnuSearchRecipe.Click += MnuSearchRecipe_Click;
             mnuNewRecipe.Click += MnuNewRecipe_Click;
             mnuListRecipe.Click += MnuListRecipe_Click;
             MnuMealsList.Click += MnuMealsList_Click;
@@ -51,7 +50,6 @@ namespace RecipeWinForms
 
                 else if(frmType== typeof(frmCookbook))
                 {
-                    Debug.Print($"opening form with pkvalue: {pkvalue}");
                     frmCookbook f= new();
                     newfrm = f;
                     f.LoadForm(pkvalue);

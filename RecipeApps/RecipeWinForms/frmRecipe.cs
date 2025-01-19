@@ -138,6 +138,7 @@ namespace RecipeWinForms
             changeRecipeStatus.LoadForm(recipeID);
             changeRecipeStatus.MdiParent = this.MdiParent;
             changeRecipeStatus.Show();
+           // this.Text = "Recipe- Change status";
             
         }
 

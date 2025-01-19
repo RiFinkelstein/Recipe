@@ -18,8 +18,6 @@ namespace RecipeWinForms
 
         DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
-        DataTable dtrecipeingredient = new DataTable();
-        DataTable dtrecipesteps = new DataTable();
 
         int recipeID = 0;
         public frmChangeRecipeStatus()
@@ -34,14 +32,8 @@ namespace RecipeWinForms
             this.Tag = recipeID;
             dtRecipe = Recipe.Load(recipeID);
             bindsource.DataSource = dtRecipe;
-            if (recipeID == 0)
-            {
-                DataRow newRow = dtRecipe.NewRow();
-                newRow["drafteddate"] = DateTime.Now;
-                dtRecipe.Rows.Add(newRow);
-            }
-            string recipeName = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "RecipeName");
-            this.Text = $"{recipeName} - Change Status";
+
+            this.Text = GetTabTitle();
 
             dtRecipe.Columns["RecipeID"].ReadOnly = false;
             dtRecipe.Columns["DraftedDate"].ReadOnly = true;
@@ -55,6 +47,29 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(lblPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(lblArchivedDate, bindsource);
 
+        }
+
+        private string GetTabTitle()
+        {
+            string value = "Recipe - Change Status"; // Default title
+
+            // Check if dtRecipe has rows and the 'recipename' column exists
+            if (dtRecipe.Rows.Count > 0 && dtRecipe.Columns.Contains("recipename"))
+            {
+                string recipeName = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
+
+                // Ensure recipeName is not empty or null
+                if (!string.IsNullOrEmpty(recipeName))
+                {
+                    value = $"{recipeName} - Change Status"; // Set title with recipe name
+                }
+                else
+                {
+                    MessageBox.Show("Recipe name is empty!");
+                }
+            }
+
+            return value;
         }
     }
 }
