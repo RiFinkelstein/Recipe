@@ -133,13 +133,13 @@ namespace RecipeWinForms
         }
 
         private void ChangeStatus()
-        { 
+        {
+
+            string recipeName = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
             frmChangeRecipeStatus changeRecipeStatus = new frmChangeRecipeStatus();
             changeRecipeStatus.LoadForm(recipeID);
             changeRecipeStatus.MdiParent = this.MdiParent;
-            changeRecipeStatus.Show();
-           // this.Text = "Recipe- Change status";
-            
+            changeRecipeStatus.Show();            
         }
 
 

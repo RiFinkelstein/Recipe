@@ -23,7 +23,11 @@ namespace RecipeWinForms
         public frmChangeRecipeStatus()
         {
             InitializeComponent();
+            btnDraft.Click += BtnDraft_Click;
+            btnArchive.Click += BtnArchive_Click;
+            btnPublish.Click += BtnPublish_Click;
         }
+
 
 
         public void LoadForm(int recipeidval)
@@ -32,20 +36,27 @@ namespace RecipeWinForms
             this.Tag = recipeID;
             dtRecipe = Recipe.Load(recipeID);
             bindsource.DataSource = dtRecipe;
-
             this.Text = GetTabTitle();
 
-            dtRecipe.Columns["RecipeID"].ReadOnly = false;
-            dtRecipe.Columns["DraftedDate"].ReadOnly = true;
-            dtRecipe.Columns["PublishedDate"].ReadOnly = true;
-            dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
 
+            dtRecipe.Columns["RecipeID"].ReadOnly = false;
+            dtRecipe.Columns["DraftedDate"].ReadOnly = false;
+            dtRecipe.Columns["PublishedDate"].ReadOnly = false;
+            dtRecipe.Columns["ArchivedDate"].ReadOnly = false;
+            dtRecipe.Columns["RecipeStatus"].ReadOnly = false;
+
+            lblRecipeName.DataBindings.Clear();
+            lblRecipeStatus.DataBindings.Clear();
+            lblDraftedDate.DataBindings.Clear();
+            lblPublishedDate.DataBindings.Clear();
+            lblArchivedDate.DataBindings.Clear();
 
             WindowsFormUtility.SetControlBinding(lblRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(lblRecipeStatus, bindsource);
             WindowsFormUtility.SetControlBinding(lblDraftedDate, bindsource);
             WindowsFormUtility.SetControlBinding(lblPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(lblArchivedDate, bindsource);
+            DisableCurrentStatusButton();
 
         }
 
@@ -68,8 +79,75 @@ namespace RecipeWinForms
                     MessageBox.Show("Recipe name is empty!");
                 }
             }
-
             return value;
         }
+
+        private void DisableCurrentStatusButton()
+        {
+            // Ensure case insensitivity matches database values
+            string currentStatus = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "RecipeStatus");
+
+            if (!string.IsNullOrEmpty(currentStatus))
+            {
+                currentStatus = currentStatus.ToLower(); // Normalize for comparison
+
+                btnDraft.Enabled = currentStatus != "draft";
+                btnPublish.Enabled = currentStatus != "published";
+                btnArchive.Enabled = currentStatus != "archived";
+            }
+            else
+            {
+                // If no status is found, enable all buttons as a fallback
+                btnDraft.Enabled = true;
+                btnPublish.Enabled = true;
+                btnArchive.Enabled = true;
+            }
+        }
+
+        private void ChangeRecipeStatus(string newStatus, string columnName)
+        {
+            var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
+                "Confirm Status Change", MessageBoxButtons.YesNo);
+
+            if (response == DialogResult.Yes)
+            {
+                try
+                {
+                    // Update the relevant fields in the first DataRow
+                    DataRow row = dtRecipe.Rows[0];
+                    row[columnName] = DateTime.Now; // Set the date column
+                    row["RecipeStatus"] = newStatus; // Set the new status
+
+                    Recipe.Save(dtRecipe); // Save changes to the database
+
+                    MessageBox.Show("Status updated successfully.");
+                    LoadForm(recipeID);    // Refresh data and form bindings
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error changing status: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void BtnDraft_Click(object? sender, EventArgs e)
+        {
+            ChangeRecipeStatus("Draft", "DraftedDate");
+        }
+
+        private void BtnPublish_Click(object? sender, EventArgs e)
+        {
+            ChangeRecipeStatus("Published", "PublishedDate");
+        }
+
+        private void BtnArchive_Click(object? sender, EventArgs e)
+        {
+            ChangeRecipeStatus("Archived", "ArchivedDate");
+        }
+
     }
 }
+
+
+   

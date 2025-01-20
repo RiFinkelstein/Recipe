@@ -45,7 +45,7 @@
             lblArchived = new Label();
             lblArchivedDate = new Label();
             tblButtons = new TableLayoutPanel();
-            brnDraft = new Button();
+            btnDraft = new Button();
             btnPublish = new Button();
             btnArchive = new Button();
             tblMain.SuspendLayout();
@@ -279,7 +279,7 @@
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tblButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tblButtons.Controls.Add(brnDraft, 0, 0);
+            tblButtons.Controls.Add(btnDraft, 0, 0);
             tblButtons.Controls.Add(btnPublish, 1, 0);
             tblButtons.Controls.Add(btnArchive, 2, 0);
             tblButtons.Dock = DockStyle.Fill;
@@ -290,17 +290,17 @@
             tblButtons.Size = new Size(794, 108);
             tblButtons.TabIndex = 3;
             // 
-            // brnDraft
+            // btnDraft
             // 
-            brnDraft.Dock = DockStyle.Fill;
-            brnDraft.Font = new Font("Segoe UI", 14F);
-            brnDraft.Location = new Point(20, 20);
-            brnDraft.Margin = new Padding(20);
-            brnDraft.Name = "brnDraft";
-            brnDraft.Size = new Size(224, 68);
-            brnDraft.TabIndex = 0;
-            brnDraft.Text = "Draft";
-            brnDraft.UseVisualStyleBackColor = true;
+            btnDraft.Dock = DockStyle.Fill;
+            btnDraft.Font = new Font("Segoe UI", 14F);
+            btnDraft.Location = new Point(20, 20);
+            btnDraft.Margin = new Padding(20);
+            btnDraft.Name = "btnDraft";
+            btnDraft.Size = new Size(224, 68);
+            btnDraft.TabIndex = 0;
+            btnDraft.Text = "Draft";
+            btnDraft.UseVisualStyleBackColor = true;
             // 
             // btnPublish
             // 
@@ -369,7 +369,7 @@
         private Label lblArchived;
         private Label lblArchivedDate;
         private TableLayoutPanel tblButtons;
-        private Button brnDraft;
+        private Button btnDraft;
         private Button btnPublish;
         private Button btnArchive;
     }

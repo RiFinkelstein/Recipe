@@ -26,6 +26,8 @@ BEGIN
             UsersID = @UsersID,
             RecipeName = @RecipeName,
             DraftedDate= isnull(@DraftedDate, DraftedDate),
+            PublishedDate= ISNULL(@Publisheddate, PublishedDate),
+            ArchivedDate= ISNULL(@Archiveddate, ArchivedDate),
             Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END
