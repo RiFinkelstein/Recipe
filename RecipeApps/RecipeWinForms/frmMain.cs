@@ -19,11 +19,15 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             mnuDashboard.Click += MnuDashboard_Click;
-            mnuNewRecipe.Click += MnuNewRecipe_Click;
             mnuListRecipe.Click += MnuListRecipe_Click;
+            mnuNewRecipe.Click += MnuNewRecipe_Click;
+            mnuClonearecipe.Click += MnuClonearecipe_Click;
             MnuMealsList.Click += MnuMealsList_Click;
             MnuListOfCookbooks.Click += MnuListOfCookbooks_Click;
-            
+            mnuNewCookbook.Click += MnuNewCookbook_Click;
+            mnuAutocreatecookbook.Click += MnuAutocreatecookbook_Click;
+            mnuEditdata.Click += MnuEditdata_Click;
+            mnuWindows.Click += MnuWindows_Click;
             this.Shown += FrmMain_Shown;
 
         }
@@ -147,7 +151,31 @@ namespace RecipeWinForms
         {
             OpenForm(typeof(frmDashboard));
         }
-        
+        private void MnuWindows_Click(object? sender, EventArgs e)
+        {
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
+        }
+
+        private void MnuEditdata_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmDataMaintenance));
+        }
+
+        private void MnuAutocreatecookbook_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmAutoCreateCookbook));
+        }
+
+        private void MnuNewCookbook_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmCookbook));
+        }
+
+        private void MnuClonearecipe_Click(object? sender, EventArgs e)
+        {
+            OpenForm(typeof(frmCloneRecipe));
+        }
+
 
     }
 }
