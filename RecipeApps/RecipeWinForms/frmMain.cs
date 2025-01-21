@@ -85,10 +85,19 @@ namespace RecipeWinForms
                     frmDashboard f = new();
                     newfrm = f;
                 }
-
-                else if (frmType == typeof(frmSearch))
+                else if (frmType == typeof(frmDataMaintenance))
                 {
-                    frmSearch f = new();
+                    frmDataMaintenance f= new();
+                    newfrm = f;
+                }
+                else if (frmType== typeof(frmCloneRecipe))
+                {
+                    frmCloneRecipe f = new();
+                    newfrm = f;
+                }
+                else if (frmType == typeof(frmAutoCreateCookbook))
+                {
+                    frmAutoCreateCookbook f = new();
                     newfrm = f;
                 }
                 if (newfrm != null)
