@@ -32,8 +32,6 @@ namespace RecipeWinForms
 
         }
 
-
-
         private void FrmMain_Shown(object? sender, EventArgs e)
         {
             OpenForm(typeof(frmDashboard));
@@ -175,7 +173,5 @@ namespace RecipeWinForms
         {
             OpenForm(typeof(frmCloneRecipe));
         }
-
-
     }
 }

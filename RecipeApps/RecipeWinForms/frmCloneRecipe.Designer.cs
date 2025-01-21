@@ -28,12 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmCloneRecipe";
+            tblMain = new TableLayoutPanel();
+            lstRecipe = new ComboBox();
+            btnClone = new Button();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
+            tblMain.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tblMain
+            // 
+            tblMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tblMain.ColumnCount = 1;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblMain.Controls.Add(lstRecipe, 0, 0);
+            tblMain.Controls.Add(btnClone, 0, 1);
+            tblMain.Location = new Point(0, 0);
+            tblMain.Name = "tblMain";
+            tblMain.RowCount = 2;
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.Size = new Size(556, 157);
+            tblMain.TabIndex = 0;
+            // 
+            // lstRecipe
+            // 
+            lstRecipe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lstRecipe.FormattingEnabled = true;
+            lstRecipe.Location = new Point(3, 3);
+            lstRecipe.Name = "lstRecipe";
+            lstRecipe.Size = new Size(550, 28);
+            lstRecipe.TabIndex = 0;
+            // 
+            // btnClone
+            // 
+            btnClone.Anchor = AnchorStyles.None;
+            btnClone.Location = new Point(228, 70);
+            btnClone.Margin = new Padding(10);
+            btnClone.Name = "btnClone";
+            btnClone.Size = new Size(100, 50);
+            btnClone.TabIndex = 1;
+            btnClone.Text = "Clone";
+            btnClone.UseVisualStyleBackColor = true;
+            // 
+            // sqlCommand1
+            // 
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.EnableOptimizedParameterBinding = false;
+            // 
+            // frmCloneRecipe
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(554, 155);
+            Controls.Add(tblMain);
+            Name = "frmCloneRecipe";
+            Text = "Clone a Recipe";
+            tblMain.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private TableLayoutPanel tblMain;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
+        private ComboBox lstRecipe;
+        private Button btnClone;
     }
 }
