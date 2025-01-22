@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tblMain = new TableLayoutPanel();
-            lstRecipe = new ComboBox();
+            lstRecipename = new ComboBox();
             btnClone = new Button();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
             tblMain.SuspendLayout();
@@ -40,7 +40,7 @@
             tblMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tblMain.ColumnCount = 1;
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblMain.Controls.Add(lstRecipe, 0, 0);
+            tblMain.Controls.Add(lstRecipename, 0, 0);
             tblMain.Controls.Add(btnClone, 0, 1);
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -50,14 +50,14 @@
             tblMain.Size = new Size(556, 157);
             tblMain.TabIndex = 0;
             // 
-            // lstRecipe
+            // lstRecipename
             // 
-            lstRecipe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lstRecipe.FormattingEnabled = true;
-            lstRecipe.Location = new Point(3, 3);
-            lstRecipe.Name = "lstRecipe";
-            lstRecipe.Size = new Size(550, 28);
-            lstRecipe.TabIndex = 0;
+            lstRecipename.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lstRecipename.FormattingEnabled = true;
+            lstRecipename.Location = new Point(3, 3);
+            lstRecipename.Name = "lstRecipename";
+            lstRecipename.Size = new Size(550, 28);
+            lstRecipename.TabIndex = 0;
             // 
             // btnClone
             // 
@@ -93,5 +93,6 @@
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private ComboBox lstRecipe;
         private Button btnClone;
+        private ComboBox lstRecipename;
     }
 }
