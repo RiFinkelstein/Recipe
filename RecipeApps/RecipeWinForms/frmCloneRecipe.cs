@@ -1,9 +1,11 @@
-﻿using CPUWindowsFormFramework;
+﻿using CPUFramework;
+using CPUWindowsFormFramework;
 using RecipeSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,10 @@ namespace RecipeWinForms
 {
     public partial class frmCloneRecipe : Form
     {
+        BindingSource bindsource = new BindingSource();
+
+        int recipeID = 0;
+
         public frmCloneRecipe()
         {
             InitializeComponent();
@@ -28,43 +34,53 @@ namespace RecipeWinForms
         private void BindData()
         {
             DataTable dtRecipe = CookbookRecipe.GetRecipeList();
-            lstRecipe.DataSource = dtRecipe;
-            lstRecipe.ValueMember = "recipeID";
-            lstRecipe.DisplayMember = "recipename";
+            WindowsFormUtility.SetListBinding(lstRecipename, dtRecipe, dtRecipe, "recipe");
         }
 
-        private void CloneData()
+
+
+
+        public bool CLoneRecipe()
         {
-            // Ensure a recipe is selected
-            if (lstRecipe.SelectedValue != null && int.TryParse(lstRecipe.SelectedValue.ToString(), out int originalRecipeID))
-            {
-                try
-                {
-                    // Call the Recipe.CloneRecipe method to perform the clone operation
-                    Recipe.CloneRecipe(originalRecipeID);
+            bool success = false;
+            Application.UseWaitCursor = true;
 
-                    // Notify the user of success
-                    MessageBox.Show("Recipe cloned successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Refresh the recipe list to show the cloned recipe
-                    BindData();
-                }
-                catch (Exception ex)
-                {
-                    // Handle any errors that occur during cloning
-                    MessageBox.Show($"An error occurred while cloning the recipe: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            try
             {
-                // Notify the user if no recipe was selected
-                MessageBox.Show("Please select a recipe to clone.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Ensure a recipe is selected
+                if (lstRecipename.SelectedValue == null)
+                {
+                    MessageBox.Show("Please select a recipe to clone.", "Error");
+                    return false;
+                }
+
+                // Get the selected RecipeID
+                recipeID = (int)lstRecipename.SelectedValue;
+
+                // Clone the recipe and get the new RecipeID
+                Recipe.CloneRecipe(recipeID);
+
+                // Indicate success
+                success = true;
+
+                // Close the clone form
+                this.Close();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error cloning recipe: {ex.Message}", "Error");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+
+            return success;
         }
 
         private void BtnClone_Click(object? sender, EventArgs e)
         {
-            CloneData();
+            CLoneRecipe();
         }
 
     }
