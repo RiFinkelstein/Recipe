@@ -1,10 +1,11 @@
 CREATE OR ALTER PROCEDURE RecipeClone
-    @OriginalRecipeID INT
+    @OriginalRecipeID INT,
+    @ClonedRecipeID int OUTPUT
 AS
 BEGIN
     --SET NOCOUNT ON;
 
-    DECLARE @ClonedRecipeID INT;
+    --DECLARE @ClonedRecipeID INT;
 
     -- Clone the recipe
     INSERT INTO Recipe (UsersID, CuisineID, RecipeName, Calories, DraftedDate, PublishedDate, ArchivedDate)

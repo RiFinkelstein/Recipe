@@ -82,11 +82,26 @@ namespace RecipeSystem
 
             return value;
         }
-        public static void CloneRecipe(int originalRecipeID)
+        public static int CloneRecipe(int originalRecipeID)
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeClone");
             SQLUtility.SetParamValue(cmd, "@OriginalRecipeID", originalRecipeID);
+
+            if (cmd.Parameters.Contains("@ClonedRecipeID"))
+            {
+                cmd.Parameters["@ClonedRecipeID"].Direction = ParameterDirection.Output;
+            }
+            else
+            {
+                SqlParameter outputParam = new SqlParameter("@ClonedRecipeID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outputParam);
+
+            }
             SQLUtility.ExecuteSQL(cmd);
+            return (int)cmd.Parameters["@ClonedRecipeID"].Value;
 
         }
 

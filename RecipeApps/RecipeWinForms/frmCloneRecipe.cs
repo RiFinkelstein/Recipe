@@ -58,7 +58,14 @@ namespace RecipeWinForms
                 recipeID = (int)lstRecipename.SelectedValue;
 
                 // Clone the recipe and get the new RecipeID
-                Recipe.CloneRecipe(recipeID);
+                int clonedRecipeID= Recipe.CloneRecipe(recipeID);
+
+                frmMain? mdiParent = this.MdiParent as frmMain;
+                if (mdiParent != null)
+                {
+                    // Pass the form type and primary key (recipe ID) to OpenForm
+                    mdiParent.OpenForm(typeof(frmRecipe), clonedRecipeID);
+                }
 
                 // Indicate success
                 success = true;
