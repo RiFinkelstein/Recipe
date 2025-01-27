@@ -80,7 +80,7 @@
             // 
             lblRecipeName.AutoSize = true;
             lblRecipeName.Dock = DockStyle.Fill;
-            lblRecipeName.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRecipeName.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblRecipeName.Location = new Point(3, 0);
             lblRecipeName.Name = "lblRecipeName";
             lblRecipeName.Size = new Size(794, 112);

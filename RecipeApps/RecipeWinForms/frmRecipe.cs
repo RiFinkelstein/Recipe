@@ -41,7 +41,8 @@ namespace RecipeWinForms
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
-        
+
+
         }
 
 
@@ -245,7 +246,8 @@ namespace RecipeWinForms
         {
             try
             {
-                RecipeSteps.SaveTable(dtrecipesteps, recipeID);
+                dtRecipe.Columns["RecipeID"].ReadOnly = false;
+                RecipeSteps.SaveSteps(dtrecipesteps, directionID);
             }
             catch (Exception ex)
             {

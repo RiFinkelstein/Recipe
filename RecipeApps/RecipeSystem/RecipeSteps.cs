@@ -20,19 +20,29 @@ namespace RecipeSystem
             return dt;
         }
 
-        public static void SaveTable(DataTable dt, int recipeID)
+        public static void SaveSteps(DataTable dtrecipe, int directionsID)
         {
-            foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
+            if (dtrecipe.Rows.Count == 0)
             {
-                r["recipeID"] = recipeID;
+                throw new Exception("cannot call RecipeStepsUpdate method becasue there are no rows in the table");
             }
-            SQLUtility.SaveDataTable(dt, "RecipeStepsUpdate");
-        }
+            foreach (DataRow r in dtrecipe.Rows)
+            {
+                if(r.RowState== DataRowState.Added || r.RowState== DataRowState.Modified)
+                {
+                    SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsUpdate");
+                    cmd.Parameters["@directionsID"].Value = directionsID;
+                    SQLUtility.ExecuteSQL(cmd);
+                    //SQLUtility.SaveDataRow(r, "RecipeStepsUpdate");
 
+                }
+            }
+            //DataRow r = dtrecipe.Rows[0];
+        }
         public static void Delete(int RecipeStepsID)
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsDelete");
-            cmd.Parameters["@RecipeStepsID"].Value = RecipeStepsID;
+            cmd.Parameters["@directionsID"].Value = RecipeStepsID;
             SQLUtility.ExecuteSQL(cmd);
         }
     }
