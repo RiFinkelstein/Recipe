@@ -37,8 +37,6 @@ namespace RecipeWinForms
             dtRecipe = Recipe.Load(recipeID);
             bindsource.DataSource = dtRecipe;
             this.Text = GetTabTitle();
-
-
             dtRecipe.Columns["RecipeID"].ReadOnly = false;
             dtRecipe.Columns["DraftedDate"].ReadOnly = false;
             dtRecipe.Columns["PublishedDate"].ReadOnly = false;
@@ -103,33 +101,6 @@ namespace RecipeWinForms
                 btnArchive.Enabled = true;
             }
         }
-        /*
-        private void ChangeRecipeStatus(string newStatus, string columnName)
-        {
-            var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
-                "Confirm Status Change", MessageBoxButtons.YesNo);
-
-            if (response == DialogResult.Yes)
-            {
-                try
-                {
-                    // Update the relevant fields in the first DataRow
-                    DataRow row = dtRecipe.Rows[0];
-                    row[columnName] = DateTime.Now; // Set the date column
-                    row["RecipeStatus"] = newStatus; // Set the new status
-
-                    Recipe.Save(dtRecipe); // Save changes to the database
-
-                    MessageBox.Show("Status updated successfully.");
-                    LoadForm(recipeID);    // Refresh data and form bindings
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error changing status: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }*/
         private void ChangeRecipeStatus(string newStatus, string columnName)
         {
             var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
