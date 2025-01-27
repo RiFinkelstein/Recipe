@@ -18,6 +18,7 @@ BEGIN
         VALUES (@CuisineID, @UsersID, @RecipeName,isnull(@DraftedDate, GETDATE()), @PublishedDate, @ArchivedDate, @Calories);
         SELECT @RecipeID = SCOPE_IDENTITY();
     END
+    
     ELSE
     BEGIN
         UPDATE recipe
@@ -25,9 +26,9 @@ BEGIN
             CuisineID = @CuisineID,
             UsersID = @UsersID,
             RecipeName = @RecipeName,
-            DraftedDate= isnull(@DraftedDate, DraftedDate),
-            PublishedDate= ISNULL(@Publisheddate, PublishedDate),
-            ArchivedDate= ISNULL(@Archiveddate, ArchivedDate),
+            DraftedDate = nullif(@DraftedDate, ''),
+            PublishedDate = nullif(@PublishedDate, ''),
+            ArchivedDate = nullif(@ArchivedDate, ''),
             Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END

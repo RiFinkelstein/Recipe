@@ -103,7 +103,7 @@ namespace RecipeWinForms
                 btnArchive.Enabled = true;
             }
         }
-
+        /*
         private void ChangeRecipeStatus(string newStatus, string columnName)
         {
             var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
@@ -129,7 +129,73 @@ namespace RecipeWinForms
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }*/
+        private void ChangeRecipeStatus(string newStatus, string columnName)
+        {
+            var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
+                "Confirm Status Change", MessageBoxButtons.YesNo);
+
+            if (response == DialogResult.Yes)
+            {
+                try
+                {
+                    // Update the relevant fields in the first DataRow
+                    DataRow row = dtRecipe.Rows[0];
+
+                    // Handle Published to Archived transition properly to maintain constraints
+                    if (newStatus == "Published")
+                    {
+                        // Set the PublishedDate and clear ArchivedDate
+                        row["PublishedDate"] = DateTime.Now;
+                        row["ArchivedDate"] = DBNull.Value;
+                    }
+                    else if (newStatus == "Archived")
+                    {
+                        // Set ArchivedDate only if PublishedDate is valid
+                        if (row["PublishedDate"] != DBNull.Value)
+                        {
+                            DateTime publishedDate = (DateTime)row["PublishedDate"];
+                            if (publishedDate > DateTime.Now)
+                            {
+                                MessageBox.Show("Published date cannot be after the Archived date.", "Invalid Operation",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            row["ArchivedDate"] = DateTime.Now;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cannot archive a recipe without a Published date.", "Invalid Operation",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        row["PublishedDate"] = DBNull.Value; // Clear PublishedDate
+                    }
+                    else
+                    {
+                        // Reset DraftedDate and clear PublishedDate and ArchivedDate
+                        row["DraftedDate"] = DateTime.Now;
+                        row["PublishedDate"] = DBNull.Value;
+                        row["ArchivedDate"] = DBNull.Value;
+                    }
+
+                    // Set Recipe Status
+                    row["RecipeStatus"] = newStatus;
+
+                    // Save changes to the database
+                    Recipe.Save(dtRecipe);
+
+                    MessageBox.Show("Status updated successfully.");
+                    LoadForm(recipeID); // Refresh data and form bindings
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error changing status: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
+
 
         private void BtnDraft_Click(object? sender, EventArgs e)
         {
