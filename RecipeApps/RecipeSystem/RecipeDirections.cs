@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RecipeSystem
 {
-    public class RecipeSteps
+    public class RecipeDirections
     {
         public static DataTable LoadByRecipeID(int recipeID)
         {
@@ -20,24 +20,15 @@ namespace RecipeSystem
             return dt;
         }
 
-        public static void SaveSteps(DataTable dtrecipe, int directionsID)
-        {
-            if (dtrecipe.Rows.Count == 0)
-            {
-                throw new Exception("cannot call RecipeStepsUpdate method becasue there are no rows in the table");
-            }
-            foreach (DataRow r in dtrecipe.Rows)
-            {
-                if(r.RowState== DataRowState.Added || r.RowState== DataRowState.Modified)
-                {
-                    SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsUpdate");
-                    cmd.Parameters["@directionsID"].Value = directionsID;
-                    SQLUtility.ExecuteSQL(cmd);
-                    //SQLUtility.SaveDataRow(r, "RecipeStepsUpdate");
 
-                }
+        public static void SaveTable(DataTable dt, int recipeID)
+        {
+            foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
+            {
+                dt.Columns["recipeID"].ReadOnly = false;
+                r["recipeID"] = recipeID;
             }
-            //DataRow r = dtrecipe.Rows[0];
+            SQLUtility.SaveDataTable(dt, "RecipeStepsUpdate");
         }
         public static void Delete(int RecipeStepsID)
         {

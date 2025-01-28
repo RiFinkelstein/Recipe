@@ -20,7 +20,7 @@ namespace RecipeWinForms
         DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
         DataTable dtrecipeingredient = new DataTable();
-        DataTable dtrecipesteps = new DataTable();
+        DataTable dtrecipedirections = new DataTable();
 
         string Deletecolname = "deletecol";
         int recipeID = 0;
@@ -34,7 +34,7 @@ namespace RecipeWinForms
             btnChangeStatusRecipe.Click += BtnChangeStatusRecipe_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
-            btnSaveSteps.Click += BtnSaveSteps_Click;
+            btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
             foreach(Control c in tblMain.Controls)
@@ -44,8 +44,6 @@ namespace RecipeWinForms
 
 
         }
-
-
 
         public void LoadForm(int recipeidval)
         {
@@ -121,13 +119,13 @@ namespace RecipeWinForms
         private void LoadRecipeSteps()
         {
 
-            dtrecipesteps = RecipeSteps.LoadByRecipeID(recipeID);
-            gSteps.DataSource = dtrecipesteps;
-            if (!dtrecipesteps.Columns.Contains("directionsID"))
+            dtrecipedirections = RecipeDirections.LoadByRecipeID(recipeID);
+            gSteps.DataSource = dtrecipedirections;
+            if (!dtrecipedirections.Columns.Contains("directionsID"))
             {
-                dtrecipesteps.Columns.Add("directionsID", typeof(int));
+                dtrecipedirections.Columns.Add("directionsID", typeof(int));
             }
-            dtrecipesteps.Columns["directionsID"].ReadOnly = false;
+            dtrecipedirections.Columns["directionsID"].ReadOnly = false;
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
@@ -228,12 +226,12 @@ namespace RecipeWinForms
                 if (id > 0)
                 {
                     // Delete from database
-                    RecipeSteps.Delete(id);
+                    RecipeDirections.Delete(id);
                 }
 
                 // Remove the row from the DataTable
-                DataRow row = dtrecipesteps.Rows[rowIndex];
-                dtrecipesteps.Rows.Remove(row);
+                DataRow row = dtrecipedirections.Rows[rowIndex];
+                dtrecipedirections.Rows.Remove(row);
 
             }
             catch (Exception ex)
@@ -242,19 +240,19 @@ namespace RecipeWinForms
             }
         }
 
-        private void SaveRecipeStep()
+        private void SaveRecipeDirections()
         {
             try
             {
-                dtRecipe.Columns["RecipeID"].ReadOnly = false;
-                RecipeSteps.SaveSteps(dtrecipesteps, directionID);
+                RecipeDirections.SaveTable(dtrecipedirections, recipeID);
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
-        }
 
+        }
 
         private void SaveRecipeIngredient()
         {
@@ -325,12 +323,10 @@ namespace RecipeWinForms
             }
         }
 
-
-        private void BtnSaveSteps_Click(object? sender, EventArgs e)
+        private void BtnSaveRecipeDirections_Click(object? sender, EventArgs e)
         {
-            SaveRecipeStep();
+            SaveRecipeDirections();
         }
-
 
         private void BtnSaveIngredients_Click(object? sender, EventArgs e)
         {

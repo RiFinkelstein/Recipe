@@ -51,7 +51,7 @@
             gIngredients = new DataGridView();
             tbSteps = new TabPage();
             tblSteps = new TableLayoutPanel();
-            btnSaveSteps = new Button();
+            btnSaveRecipeDirections = new Button();
             gSteps = new DataGridView();
             tblRecipeButtons = new TableLayoutPanel();
             btnSaveRecipe = new Button();
@@ -329,7 +329,7 @@
             // 
             tblSteps.ColumnCount = 1;
             tblSteps.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tblSteps.Controls.Add(btnSaveSteps, 0, 0);
+            tblSteps.Controls.Add(btnSaveRecipeDirections, 0, 0);
             tblSteps.Controls.Add(gSteps, 0, 1);
             tblSteps.Dock = DockStyle.Fill;
             tblSteps.Location = new Point(3, 3);
@@ -340,15 +340,15 @@
             tblSteps.Size = new Size(910, 276);
             tblSteps.TabIndex = 0;
             // 
-            // btnSaveSteps
+            // btnSaveRecipeDirections
             // 
-            btnSaveSteps.Location = new Point(10, 10);
-            btnSaveSteps.Margin = new Padding(10);
-            btnSaveSteps.Name = "btnSaveSteps";
-            btnSaveSteps.Size = new Size(94, 29);
-            btnSaveSteps.TabIndex = 0;
-            btnSaveSteps.Text = "Save";
-            btnSaveSteps.UseVisualStyleBackColor = true;
+            btnSaveRecipeDirections.Location = new Point(10, 10);
+            btnSaveRecipeDirections.Margin = new Padding(10);
+            btnSaveRecipeDirections.Name = "btnSaveRecipeDirections";
+            btnSaveRecipeDirections.Size = new Size(94, 29);
+            btnSaveRecipeDirections.TabIndex = 0;
+            btnSaveRecipeDirections.Text = "Save";
+            btnSaveRecipeDirections.UseVisualStyleBackColor = true;
             // 
             // gSteps
             // 
@@ -488,7 +488,7 @@
         private Button btnSaveIngredients;
         private DataGridView gIngredients;
         private TableLayoutPanel tblSteps;
-        private Button btnSaveSteps;
+        private Button btnSaveRecipeDirections;
         private DataGridView gSteps;
         private TableLayoutPanel tblRecipeButtons;
         private Button btnSaveRecipe;
