@@ -23,8 +23,8 @@ namespace RecipeWinForms
         DataTable dtrecipedirections = new DataTable();
 
         string Deletecolname = "deletecol";
-        int recipeID = 0;
-        int directionID = 0;
+        int RecipeID = 0;
+        int DirectionsID = 0;
 
         public frmRecipe()
         {
@@ -45,13 +45,13 @@ namespace RecipeWinForms
 
         }
 
-        public void LoadForm(int recipeidval)
+        public void LoadForm(int RecipeIDval)
         {
-            recipeID = recipeidval;
-            this.Tag = recipeID;
-            dtRecipe = Recipe.Load(recipeID);
+            RecipeID = RecipeIDval;
+            this.Tag = RecipeID;
+            dtRecipe = Recipe.Load(RecipeID);
             bindsource.DataSource = dtRecipe;
-            if (recipeID == 0)
+            if (RecipeID == 0)
             {
                 DataRow newRow = dtRecipe.NewRow();
                 newRow["drafteddate"] = DateTime.Now;
@@ -92,7 +92,7 @@ namespace RecipeWinForms
         {
             gIngredients.Columns.Clear();
             // Load ingredients for the recipe
-            dtrecipeingredient = RecipeIngredient.LoadByRecipeID(recipeID);
+            dtrecipeingredient = RecipeIngredient.LoadByRecipeID(RecipeID);
             gIngredients.DataSource = dtrecipeingredient;
             // Load ingredient data and add combo box
             if (dtrecipeingredient.Columns.Contains("ingredientname"))
@@ -119,7 +119,7 @@ namespace RecipeWinForms
         private void LoadRecipeSteps()
         {
 
-            dtrecipedirections = RecipeDirections.LoadByRecipeID(recipeID);
+            dtrecipedirections = RecipeDirections.LoadByRecipeID(RecipeID);
             gSteps.DataSource = dtrecipedirections;
             if (!dtrecipedirections.Columns.Contains("directionsID"))
             {
@@ -136,7 +136,7 @@ namespace RecipeWinForms
 
             string recipeName = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
             frmChangeRecipeStatus changeRecipeStatus = new frmChangeRecipeStatus();
-            changeRecipeStatus.LoadForm(recipeID);
+            changeRecipeStatus.LoadForm(RecipeID);
             changeRecipeStatus.MdiParent = this.MdiParent;
             changeRecipeStatus.Show();            
         }
@@ -151,8 +151,8 @@ namespace RecipeWinForms
                 Recipe.Save(dtRecipe);
                 b = true;
                 bindsource.ResetBindings(false);
-                recipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "recipeid");
-                this.Tag = recipeID;
+                RecipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
+                this.Tag = RecipeID;
                 SetButtonsEnabledBasedOnNewRecord();
             }
             catch (Exception ex)
@@ -244,7 +244,7 @@ namespace RecipeWinForms
         {
             try
             {
-                RecipeDirections.SaveTable(dtrecipedirections, recipeID);
+                RecipeDirections.SaveTable(dtrecipedirections, RecipeID);
             }
 
             catch (Exception ex)
@@ -258,7 +258,7 @@ namespace RecipeWinForms
         {
             try
             {
-                RecipeIngredient.SaveTable(dtrecipeingredient, recipeID);
+                RecipeIngredient.SaveTable(dtrecipeingredient, RecipeID);
             }
             catch(Exception ex)
             {
@@ -268,7 +268,7 @@ namespace RecipeWinForms
 
         private void SetButtonsEnabledBasedOnNewRecord()
         {
-            bool b = recipeID == 0 ? false : true;
+            bool b = RecipeID == 0 ? false : true;
             btnDelete.Enabled = b;
             btnSaveIngredients.Enabled = b;
         }
@@ -276,7 +276,7 @@ namespace RecipeWinForms
         private string GetRecipeDescription()
         {
             string value = "New Recipe";
-            int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "recipeID");
+            int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
             if (pkvalue > 0)
             {
                 value = "Recipe" +  " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");

@@ -25,15 +25,15 @@ namespace RecipeSystem
         {
             foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
             {
-                dt.Columns["recipeID"].ReadOnly = false;
-                r["recipeID"] = recipeID;
+                dt.Columns["RecipeID"].ReadOnly = false;
+                r["RecipeID"] = recipeID;
             }
             SQLUtility.SaveDataTable(dt, "RecipeStepsUpdate");
         }
         public static void Delete(int RecipeStepsID)
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsDelete");
-            cmd.Parameters["@directionsID"].Value = RecipeStepsID;
+            cmd.Parameters["@DirectionsID"].Value = RecipeStepsID;
             SQLUtility.ExecuteSQL(cmd);
         }
     }
