@@ -28,12 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmAutoCreateCookbook";
+            tblMain = new TableLayoutPanel();
+            lstUsersName = new ComboBox();
+            btnCreateCookbook = new Button();
+            tblMain.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tblMain
+            // 
+            tblMain.ColumnCount = 2;
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMain.Controls.Add(lstUsersName, 0, 0);
+            tblMain.Controls.Add(btnCreateCookbook, 1, 0);
+            tblMain.Dock = DockStyle.Fill;
+            tblMain.Location = new Point(0, 0);
+            tblMain.Name = "tblMain";
+            tblMain.RowCount = 1;
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tblMain.Size = new Size(402, 43);
+            tblMain.TabIndex = 0;
+            // 
+            // lstUsersName
+            // 
+            lstUsersName.Dock = DockStyle.Fill;
+            lstUsersName.FormattingEnabled = true;
+            lstUsersName.Location = new Point(3, 3);
+            lstUsersName.Name = "lstUsersName";
+            lstUsersName.Size = new Size(195, 28);
+            lstUsersName.TabIndex = 0;
+            // 
+            // btnCreateCookbook
+            // 
+            btnCreateCookbook.AutoSize = true;
+            btnCreateCookbook.Dock = DockStyle.Fill;
+            btnCreateCookbook.Location = new Point(204, 3);
+            btnCreateCookbook.Name = "btnCreateCookbook";
+            btnCreateCookbook.Size = new Size(195, 37);
+            btnCreateCookbook.TabIndex = 1;
+            btnCreateCookbook.Text = "Create Cookbook";
+            btnCreateCookbook.TextAlign = ContentAlignment.BottomLeft;
+            btnCreateCookbook.UseVisualStyleBackColor = true;
+            // 
+            // frmAutoCreateCookbook
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(402, 43);
+            Controls.Add(tblMain);
+            Name = "frmAutoCreateCookbook";
+            Text = "Auto-Create a Cookbook";
+            tblMain.ResumeLayout(false);
+            tblMain.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private TableLayoutPanel tblMain;
+        private ComboBox lstUsersName;
+        private Button btnCreateCookbook;
     }
 }
