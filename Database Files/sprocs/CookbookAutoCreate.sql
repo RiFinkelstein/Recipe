@@ -1,11 +1,11 @@
 CREATE OR ALTER PROCEDURE dbo.CookbookAutoCreate(
     @UsersID INT,
-    @CookbookName VARCHAR(100) NULL,
-    @RecipeCount INT null,
-    @Price DECIMAL(10,2) null,
     @CookbookID INT output)
 AS
-BEGIN   
+BEGIN
+    Declare @CookbookName VARCHAR(100) NULL
+    Declare @RecipeCount INT null
+    Declare @Price DECIMAL(10,2) null   
     -- Get user full name
     SELECT @CookbookName = 'Recipes by ' + U.UsersFirstName + ' ' + U.UsersLastName
     FROM Users U
