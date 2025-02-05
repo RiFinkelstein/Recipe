@@ -1,5 +1,5 @@
 create or alter procedure dbo.RecipeStepsDelete(
-	@directionsID int = 0,
+	@DirectionsID int = 0,
 	@Message varchar(500) = ''  output
 )
 as

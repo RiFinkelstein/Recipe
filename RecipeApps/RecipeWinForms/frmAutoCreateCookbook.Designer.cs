@@ -62,13 +62,11 @@
             // btnCreateCookbook
             // 
             btnCreateCookbook.AutoSize = true;
-            btnCreateCookbook.Dock = DockStyle.Fill;
             btnCreateCookbook.Location = new Point(204, 3);
             btnCreateCookbook.Name = "btnCreateCookbook";
             btnCreateCookbook.Size = new Size(195, 37);
             btnCreateCookbook.TabIndex = 1;
             btnCreateCookbook.Text = "Create Cookbook";
-            btnCreateCookbook.TextAlign = ContentAlignment.BottomLeft;
             btnCreateCookbook.UseVisualStyleBackColor = true;
             // 
             // frmAutoCreateCookbook

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CPUWindowsFormFramework;
+using RecipeSystem;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,23 @@ namespace RecipeWinForms
         public frmAutoCreateCookbook()
         {
             InitializeComponent();
+            btnCreateCookbook.Click += BtnCreateCookbook_Click;
+            this.Activated += FrmAutoCreateCookbook_Activated;
+        }
+
+        private void FrmAutoCreateCookbook_Activated(object? sender, EventArgs e)
+        {
+            BindData();
+        }
+
+        private void BindData()
+        {
+            DataTable dtUsers = Recipe.GetUserList();
+            WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtUsers, "users");
+        }
+
+        private void BtnCreateCookbook_Click(object? sender, EventArgs e)
+        {
         }
     }
 }
