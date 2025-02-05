@@ -18,7 +18,7 @@ namespace RecipeWinForms
     {
         BindingSource bindsource = new BindingSource();
 
-        int recipeID = 0;
+        int RecipeID = 0;
 
         public frmCloneRecipe()
         {
@@ -55,10 +55,10 @@ namespace RecipeWinForms
                 }
 
                 // Get the selected RecipeID
-                recipeID = (int)lstRecipename.SelectedValue;
+                RecipeID = (int)lstRecipename.SelectedValue;
 
                 // Clone the recipe and get the new RecipeID
-                int clonedRecipeID= Recipe.CloneRecipe(recipeID);
+                int clonedRecipeID= Recipe.CloneRecipe(RecipeID);
 
                 frmMain? mdiParent = this.MdiParent as frmMain;
                 if (mdiParent != null)

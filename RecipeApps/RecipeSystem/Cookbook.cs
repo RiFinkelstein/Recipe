@@ -52,6 +52,30 @@ namespace RecipeSystem
             SQLUtility.SaveDataRow(r, "CookbookUpdate");
         }
 
+        public static int AutoCreateCookbook(int UsersID)
+        {
+            SqlCommand cmd = SQLUtility.GetSqlcommand("CookbookAutoCreate");
+            SQLUtility.SetParamValue(cmd, "@UsersID", UsersID);
 
+            // Set up only the needed output parameter
+            if (cmd.Parameters.Contains("@CookbookID"))
+            {
+                cmd.Parameters["@CookbookID"].Direction = ParameterDirection.Output;
+            }
+            else
+            {
+                SqlParameter outputParam = new SqlParameter("@CookbookID", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outputParam);
+
+            }
+            // Execute the stored procedure
+            SQLUtility.ExecuteSQL(cmd);
+
+            // Return the generated CookbookID
+            return (int)cmd.Parameters["@CookbookID"].Value;
+        }
     }
 }
