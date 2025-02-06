@@ -1,4 +1,4 @@
-create or alter PROCEDURE RecipeStepsGet(
+create or alter PROCEDURE RecipeDirectionsGet(
     @DirectionsID int =0,
     @RecipeID int=0, 
     @All bit =0, 

@@ -83,7 +83,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
             LoadRecipeIngredient();
-            LoadRecipeSteps();
+            LoadRecipeDirections();
 
          }
 
@@ -116,7 +116,7 @@ namespace RecipeWinForms
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
         }
 
-        private void LoadRecipeSteps()
+        private void LoadRecipeDirections()
         {
 
 
@@ -130,7 +130,7 @@ namespace RecipeWinForms
             dtrecipedirections.Columns["DirectionsID"].ReadOnly = false;
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
-            WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
+            WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
         }
 
         private void ChangeStatus()
@@ -219,7 +219,7 @@ namespace RecipeWinForms
             }
         }
 
-        private void DeleteRecipeSteps(int rowIndex)
+        private void DeleteRecipeDirections(int rowIndex)
         {
             try
             {
@@ -314,7 +314,7 @@ namespace RecipeWinForms
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
-                DeleteRecipeSteps(e.RowIndex);
+                DeleteRecipeDirections(e.RowIndex);
             }
         }
 

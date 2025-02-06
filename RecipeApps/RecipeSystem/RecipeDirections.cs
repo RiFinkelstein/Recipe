@@ -15,7 +15,7 @@ namespace RecipeSystem
         public static DataTable LoadByRecipeID(int RecipeID)
         {
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsGet");
+            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeDirectionsGet");
             cmd.Parameters["@RecipeID"].Value = RecipeID;
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
@@ -36,14 +36,14 @@ namespace RecipeSystem
                 Debug.Print($"DirectionsID: {row["DirectionsID"]}, RecipeID: {row["RecipeID"]}, StepNumber: {row["StepNumber"]}, Direction: {row["Direction"]}");
             }
 
-            SQLUtility.SaveDataTable(dt, "RecipeStepsUpdate");
+            SQLUtility.SaveDataTable(dt, "RecipeDirectionsUpdate");
             Debug.Print("SaveTable called");
 
         }
-        public static void Delete(int RecipeStepsID)
+        public static void Delete(int DirectionsID)
         {
-            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeStepsDelete");
-            cmd.Parameters["@DirectionsID"].Value = RecipeStepsID;
+            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeDirectionsDelete");
+            cmd.Parameters["@DirectionsID"].Value = DirectionsID;
             SQLUtility.ExecuteSQL(cmd);
         }
     }
