@@ -119,13 +119,15 @@ namespace RecipeWinForms
         private void LoadRecipeSteps()
         {
 
+
             dtrecipedirections = RecipeDirections.LoadByRecipeID(RecipeID);
+            gSteps.DataSource = null;
             gSteps.DataSource = dtrecipedirections;
-            if (!dtrecipedirections.Columns.Contains("directionsID"))
+            if (!dtrecipedirections.Columns.Contains("DirectionsID"))
             {
-                dtrecipedirections.Columns.Add("directionsID", typeof(int));
+                dtrecipedirections.Columns.Add("DirectionsID", typeof(int));
             }
-            dtrecipedirections.Columns["directionsID"].ReadOnly = false;
+            dtrecipedirections.Columns["DirectionsID"].ReadOnly = false;
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "recipesteps");
@@ -245,8 +247,9 @@ namespace RecipeWinForms
             try
             {
                 RecipeDirections.SaveTable(dtrecipedirections, RecipeID);
-            }
+                Debug.Print("saverecipedirections called");
 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);

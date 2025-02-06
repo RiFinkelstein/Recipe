@@ -7,11 +7,10 @@ CREATE OR ALTER PROCEDURE dbo.RecipeStepsUpdate(
 AS
 BEGIN
     DECLARE @Return int = 0;
-
     if @DirectionsID = 0 
     begin 
     insert into Directions (RecipeID, Direction, StepNumber)
-    VALUEs (@RecipeID, @Direction, @StepNumber);
+    VALUES (@RecipeID, @Direction, @StepNumber);
     SELECT @DirectionsID= SCOPE_IDENTITY();
 end 
     ELSE
