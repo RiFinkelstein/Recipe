@@ -17,28 +17,22 @@ namespace RecipeSystem
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeDirectionsGet");
             cmd.Parameters["@RecipeID"].Value = RecipeID;
+            
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
 
-        public static void SaveTable(DataTable dt, int recipeID)
+        public static void Save(DataTable dtRecipeDirections, int recipeID)
         {
-            dt.Columns["RecipeID"].ReadOnly = false;
-            //dt.Columns["DirectionsID"].ReadOnly = false;
-            foreach (DataRow r in dt.Select("", "", DataViewRowState.Added))
+            if (dtRecipeDirections.Rows.Count == 0)
             {
+                throw new Exception("cannot call recipe save method becasue there are no rows in the table");
+            }
+            foreach (DataRow r in dtRecipeDirections.Rows)
+           {
+                SQLUtility.SaveDataRow(r, "RecipeDirectionsUpdate");
                 r["recipeID"] = recipeID;
             }
-
-            Debug.Print($"Saving {dt.Rows.Count} rows for RecipeID {recipeID}");
-            foreach (DataRow row in dt.Rows)
-            {
-                Debug.Print($"DirectionsID: {row["DirectionsID"]}, RecipeID: {row["RecipeID"]}, StepNumber: {row["StepNumber"]}, Direction: {row["Direction"]}");
-            }
-
-            SQLUtility.SaveDataTable(dt, "RecipeDirectionsUpdate");
-            Debug.Print("SaveTable called");
-
         }
         public static void Delete(int DirectionsID)
         {

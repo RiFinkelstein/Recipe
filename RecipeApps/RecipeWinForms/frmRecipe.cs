@@ -43,6 +43,7 @@ namespace RecipeWinForms
             }
 
 
+
         }
 
         public void LoadForm(int RecipeIDval)
@@ -121,6 +122,10 @@ namespace RecipeWinForms
 
 
             dtrecipedirections = RecipeDirections.LoadByRecipeID(RecipeID);
+            if (!dtrecipedirections.Columns.Contains("RecipeID"))
+            {
+                dtrecipedirections.Columns["RecipeID"].ReadOnly = false;
+            }
             gSteps.DataSource = null;
             gSteps.DataSource = dtrecipedirections;
             if (!dtrecipedirections.Columns.Contains("DirectionsID"))
@@ -128,6 +133,8 @@ namespace RecipeWinForms
                 dtrecipedirections.Columns.Add("DirectionsID", typeof(int));
             }
             dtrecipedirections.Columns["DirectionsID"].ReadOnly = false;
+
+
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
@@ -242,19 +249,29 @@ namespace RecipeWinForms
             }
         }
 
-        private void SaveRecipeDirections()
+
+        private bool SaveRecipeDirections()
         {
+            bool b = false;
+            Application.UseWaitCursor = true;
             try
             {
-                RecipeDirections.SaveTable(dtrecipedirections, RecipeID);
-                Debug.Print("saverecipedirections called");
+                RecipeDirections.Save(dtrecipedirections, RecipeID);
+                b = true;
+                bindsource.ResetBindings(false);
+                RecipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
+                this.Tag = RecipeID;
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
-
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
+            return b;
         }
 
         private void SaveRecipeIngredient()
