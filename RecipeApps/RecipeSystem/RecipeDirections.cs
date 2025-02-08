@@ -22,7 +22,7 @@ namespace RecipeSystem
             return dt;
         }
 
-        public static void Save(DataTable dtRecipeDirections, int recipeID)
+        public static void Save(DataTable dtRecipeDirections, int RecipeID)
         {
             if (dtRecipeDirections.Rows.Count == 0)
             {
@@ -30,8 +30,8 @@ namespace RecipeSystem
             }
             foreach (DataRow r in dtRecipeDirections.Rows)
            {
+                r["RecipeID"] = RecipeID;
                 SQLUtility.SaveDataRow(r, "RecipeDirectionsUpdate");
-                r["recipeID"] = recipeID;
             }
         }
         public static void Delete(int DirectionsID)
