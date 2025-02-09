@@ -250,28 +250,16 @@ namespace RecipeWinForms
         }
 
 
-        private bool SaveRecipeDirections()
+        private void SaveRecipeDirections()
         {
-            bool b = false;
-            Application.UseWaitCursor = true;
             try
             {
-                RecipeDirections.Save(dtrecipedirections, RecipeID);
-                b = true;
-                bindsource.ResetBindings(false);
-                RecipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
-                this.Tag = RecipeID;
-
+                RecipeDirections.SaveTable(dtrecipedirections, RecipeID);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
-            finally
-            {
-                Application.UseWaitCursor = false;
-            }
-            return b;
         }
 
         private void SaveRecipeIngredient()
