@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.RecipeStepsUpdate(
+CREATE OR ALTER PROCEDURE dbo.RecipeDirectionsUpdate(
     @DirectionsID INT OUTPUT ,
     @RecipeID  INT,
     @Direction VARCHAR(1000) = null,

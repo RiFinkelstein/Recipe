@@ -87,17 +87,17 @@ CREATE TABLE dbo.RecipeIngredient(
     MeasurementID int null CONSTRAINT f_Measurement_Recipeingredient REFERENCES Measurement(MeasurementID),
     Amount decimal(5,2) not null constraint ck_Amount_not_less_than_0 CHECK(Amount>=0), 
     SequenceNumber int not null constraint ck_SequenceNumber_not_less_than_0 CHECK(SequenceNumber>0),
-    CONSTRAINT u_recipeID_ingredientID UNIQUE(recipeID, ingredientID),
-    CONSTRAINT u_sequence#_RecipeID UNIQUE(SequenceNumber, recipeID)
+    CONSTRAINT u_RecipeID_ingredientID UNIQUE(RecipeID, ingredientID),
+    CONSTRAINT u_sequence#_RecipeID UNIQUE(SequenceNumber, RecipeID)
 )
 go 
 
 CREATE table dbo.Directions(
     directionsID int not null Identity Primary Key, 
-    RecipeID int not null CONSTRAINT f_recipe_Directions REFERENCES Recipe(recipeID),
+    RecipeID int not null CONSTRAINT f_recipe_Directions REFERENCES Recipe(RecipeID),
     Direction varchar(1000) not null CONSTRAINT ck_Direction_Direction_is_not_blank check(Direction <> ''), 
     StepNumber int not null constraint ck_Driections_Step_number_is_not_less_than_0 CHECK (stepNumber> 0),
-    CONSTRAINT u_Step#_RecipeID UNIQUE(stepNumber, recipeID)
+    CONSTRAINT u_Step#_RecipeID UNIQUE(stepNumber, RecipeID)
 )
 go 
 
@@ -141,9 +141,9 @@ go
 CREATE table dbo.CourseMealRecipe(
     CourseMealRecipeID int not null Identity PRIMARY key, 
     CourseMealID int not null constraint f_Coursemeal_CourseMealRecipe REFERENCES CourseMeal(CourseMealID),
-    RecipeID int not null CONSTRAINT f_recipe_CourseMealRecipe REFERENCES recipe(recipeID),
+    RecipeID int not null CONSTRAINT f_recipe_CourseMealRecipe REFERENCES recipe(RecipeID),
     MaidDish bit not null, 
-    CONSTRAINT u_courseID_MealID_RecipeID UNIQUE(CourseMealID, recipeID)
+    CONSTRAINT u_courseID_MealID_RecipeID UNIQUE(CourseMealID, RecipeID)
 )
 go 
 
@@ -165,9 +165,9 @@ GO
 CREATE table dbo.CookbookRecipe(
     CookbookRecipeID int not null Identity PRIMARY key, 
     cookbookID int not null CONSTRAINT f_cookbook_CookbookRecipe REFERENCES cookbook(cookbookID),
-    RecipeID int not null CONSTRAINT f_recipe_CookbookRecipe REFERENCES recipe(recipeID),
+    RecipeID int not null CONSTRAINT f_recipe_CookbookRecipe REFERENCES recipe(RecipeID),
     CookBookSequenceNumber int not null constraint ck_CookbookRecipe_SequenceNumber_not_less_than_0 check(CookBookSequenceNumber>0 ), 
-    CONSTRAINT u_cookbookID_recipeID UNIQUE(cookbookID, recipeID), 
+    CONSTRAINT u_cookbookID_RecipeID UNIQUE(cookbookID, RecipeID), 
     CONSTRAINT u_cookbookID_sequencenumber UNIQUE(cookbookID, CookBookSequenceNumber)
 
 )
