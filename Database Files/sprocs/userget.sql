@@ -1,4 +1,4 @@
-create or alter procedure dbo.UserGet (
+create or alter procedure dbo.UsersGet (
 	@UsersID int = 0, 
 	@All bit= 0, 
 	@LastName varchar(35)='')

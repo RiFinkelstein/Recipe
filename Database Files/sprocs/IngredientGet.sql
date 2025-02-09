@@ -1,4 +1,4 @@
-create or alter procedure dbo.IngredientGet(
+create or alter procedure dbo.IngredientsGet(
 	@IngredientID int = 0,
 	@All bit = 0,
 	@Message varchar(500) = ''  output

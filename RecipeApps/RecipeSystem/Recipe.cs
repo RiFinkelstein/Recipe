@@ -35,9 +35,8 @@ namespace RecipeSystem
         
         public static DataTable GetUserList()
         {
-
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSqlcommand("userget");
+            SqlCommand cmd = SQLUtility.GetSqlcommand("usersget");
             SQLUtility.SetParamValue(cmd, "@all", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;

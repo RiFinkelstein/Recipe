@@ -48,10 +48,20 @@ namespace RecipeWinForms
 
         private void C_Click(object? sender, EventArgs e)
         {
+            if (sender is Control && ((Control)sender).Tag is TableTypeEnum)
+            {
+                BindData((TableTypeEnum)((Control)sender).Tag);
+            }
         }
 
         private void BindData(TableTypeEnum tabletype)
         {
+            currenttabletype = tabletype;
+            dtlist = Data_Maintenance.GetDataList(currenttabletype.ToString());
+            gData.Columns.Clear();
+            gData.DataSource = dtlist;
+            WindowsFormUtility.AddDeleteButtonToGrid(gData, deletecolname);
+            WindowsFormUtility.FormatGridforEdit(gData, currenttabletype.ToString());
 
         }
 
