@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             tblMain = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tblOptionButtons = new TableLayoutPanel();
             optUsers = new RadioButton();
             optCuisines = new RadioButton();
             optIngredients = new RadioButton();
@@ -38,7 +38,7 @@
             gData = new DataGridView();
             btnSave = new Button();
             tblMain.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
+            tblOptionButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gData).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +47,7 @@
             tblMain.ColumnCount = 2;
             tblMain.ColumnStyles.Add(new ColumnStyle());
             tblMain.ColumnStyles.Add(new ColumnStyle());
-            tblMain.Controls.Add(tableLayoutPanel1, 0, 0);
+            tblMain.Controls.Add(tblOptionButtons, 0, 0);
             tblMain.Controls.Add(gData, 1, 0);
             tblMain.Controls.Add(btnSave, 1, 1);
             tblMain.Dock = DockStyle.Fill;
@@ -59,27 +59,27 @@
             tblMain.Size = new Size(800, 450);
             tblMain.TabIndex = 0;
             // 
-            // tableLayoutPanel1
+            // tblOptionButtons
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(optUsers, 0, 0);
-            tableLayoutPanel1.Controls.Add(optCuisines, 0, 1);
-            tableLayoutPanel1.Controls.Add(optIngredients, 0, 2);
-            tableLayoutPanel1.Controls.Add(optMeasurements, 0, 3);
-            tableLayoutPanel1.Controls.Add(optCourses, 0, 4);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(3, 3);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
-            tblMain.SetRowSpan(tableLayoutPanel1, 2);
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(250, 444);
-            tableLayoutPanel1.TabIndex = 0;
+            tblOptionButtons.ColumnCount = 1;
+            tblOptionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblOptionButtons.Controls.Add(optUsers, 0, 0);
+            tblOptionButtons.Controls.Add(optCuisines, 0, 1);
+            tblOptionButtons.Controls.Add(optIngredients, 0, 2);
+            tblOptionButtons.Controls.Add(optMeasurements, 0, 3);
+            tblOptionButtons.Controls.Add(optCourses, 0, 4);
+            tblOptionButtons.Dock = DockStyle.Fill;
+            tblOptionButtons.Location = new Point(3, 3);
+            tblOptionButtons.Name = "tblOptionButtons";
+            tblOptionButtons.RowCount = 5;
+            tblMain.SetRowSpan(tblOptionButtons, 2);
+            tblOptionButtons.RowStyles.Add(new RowStyle());
+            tblOptionButtons.RowStyles.Add(new RowStyle());
+            tblOptionButtons.RowStyles.Add(new RowStyle());
+            tblOptionButtons.RowStyles.Add(new RowStyle());
+            tblOptionButtons.RowStyles.Add(new RowStyle());
+            tblOptionButtons.Size = new Size(250, 444);
+            tblOptionButtons.TabIndex = 0;
             // 
             // optUsers
             // 
@@ -166,8 +166,8 @@
             Name = "frmDataMaintenance";
             Text = "Data Maintenance";
             tblMain.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            tblOptionButtons.ResumeLayout(false);
+            tblOptionButtons.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gData).EndInit();
             ResumeLayout(false);
         }
@@ -175,7 +175,7 @@
         #endregion
 
         private TableLayoutPanel tblMain;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tblOptionButtons;
         private RadioButton optUsers;
         private RadioButton optCuisines;
         private RadioButton optIngredients;
