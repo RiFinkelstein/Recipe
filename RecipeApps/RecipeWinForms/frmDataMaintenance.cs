@@ -1,4 +1,5 @@
-﻿using CPUWindowsFormFramework;
+﻿using CPUFramework;
+using CPUWindowsFormFramework;
 using RecipeSystem;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,16 @@ namespace RecipeWinForms
             gData.CellContentClick += GData_CellContentClick; ;
         }
 
+        private void BindData(TableTypeEnum tabletype)
+        {
+            currenttabletype = tabletype;
+            dtlist = Data_Maintenance.GetDataList(currenttabletype.ToString());
+            gData.Columns.Clear();
+            gData.DataSource = dtlist;
+            WindowsFormUtility.AddDeleteButtonToGrid(gData, deletecolname);
+            WindowsFormUtility.FormatGridforEdit(gData, currenttabletype.ToString());
+        }
+
         private void SetupRadioButtons()
         {
 
@@ -46,6 +57,46 @@ namespace RecipeWinForms
             optCourses.Tag = TableTypeEnum.Courses;
         }
 
+        private bool Save()
+        {
+            bool b = false;
+            try
+            {
+                Data_Maintenance.SaveDataList(dtlist, currenttabletype.ToString());
+                b = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Application.ProductName);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+            return b;
+        }
+
+        private void Delete(int rowindex)
+        {
+
+            int id = WindowsFormUtility.GetIDFromGrid(gData, rowindex, currenttabletype.ToString() + "ID");
+            if (id != 0)
+            {
+                try
+                {
+                    Data_Maintenance.DeleteRow(currenttabletype.ToString(), id);
+                    BindData(currenttabletype);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName);
+                }
+            }
+            else if (id == 0 && rowindex < gData.Rows.Count)
+            {
+                gData.Rows.Remove(gData.Rows[rowindex]);
+            }
+        }
         private void C_Click(object? sender, EventArgs e)
         {
             if (sender is Control && ((Control)sender).Tag is TableTypeEnum)
@@ -54,29 +105,43 @@ namespace RecipeWinForms
             }
         }
 
-        private void BindData(TableTypeEnum tabletype)
-        {
-            currenttabletype = tabletype;
-            dtlist = Data_Maintenance.GetDataList(currenttabletype.ToString());
-            gData.Columns.Clear();
-            gData.DataSource = dtlist;
-            WindowsFormUtility.AddDeleteButtonToGrid(gData, deletecolname);
-            WindowsFormUtility.FormatGridforEdit(gData, currenttabletype.ToString());
-
-        }
 
         private void GData_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
+            if (gData.Columns[e.ColumnIndex].Name == deletecolname)
+            {
+                Delete(e.RowIndex);
+            }
         }
 
         private void FrmDataMaintenance_FormClosing(object? sender, FormClosingEventArgs e)
         {
+            if (SQLUtility.TableHasChanges(dtlist))
+            {
+                var response = MessageBox.Show($"do you want to save changes to {this.Text} before closing the form", Application.ProductName, MessageBoxButtons.YesNoCancel);
+                switch (response)
+                {
+                    case DialogResult.Yes:
+                        bool b = Save();
+                        if (b == false)
+                        {
+                            e.Cancel = true;
+                            this.Activate();
+                        }
 
+                        break;
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        this.Activate();
+                        break;
+                }
+            }
         }
 
 
         private void BtnSave_Click(object? sender, EventArgs e)
         {
+            Save();
         }
     }
 }
