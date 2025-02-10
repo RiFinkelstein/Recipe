@@ -27,7 +27,7 @@ namespace RecipeSystem
             {
                 r["recipeID"] = recipeID;
             }
-            SQLUtility.SaveDataTable(dt, "RecipeDirectionsUpdate");
+            SQLUtility.SaveDataTable(dt, "DirectionsUpdate");
         }
         public static void Delete(int DirectionsID)
         {
