@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.MeasurementUpdate(
+CREATE OR ALTER PROCEDURE dbo.MeasurementsUpdate(
     @MeasurementID INT OUTPUT,
     @MeasurementName VARCHAR(35),
     @Message VARCHAR(500) = '' OUTPUT
