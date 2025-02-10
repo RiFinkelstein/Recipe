@@ -8,8 +8,16 @@ BEGIN
    
     BEGIN TRY
         BEGIN TRAN
-       
-        -- Delete related recipes first
+        -- Delete related RECORDS first
+
+        DELETE FROM CookbookRecipe WHERE RecipeID IN (SELECT RecipeID FROM Recipe WHERE CuisineID = @CuisineID)
+
+        DELETE FROM RecipeIngredient WHERE RecipeID IN (SELECT RecipeID FROM Recipe WHERE CuisineID = @CuisineID)
+        DELETE FROM Directions WHERE RecipeID IN (SELECT RecipeID FROM Recipe WHERE CuisineID = @CuisineID)
+        
+
+        DELETE FROM CourseMealRecipe WHERE RecipeID IN (SELECT RecipeID FROM Recipe WHERE CuisineID = @CuisineID)
+
         DELETE FROM Recipe WHERE CuisineID = @CuisineID
        
         -- Delete the cuisine
