@@ -82,10 +82,13 @@ namespace RecipeWinForms
             int id = WindowsFormUtility.GetIDFromGrid(gData, rowindex, currenttabletype.ToString() + "ID");
             if (id != 0)
             {
+                string message = "Are you sure you want to delete this item?";
                 if (currenttabletype == TableTypeEnum.Users)
                 {
-                    var confirmResult = MessageBox.Show(
-                        "Are you sure you want to delete this user and all related recipes, meals, and cookbooks?",
+                    message = "Are you sure you want to delete this user and all related recipes, meals, and cookbooks?";
+                 }
+                        var confirmResult = MessageBox.Show(
+                         message, 
                         "Confirm Deletion",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Warning);
@@ -94,7 +97,7 @@ namespace RecipeWinForms
                     {
                         return; // Cancel deletion if user selects 'No'
                     }
-                }
+                
                 try
                 {
                     Data_Maintenance.DeleteRow(currenttabletype.ToString(), id);
