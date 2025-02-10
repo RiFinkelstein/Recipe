@@ -51,8 +51,8 @@ namespace RecipeWinForms
                 }
             }
             optUsers.Tag = TableTypeEnum.Users;
-            optCuisines.Tag= TableTypeEnum.Cuisine;
-            optIngredients.Tag = TableTypeEnum.Ingredients;
+            optCuisine.Tag= TableTypeEnum.Cuisine;
+            optIngredient.Tag = TableTypeEnum.Ingredients;
             optMeasurements.Tag = TableTypeEnum.Measurements;
             optCourses.Tag = TableTypeEnum.Courses;
         }

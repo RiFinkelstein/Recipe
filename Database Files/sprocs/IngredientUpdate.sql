@@ -1,4 +1,4 @@
-create or alter PROCEDURE dbo.IngredientUpdate(
+create or alter PROCEDURE dbo.IngredientsUpdate(
     @IngredientID int OUTPUT, 
     @IngredientName VARCHAR (100), 
     @Message VARCHAR(500) = '' OUTPUT

@@ -31,8 +31,8 @@
             tblMain = new TableLayoutPanel();
             tblOptionButtons = new TableLayoutPanel();
             optUsers = new RadioButton();
-            optCuisines = new RadioButton();
-            optIngredients = new RadioButton();
+            optCuisine = new RadioButton();
+            optIngredient = new RadioButton();
             optMeasurements = new RadioButton();
             optCourses = new RadioButton();
             gData = new DataGridView();
@@ -64,8 +64,8 @@
             tblOptionButtons.ColumnCount = 1;
             tblOptionButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblOptionButtons.Controls.Add(optUsers, 0, 0);
-            tblOptionButtons.Controls.Add(optCuisines, 0, 1);
-            tblOptionButtons.Controls.Add(optIngredients, 0, 2);
+            tblOptionButtons.Controls.Add(optCuisine, 0, 1);
+            tblOptionButtons.Controls.Add(optIngredient, 0, 2);
             tblOptionButtons.Controls.Add(optMeasurements, 0, 3);
             tblOptionButtons.Controls.Add(optCourses, 0, 4);
             tblOptionButtons.Dock = DockStyle.Fill;
@@ -92,27 +92,27 @@
             optUsers.Text = "Users";
             optUsers.UseVisualStyleBackColor = true;
             // 
-            // optCuisines
+            // optCuisine
             // 
-            optCuisines.AutoSize = true;
-            optCuisines.Location = new Point(3, 33);
-            optCuisines.Name = "optCuisines";
-            optCuisines.Size = new Size(77, 24);
-            optCuisines.TabIndex = 1;
-            optCuisines.TabStop = true;
-            optCuisines.Text = "Cuisine";
-            optCuisines.UseVisualStyleBackColor = true;
+            optCuisine.AutoSize = true;
+            optCuisine.Location = new Point(3, 33);
+            optCuisine.Name = "optCuisine";
+            optCuisine.Size = new Size(77, 24);
+            optCuisine.TabIndex = 1;
+            optCuisine.TabStop = true;
+            optCuisine.Text = "Cuisine";
+            optCuisine.UseVisualStyleBackColor = true;
             // 
-            // optIngredients
+            // optIngredient
             // 
-            optIngredients.AutoSize = true;
-            optIngredients.Location = new Point(3, 63);
-            optIngredients.Name = "optIngredients";
-            optIngredients.Size = new Size(104, 24);
-            optIngredients.TabIndex = 2;
-            optIngredients.TabStop = true;
-            optIngredients.Text = "Ingredients";
-            optIngredients.UseVisualStyleBackColor = true;
+            optIngredient.AutoSize = true;
+            optIngredient.Location = new Point(3, 63);
+            optIngredient.Name = "optIngredient";
+            optIngredient.Size = new Size(98, 24);
+            optIngredient.TabIndex = 2;
+            optIngredient.TabStop = true;
+            optIngredient.Text = "Ingredient";
+            optIngredient.UseVisualStyleBackColor = true;
             // 
             // optMeasurements
             // 
@@ -177,8 +177,8 @@
         private TableLayoutPanel tblMain;
         private TableLayoutPanel tblOptionButtons;
         private RadioButton optUsers;
-        private RadioButton optCuisines;
-        private RadioButton optIngredients;
+        private RadioButton optCuisine;
+        private RadioButton optIngredient;
         private RadioButton optMeasurements;
         private RadioButton optCourses;
         private DataGridView gData;
