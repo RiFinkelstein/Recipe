@@ -16,7 +16,7 @@ namespace RecipeTest
         [SetUp]
         public void Setup()
         {
-            
+
             DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
         }
 
@@ -110,7 +110,7 @@ namespace RecipeTest
             Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
             TestContext.WriteLine(ex.Message);
         }
-        
+
 
         [Test]
         public void ChangeExistingRecipeCalories()
@@ -162,7 +162,6 @@ namespace RecipeTest
             // Update the recipe name in the DataTable
             dt.Rows[0]["DraftedDate"] = NewDraftedDate;
             dt.Columns["recipeID"].ReadOnly = false;
-
             // Save the updated DataTable back to the database
             Recipe.Save(dt);
             // Retrieve the updated recipe name from the database
@@ -319,7 +318,67 @@ namespace RecipeTest
         private int getExistingRecipeID()
         {
             return SQLUtility.GetFirstColumnFirstRowValue("select top 1 recipeID from recipe");
+        }
+        [Test]
 
+        [TestCase("Users")]
+        [TestCase("Cuisine")]
+        [TestCase("Ingredient")]
+        [TestCase("Measurement")]
+        [TestCase("Course")]
+        public void LoadEntity(string entityName)
+        {
+            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
+            TestContext.WriteLine($"Existing {entityName} with ID= " + entityID);
+
+            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
+            ClassicAssert.IsTrue(dt.Rows.Count == 1, $"{entityName} with ID={entityID} could not be loaded.");
+        }
+
+        [Test]
+
+        [TestCase("Users")]
+        [TestCase("Cuisine")]
+        [TestCase("Ingredient")]
+        [TestCase("Measurement")]
+        [TestCase("Course")]
+        public void DeleteEntity(string entityName)
+        {
+            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
+            TestContext.WriteLine($"Deleting {entityName} with ID= " + entityID);
+
+            SQLUtility.ExecuteSQL($"EXEC {entityName}Delete @ID={entityID}");
+
+            int checkID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            ClassicAssert.IsTrue(checkID != entityID, $"{entityName} with ID={entityID} still exists in database.");
+        }
+
+        [Test]
+
+        [TestCase("Users")]
+        [TestCase("Cuisine")]
+        [TestCase("Ingredient")]
+        [TestCase("Measurement")]
+        [TestCase("Course")]
+        public void UpdateEntity(string entityName)
+        {
+            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
+            TestContext.WriteLine($"Updating {entityName} with ID= " + entityID);
+
+            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
+            dt.Rows[0]["Name"] = dt.Rows[0]["Name"].ToString() + " Updated";
+            SQLUtility.ExecuteSQL($"EXEC {entityName}Update @ID={entityID}, @Name='{dt.Rows[0]["Name"]}'");
+
+            DataTable updatedDt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
+            ClassicAssert.IsTrue(updatedDt.Rows[0]["Name"].ToString().EndsWith(" Updated"), "Update did not persist in database.");
         }
     }
 }
+
+
