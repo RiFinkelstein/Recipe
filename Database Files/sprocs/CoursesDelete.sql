@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.CoursesDelete(
+CREATE OR ALTER PROCEDURE dbo.CourseDelete(
     @CourseID INT,
     @Message VARCHAR(500) = '' OUTPUT
 )

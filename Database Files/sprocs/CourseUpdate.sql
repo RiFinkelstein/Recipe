@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.CoursesUpdate(
+CREATE OR ALTER PROCEDURE dbo.CourseUpdate(
     @CourseID INT OUTPUT,
     @CourseName VARCHAR(50),
     @CourseSequence INT,

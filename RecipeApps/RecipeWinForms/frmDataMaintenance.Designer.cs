@@ -34,7 +34,7 @@
             optCuisine = new RadioButton();
             optIngredient = new RadioButton();
             optMeasurements = new RadioButton();
-            optCourses = new RadioButton();
+            optCourse = new RadioButton();
             gData = new DataGridView();
             btnSave = new Button();
             tblMain.SuspendLayout();
@@ -67,7 +67,7 @@
             tblOptionButtons.Controls.Add(optCuisine, 0, 1);
             tblOptionButtons.Controls.Add(optIngredient, 0, 2);
             tblOptionButtons.Controls.Add(optMeasurements, 0, 3);
-            tblOptionButtons.Controls.Add(optCourses, 0, 4);
+            tblOptionButtons.Controls.Add(optCourse, 0, 4);
             tblOptionButtons.Dock = DockStyle.Fill;
             tblOptionButtons.Location = new Point(3, 3);
             tblOptionButtons.Name = "tblOptionButtons";
@@ -125,16 +125,16 @@
             optMeasurements.Text = "Measurements";
             optMeasurements.UseVisualStyleBackColor = true;
             // 
-            // optCourses
+            // optCourse
             // 
-            optCourses.AutoSize = true;
-            optCourses.Location = new Point(3, 123);
-            optCourses.Name = "optCourses";
-            optCourses.Size = new Size(81, 24);
-            optCourses.TabIndex = 4;
-            optCourses.TabStop = true;
-            optCourses.Text = "Courses";
-            optCourses.UseVisualStyleBackColor = true;
+            optCourse.AutoSize = true;
+            optCourse.Location = new Point(3, 123);
+            optCourse.Name = "optCourse";
+            optCourse.Size = new Size(75, 24);
+            optCourse.TabIndex = 4;
+            optCourse.TabStop = true;
+            optCourse.Text = "Course";
+            optCourse.UseVisualStyleBackColor = true;
             // 
             // gData
             // 
@@ -180,7 +180,7 @@
         private RadioButton optCuisine;
         private RadioButton optIngredient;
         private RadioButton optMeasurements;
-        private RadioButton optCourses;
+        private RadioButton optCourse;
         private DataGridView gData;
         private Button btnSave;
     }

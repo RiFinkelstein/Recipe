@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.IngredientsDelete(
+CREATE OR ALTER PROCEDURE dbo.IngredientDelete(
     @IngredientID INT,
     @Message VARCHAR(500) = '' OUTPUT
 )

@@ -1,4 +1,4 @@
-create or alter procedure dbo.CoursesGet(
+create or alter procedure dbo.CourseGet(
     @All bit = 0
 )
 as
