@@ -134,7 +134,7 @@ namespace RecipeWinForms
         {
             if (SQLUtility.TableHasChanges(dtlist))
             {
-                var response = MessageBox.Show($"do you want to save changes to {this.Text} before closing the form", Application.ProductName, MessageBoxButtons.YesNoCancel);
+                var response = MessageBox.Show($"do you want to save changes to {this.Text} before closing the form", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 switch (response)
                 {
                     case DialogResult.Yes:
@@ -144,10 +144,11 @@ namespace RecipeWinForms
                             e.Cancel = true;
                             this.Activate();
                         }
-
                         break;
                     case DialogResult.No:
-                        e.Cancel = true;
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel= true;
                         this.Activate();
                         break;
                 }
