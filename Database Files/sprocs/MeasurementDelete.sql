@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE dbo.MeasurementsDelete(
+CREATE OR ALTER PROCEDURE dbo.MeasurementDelete(
     @MeasurementID INT,
     @Message VARCHAR(500) = '' OUTPUT
 )

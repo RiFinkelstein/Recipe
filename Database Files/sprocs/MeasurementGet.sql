@@ -1,4 +1,4 @@
-create or alter procedure dbo.MeasurementsGet(
+create or alter procedure dbo.MeasurementGet(
 	@MeasurementID int = 0,
 	@All bit = 0,
 	@Message varchar(500) = ''  output
