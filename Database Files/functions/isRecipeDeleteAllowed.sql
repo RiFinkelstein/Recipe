@@ -1,4 +1,4 @@
-create or alter FUNCTION dbo.IsRecipeDelteAllowed(@recipeid int)
+create or alter FUNCTION dbo.IsRecipeDeleteAllowed(@recipeid int)
 returns VARCHAR(60)
 
 as 
