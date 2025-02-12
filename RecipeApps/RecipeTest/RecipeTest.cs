@@ -358,14 +358,10 @@ namespace RecipeTest
         }
 
         [Test]
-
-
-        [TestCase("Users", "UsersID", "UsersName", "UsersUpdate")]
         [TestCase("Cuisine", "CuisineID", "CuisineName", "CuisineUpdate")]
         [TestCase("Ingredient", "IngredientID", "IngredientName", "IngredientUpdate")]
         [TestCase("Measurement", "MeasurementID", "MeasurementName", "MeasurementUpdate")]
-        [TestCase("Course", "CourseID", "CourseName", "CourseUpdate")]
-        public void UpdateEntity(string entityName, string idColumn, string nameColumn, string updateProcedure)
+        public void UpdateTable(string entityName, string idColumn, string nameColumn, string updateProcedure)
         {
             string sql = $"SELECT TOP 1 {idColumn} FROM {entityName}";
             int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
@@ -378,6 +374,84 @@ namespace RecipeTest
 
             DataTable updatedDt = SQLUtility.GetDataTable($"EXEC {entityName}Get @{idColumn}={entityID}");
             ClassicAssert.IsTrue(updatedDt.Rows[0][nameColumn].ToString().EndsWith(" Updated"), "Update did not persist in database.");
+        }
+
+        [Test]
+        [TestCase("Users", "UsersID", "UsersName", "UsersFirstName", "UsersLastName", "UsersUpdate")]
+        public void UpdateUsers(
+                string entityName,
+                string idColumn,
+                string nameColumn,
+                string additionalColumn1,
+                string additionalColumn2,
+                string updateProcedure)
+        {
+            // Fetch an existing entity's ID
+            string sql = $"SELECT TOP 1 {idColumn} FROM {entityName}";
+            int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
+            TestContext.WriteLine($"Updating {entityName} with ID= {entityID}");
+
+            // Retrieve the current entity data
+            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @{idColumn}={entityID}");
+
+            // Modify necessary columns
+            dt.Rows[0][nameColumn] = dt.Rows[0][nameColumn].ToString() + " Updated";
+
+            string sqlCommand = $"EXEC {updateProcedure} @{idColumn}={entityID}, @{nameColumn}='{dt.Rows[0][nameColumn]}'";
+
+            // Handle extra parameters if applicable
+            if (!string.IsNullOrEmpty(additionalColumn1))
+            {
+                dt.Rows[0][additionalColumn1] = dt.Rows[0][additionalColumn1].ToString() + " Updated";
+                sqlCommand += $", @{additionalColumn1}='{dt.Rows[0][additionalColumn1]}'";
+            }
+            if (!string.IsNullOrEmpty(additionalColumn2))
+            {
+                if (dt.Rows[0][additionalColumn2] is int) // For integer fields like CourseSequence
+                {
+                    dt.Rows[0][additionalColumn2] = (int)dt.Rows[0][additionalColumn2] + 1;
+                    sqlCommand += $", @{additionalColumn2}={dt.Rows[0][additionalColumn2]}";
+                }
+                else // For string fields
+                {
+                    dt.Rows[0][additionalColumn2] = dt.Rows[0][additionalColumn2].ToString() + " Updated";
+                    sqlCommand += $", @{additionalColumn2}='{dt.Rows[0][additionalColumn2]}'";
+                }
+            }
+
+            // Execute the update
+            SQLUtility.ExecuteSQL(sqlCommand);
+
+            // Retrieve updated data to verify persistence
+            DataTable updatedDt = SQLUtility.GetDataTable($"EXEC {entityName}Get @{idColumn}={entityID}");
+            ClassicAssert.IsTrue(updatedDt.Rows[0][nameColumn].ToString().EndsWith(" Updated"), "Update did not persist in database.");
+        }
+
+        [Test]
+        public void UpdateCourse()
+        {
+            // Fetch an existing CourseID
+            string sql = "SELECT TOP 1 CourseID FROM Course";
+            int courseID = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            Assume.That(courseID > 0, "No Course found in database, can't do test");
+            TestContext.WriteLine($"Updating Course with ID= {courseID}");
+
+            // Retrieve current course data
+            DataTable dt = SQLUtility.GetDataTable($"EXEC CourseGet @CourseID={courseID}");
+
+            // Modify CourseName and CourseSequence
+            dt.Rows[0]["CourseName"] = dt.Rows[0]["CourseName"].ToString() + " Updated";
+            dt.Rows[0]["CourseSequence"] = (int)dt.Rows[0]["CourseSequence"] + 1; // Increment sequence number
+
+            // Execute CourseUpdate procedure with modified values
+            string sqlCommand = $"EXEC CourseUpdate @CourseID={courseID}, @CourseName='{dt.Rows[0]["CourseName"]}', @CourseSequence={dt.Rows[0]["CourseSequence"]}";
+            SQLUtility.ExecuteSQL(sqlCommand);
+
+            // Retrieve updated data to verify persistence
+            DataTable updatedDt = SQLUtility.GetDataTable($"EXEC CourseGet @CourseID={courseID}");
+            ClassicAssert.IsTrue(updatedDt.Rows[0]["CourseName"].ToString().EndsWith(" Updated"), "CourseName update did not persist.");
+            ClassicAssert.IsTrue((int)updatedDt.Rows[0]["CourseSequence"] == (int)dt.Rows[0]["CourseSequence"], "CourseSequence update did not persist.");
         }
     }
 }
