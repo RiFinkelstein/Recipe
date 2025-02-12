@@ -319,39 +319,39 @@ namespace RecipeTest
         {
             return SQLUtility.GetFirstColumnFirstRowValue("select top 1 recipeID from recipe");
         }
-        [Test]
 
-        [TestCase("Users")]
-        [TestCase("Cuisine")]
-        [TestCase("Ingredient")]
-        [TestCase("Measurement")]
-        [TestCase("Course")]
-        public void LoadEntity(string entityName)
+        [Test]
+        [TestCase("Users", "UsersID", "UsersGet")]
+        [TestCase("Cuisine", "CuisineID", "CuisineGet")]
+        [TestCase("Ingredient", "IngredientID", "IngredientGet")]
+        [TestCase("Measurement", "MeasurementID", "MeasurementGet")]
+        [TestCase("Course", "CourseID", "CourseGet")]
+        public void LoadEntity(string entityName, string idColumn, string getProcedure)
         {
-            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            string sql = $"SELECT TOP 1 {idColumn} FROM {entityName}";
             int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
             Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
             TestContext.WriteLine($"Existing {entityName} with ID= " + entityID);
 
-            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
+            DataTable dt = SQLUtility.GetDataTable($"EXEC {getProcedure} @{idColumn}={entityID}");
             ClassicAssert.IsTrue(dt.Rows.Count == 1, $"{entityName} with ID={entityID} could not be loaded.");
         }
 
         [Test]
 
-        [TestCase("Users")]
-        [TestCase("Cuisine")]
-        [TestCase("Ingredient")]
-        [TestCase("Measurement")]
-        [TestCase("Course")]
-        public void DeleteEntity(string entityName)
+        [TestCase("Users", "UsersID", "UsersDelete")]
+        [TestCase("Cuisine", "CuisineID", "CuisineDelete")]
+        [TestCase("Ingredient", "IngredientID", "IngredientDelete")]
+        [TestCase("Measurement", "MeasurementID", "MeasurementDelete")]
+        [TestCase("Course", "CourseID", "CourseDelete")]
+        public void DeleteEntity(string entityName, string idColumn, string deleteProcedure)
         {
-            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            string sql = $"SELECT TOP 1 {idColumn} FROM {entityName}";
             int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
             Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
             TestContext.WriteLine($"Deleting {entityName} with ID= " + entityID);
 
-            SQLUtility.ExecuteSQL($"EXEC {entityName}Delete @ID={entityID}");
+            SQLUtility.ExecuteSQL($"EXEC {deleteProcedure} @{idColumn}={entityID}");
 
             int checkID = SQLUtility.GetFirstColumnFirstRowValue(sql);
             ClassicAssert.IsTrue(checkID != entityID, $"{entityName} with ID={entityID} still exists in database.");
@@ -359,24 +359,25 @@ namespace RecipeTest
 
         [Test]
 
-        [TestCase("Users")]
-        [TestCase("Cuisine")]
-        [TestCase("Ingredient")]
-        [TestCase("Measurement")]
-        [TestCase("Course")]
-        public void UpdateEntity(string entityName)
+
+        [TestCase("Users", "UsersID", "UsersName", "UsersUpdate")]
+        [TestCase("Cuisine", "CuisineID", "CuisineName", "CuisineUpdate")]
+        [TestCase("Ingredient", "IngredientID", "IngredientName", "IngredientUpdate")]
+        [TestCase("Measurement", "MeasurementID", "MeasurementName", "MeasurementUpdate")]
+        [TestCase("Course", "CourseID", "CourseName", "CourseUpdate")]
+        public void UpdateEntity(string entityName, string idColumn, string nameColumn, string updateProcedure)
         {
-            string sql = $"SELECT TOP 1 {entityName}ID FROM {entityName}";
+            string sql = $"SELECT TOP 1 {idColumn} FROM {entityName}";
             int entityID = SQLUtility.GetFirstColumnFirstRowValue(sql);
             Assume.That(entityID > 0, $"No {entityName} found in database, can't do test");
             TestContext.WriteLine($"Updating {entityName} with ID= " + entityID);
 
-            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
-            dt.Rows[0]["Name"] = dt.Rows[0]["Name"].ToString() + " Updated";
-            SQLUtility.ExecuteSQL($"EXEC {entityName}Update @ID={entityID}, @Name='{dt.Rows[0]["Name"]}'");
+            DataTable dt = SQLUtility.GetDataTable($"EXEC {entityName}Get @{idColumn}={entityID}");
+            dt.Rows[0][nameColumn] = dt.Rows[0][nameColumn].ToString() + " Updated";
+            SQLUtility.ExecuteSQL($"EXEC {updateProcedure} @{idColumn}={entityID}, @{nameColumn}='{dt.Rows[0][nameColumn]}'");
 
-            DataTable updatedDt = SQLUtility.GetDataTable($"EXEC {entityName}Get @ID={entityID}");
-            ClassicAssert.IsTrue(updatedDt.Rows[0]["Name"].ToString().EndsWith(" Updated"), "Update did not persist in database.");
+            DataTable updatedDt = SQLUtility.GetDataTable($"EXEC {entityName}Get @{idColumn}={entityID}");
+            ClassicAssert.IsTrue(updatedDt.Rows[0][nameColumn].ToString().EndsWith(" Updated"), "Update did not persist in database.");
         }
     }
 }

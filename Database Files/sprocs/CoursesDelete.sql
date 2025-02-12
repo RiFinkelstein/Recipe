@@ -10,6 +10,7 @@ BEGIN
         BEGIN TRAN
        
         -- Delete related records first
+        delete from coursemealrecipe where CourseMealID in (select CourseMealID from CourseMeal where CourseID = @CourseID)
         DELETE FROM CourseMeal WHERE CourseID = @CourseID
        
         -- Delete the course
@@ -24,3 +25,5 @@ BEGIN
    
     RETURN @Return
 END;
+
+go
