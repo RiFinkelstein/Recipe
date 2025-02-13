@@ -11,7 +11,7 @@ begin
 
     SELECT @All = ISNULL(@all, 0), @RecipeIngredientID = ISNULL(@RecipeIngredientID, 0), @RecipeID= ISNULL(@RecipeID, 0)
 
-    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.IngredientID, i.IngredientName, m.MeasurementID, m.MeasurementName, ri.Amount, ri.SequenceNumber
+    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.IngredientID, i.IngredientName, m.MeasurementID,  ri.Amount, ri.SequenceNumber
         from Recipe R
         join RecipeIngredient RI 
         on r.RecipeID = ri.RecipeID
@@ -32,4 +32,5 @@ end
 go
 
 --exec RecipeIngredientGet @all=1
---exec RecipeIngredientGet @recipeID =35
+--exec RecipeIngredientGet @recipeID =4
+

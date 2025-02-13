@@ -41,10 +41,11 @@ namespace RecipeWinForms
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
-
-
-
+            this.Shown += FrmRecipe_Shown;
         }
+
+
+
 
         public void LoadForm(int RecipeIDval)
         {
@@ -100,9 +101,9 @@ namespace RecipeWinForms
             {
                 dtrecipeingredient.Columns.Remove("ingredientname");
             }
-            if (dtrecipeingredient.Columns.Contains("Measurement"))
+            if (dtrecipeingredient.Columns.Contains("MeasurementName"))
             {
-                dtrecipeingredient.Columns.Remove("Measurement");
+                dtrecipeingredient.Columns.Remove("MeasurementName");
             }
             DataTable dtingredient = Data_Maintenance.GetDataList("ingredient");
             dtrecipeingredient.Columns["ingredientID"].ReadOnly = false;
@@ -112,15 +113,21 @@ namespace RecipeWinForms
             DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
 
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
+        }
+        private void FrmRecipe_Shown(object? sender, EventArgs e)
+        {
+            FormatIngredientGrid();
+        }
+        private void FormatIngredientGrid()
+        {
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
         }
 
+
         private void LoadRecipeDirections()
         {
-
-
             dtrecipedirections = RecipeDirections.LoadByRecipeID(RecipeID);
             if (!dtrecipedirections.Columns.Contains("RecipeID"))
             {
@@ -137,6 +144,7 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
         }
+
 
         private void ChangeStatus()
         {
