@@ -25,6 +25,7 @@ namespace RecipeWinForms
             InitializeComponent();
             this.Activated += FrmCookbookList_Activated;
             gCookbooklist.CellDoubleClick += GCookbooklist_CellDoubleClick;
+            gCookbooklist.KeyDown += GCookbooklist_KeyDown;
             btnNewcookbook.Click += BtnNewcookbook_Click;
 
         }
@@ -69,6 +70,15 @@ namespace RecipeWinForms
         private void GCookbooklist_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
             ShowCookbookForm(e.RowIndex);
+        }
+
+        private void GCookbooklist_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && gCookbooklist != null)
+            {
+                e.SuppressKeyPress = true;
+                ShowCookbookForm(gCookbooklist.CurrentRow.Index);
+            }
         }
 
         private void FrmCookbookList_Activated(object? sender, EventArgs e)

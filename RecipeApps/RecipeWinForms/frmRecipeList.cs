@@ -23,9 +23,9 @@ namespace RecipeWinForms
             InitializeComponent();
             this.Activated += FrmRecipeList_Activated;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
+            gRecipe.KeyDown += GRecipe_KeyDown;
             btnNewrecipe.Click += BtnNewrecipe_Click;
         }
-
 
 
         private void ShowRecipeForm(int RowIndex)
@@ -69,9 +69,17 @@ namespace RecipeWinForms
 
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
-            
             ShowRecipeForm(e.RowIndex);
         }
+        private void GRecipe_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.Enter && gRecipe != null)
+            {
+                e.SuppressKeyPress = true;
+                ShowRecipeForm(gRecipe.CurrentRow.Index);
+            }
+        }
+
 
         private void BtnNewrecipe_Click(object? sender, EventArgs e)
         {
