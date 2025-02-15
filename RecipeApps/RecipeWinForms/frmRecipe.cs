@@ -30,14 +30,14 @@ namespace RecipeWinForms
         {
             InitializeComponent();
             btnDeleteRecipe.Click += BtnDelete_Click;
-            btnSaveRecipe.Click+= BtnSave_Click;
+            btnSaveRecipe.Click += BtnSave_Click;
             btnChangeStatusRecipe.Click += BtnChangeStatusRecipe_Click;
             this.FormClosing += FrmRecipe_FormClosing;
             btnSaveIngredients.Click += BtnSaveIngredients_Click;
             btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
-            foreach(Control c in tblMain.Controls)
+            foreach (Control c in tblMain.Controls)
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
@@ -76,10 +76,10 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
-            if(dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate")) 
-                {
+            if (dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate"))
+            {
                 dtRecipe.Rows[0]["drafteddate"] = DateTime.Now;
-                }
+            }
 
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
@@ -87,7 +87,7 @@ namespace RecipeWinForms
             LoadRecipeIngredient();
             LoadRecipeDirections();
 
-         }
+        }
 
 
         private void LoadRecipeIngredient()
@@ -153,7 +153,7 @@ namespace RecipeWinForms
             frmChangeRecipeStatus changeRecipeStatus = new frmChangeRecipeStatus();
             changeRecipeStatus.LoadForm(RecipeID);
             changeRecipeStatus.MdiParent = this.MdiParent;
-            changeRecipeStatus.Show();            
+            changeRecipeStatus.Show();
         }
 
 
@@ -172,7 +172,7 @@ namespace RecipeWinForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,Application.ProductName);
+                MessageBox.Show(ex.Message, Application.ProductName);
             }
             finally
             {
@@ -210,7 +210,7 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
-      
+
 
         private void DeleteRecipeIngredient(int rowIndex)
         {
@@ -236,7 +236,7 @@ namespace RecipeWinForms
         {
             try
             {
-                int id = WindowsFormUtility.GetIDFromGrid(gSteps, rowIndex, "directionsID");
+                int id = WindowsFormUtility.GetIDFromGrid(gSteps, rowIndex, "DirectionsID");
 
                 if (id > 0)
                 {
@@ -274,7 +274,7 @@ namespace RecipeWinForms
             {
                 RecipeIngredient.SaveTable(dtrecipeingredient, RecipeID);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
             }
@@ -293,7 +293,7 @@ namespace RecipeWinForms
             int pkvalue = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
             if (pkvalue > 0)
             {
-                value = "Recipe" +  " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
+                value = "Recipe" + " - " + SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "recipename");
             }
             return value;
         }
@@ -310,12 +310,12 @@ namespace RecipeWinForms
                         bool b = Save();
                         if (b == false)
                         {
-                            e.Cancel= true;
+                            e.Cancel = true;
                             this.Activate();
                         }
                         break;
                     case DialogResult.No:
-                        e.Cancel= false;
+                        e.Cancel = false;
                         break;
                 }
             }
@@ -331,7 +331,7 @@ namespace RecipeWinForms
 
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex== gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
+            if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
                 DeleteRecipeIngredient(e.RowIndex);
             }
