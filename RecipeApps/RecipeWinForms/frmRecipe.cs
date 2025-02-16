@@ -67,8 +67,8 @@ namespace RecipeWinForms
             dtUsers.Columns["usersid"].ReadOnly = false;
             dtCuisine.Columns["CuisineID"].ReadOnly = false;
             dtRecipe.Columns["DraftedDate"].ReadOnly = false;
-            dtRecipe.Columns["PublishedDate"].ReadOnly = true;
-            dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
+            dtRecipe.Columns["PublishedDate"].ReadOnly = false;
+            dtRecipe.Columns["ArchivedDate"].ReadOnly = false;
 
 
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtRecipe, "users");
@@ -363,6 +363,7 @@ namespace RecipeWinForms
         {
             Save();
         }
+
     }
 }
 

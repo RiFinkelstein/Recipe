@@ -412,6 +412,7 @@
             // dtpDraftedDate
             // 
             dtpDraftedDate.Dock = DockStyle.Fill;
+            dtpDraftedDate.Enabled = false;
             dtpDraftedDate.Font = new Font("Segoe UI", 7F);
             dtpDraftedDate.Location = new Point(464, 24);
             dtpDraftedDate.Name = "dtpDraftedDate";
@@ -421,6 +422,7 @@
             // txtArchivedDate
             // 
             txtArchivedDate.Dock = DockStyle.Fill;
+            txtArchivedDate.Enabled = false;
             txtArchivedDate.Location = new Point(772, 24);
             txtArchivedDate.Name = "txtArchivedDate";
             txtArchivedDate.ReadOnly = true;
@@ -441,6 +443,7 @@
             // txtPublishedDate
             // 
             txtPublishedDate.Dock = DockStyle.Fill;
+            txtPublishedDate.Enabled = false;
             txtPublishedDate.Location = new Point(618, 24);
             txtPublishedDate.Name = "txtPublishedDate";
             txtPublishedDate.ReadOnly = true;
@@ -449,6 +452,7 @@
             // 
             // txtRecipeStatus
             // 
+            txtRecipeStatus.Enabled = false;
             txtRecipeStatus.Location = new Point(468, 185);
             txtRecipeStatus.Name = "txtRecipeStatus";
             txtRecipeStatus.Size = new Size(125, 27);
