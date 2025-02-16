@@ -84,6 +84,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
+            SetButtonsEnabledBasedOnNewRecord();
             LoadRecipeIngredient();
             LoadRecipeDirections();
 
@@ -282,9 +283,11 @@ namespace RecipeWinForms
 
         private void SetButtonsEnabledBasedOnNewRecord()
         {
-            bool b = RecipeID == 0 ? false : true;
-            btnDelete.Enabled = b;
-            btnSaveIngredients.Enabled = b;
+            bool isnewRecord = RecipeID == 0;
+            btnDeleteRecipe.Enabled = !isnewRecord;
+            btnChangeStatusRecipe.Enabled = !isnewRecord;
+            btnSaveIngredients.Enabled = !isnewRecord;
+            btnSaveRecipeDirections.Enabled = !isnewRecord;
         }
 
         private string GetRecipeDescription()
