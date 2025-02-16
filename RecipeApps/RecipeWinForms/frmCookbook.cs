@@ -62,8 +62,17 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
             WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
+            SetButtonsEnabledBasedOnNewRecord();
             LoadCookbookRecipe();
         }
+
+        private void SetButtonsEnabledBasedOnNewRecord()
+        {
+            bool isnewRecord = cookbookID == 0;
+            btnDelete.Enabled = !isnewRecord;
+            btnSaveCookbookRecipe.Enabled = !isnewRecord;
+        }
+
 
         private void LoadCookbookRecipe()
         {
@@ -129,12 +138,16 @@ namespace RecipeWinForms
             Application.UseWaitCursor = true;
             try
             {
+                if (cookbookID == 0)
+                {
+                    dtCookbook.Rows[0]["DateCreated"] = DateTime.Now;
+                }
                 Cookbook.Save(dtCookbook); // Save the cookbook data
                 b = true;
                 bindsource.ResetBindings(false);
                 cookbookID = SQLUtility.GetValueFromFirstRowAsInt(dtCookbook, "cookbookid"); // Update the cookbookID
                 this.Tag = cookbookID;
-                //SetButtonsEnabledBasedOnNewRecord();
+                SetButtonsEnabledBasedOnNewRecord();
             }
             catch (Exception ex)
             {
@@ -168,7 +181,6 @@ namespace RecipeWinForms
             }
         }
 
-
         private void BtnSaveCookbookRecipe_Click(object? sender, EventArgs e)
         {
             SaveCookbookRecipe();
@@ -183,8 +195,6 @@ namespace RecipeWinForms
             }
         }
 
-
-
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
             Delete();
@@ -194,8 +204,5 @@ namespace RecipeWinForms
         {
             Save();
         }
-
-
-
     }
 }
