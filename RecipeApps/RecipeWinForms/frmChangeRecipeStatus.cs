@@ -37,6 +37,8 @@ namespace RecipeWinForms
             dtRecipe = Recipe.Load(recipeID);
             bindsource.DataSource = dtRecipe;
             this.Text = GetTabTitle();
+            DisableCurrentStatusButton();
+
             dtRecipe.Columns["RecipeID"].ReadOnly = false;
             dtRecipe.Columns["DraftedDate"].ReadOnly = false;
             dtRecipe.Columns["PublishedDate"].ReadOnly = false;
@@ -54,7 +56,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(lblDraftedDate, bindsource);
             WindowsFormUtility.SetControlBinding(lblPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(lblArchivedDate, bindsource);
-            DisableCurrentStatusButton();
 
         }
 
@@ -89,7 +90,7 @@ namespace RecipeWinForms
             {
                 currentStatus = currentStatus.ToLower(); // Normalize for comparison
 
-                btnDraft.Enabled = currentStatus != "draft";
+                btnDraft.Enabled = currentStatus != "drafted";
                 btnPublish.Enabled = currentStatus != "published";
                 btnArchive.Enabled = currentStatus != "archived";
             }
