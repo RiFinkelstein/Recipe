@@ -292,6 +292,7 @@
             // btnSaveRecipe
             // 
             btnSaveRecipe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSaveRecipe.AutoSize = true;
             btnSaveRecipe.Location = new Point(10, 10);
             btnSaveRecipe.Margin = new Padding(10);
             btnSaveRecipe.Name = "btnSaveRecipe";
@@ -303,6 +304,7 @@
             // btnDeleteRecipe
             // 
             btnDeleteRecipe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            btnDeleteRecipe.AutoSize = true;
             btnDeleteRecipe.Location = new Point(124, 10);
             btnDeleteRecipe.Margin = new Padding(10);
             btnDeleteRecipe.Name = "btnDeleteRecipe";

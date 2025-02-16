@@ -66,7 +66,7 @@ namespace RecipeWinForms
             dtRecipe.Columns["RecipeID"].ReadOnly = false;
             dtUsers.Columns["usersid"].ReadOnly = false;
             dtCuisine.Columns["CuisineID"].ReadOnly = false;
-            dtRecipe.Columns["DraftedDate"].ReadOnly = true;
+            dtRecipe.Columns["DraftedDate"].ReadOnly = false;
             dtRecipe.Columns["PublishedDate"].ReadOnly = true;
             dtRecipe.Columns["ArchivedDate"].ReadOnly = true;
 

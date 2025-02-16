@@ -4,9 +4,9 @@ CREATE OR ALTER PROC dbo.Recipeupdate(
     @UsersID int,
     @RecipeName varchar(50),
     @Calories int, 
-    @DraftedDate DATE, 
-    @Publisheddate date= null, 
-    @Archiveddate date= null)
+    @DraftedDate DATE OUTPUT, 
+    @Publisheddate date= null OUTPUT, 
+    @Archiveddate date= null OUTPUT)
 AS
 BEGIN
     DECLARE @Return int = 0;
@@ -32,6 +32,13 @@ BEGIN
             Calories = @Calories
         WHERE RecipeID = @RecipeID;
     END
+
+    SELECT 
+        @DraftedDate = r.DraftedDate,
+        @Publisheddate= r.PublishedDate, 
+        @Archiveddate= r.ArchivedDate 
+        from recipe r 
+        where r.RecipeID= @RecipeID
 
     RETURN @Return;
 END
