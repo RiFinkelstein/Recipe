@@ -453,6 +453,154 @@ namespace RecipeTest
             ClassicAssert.IsTrue(updatedDt.Rows[0]["CourseName"].ToString().EndsWith(" Updated"), "CourseName update did not persist.");
             ClassicAssert.IsTrue((int)updatedDt.Rows[0]["CourseSequence"] == (int)dt.Rows[0]["CourseSequence"], "CourseSequence update did not persist.");
         }
+
+        [Test]
+        [TestCase("Test Cookbook", "2025-02-01", 20)]
+        public void InsertNewCookbook(string CookbookName, string createdDateStr, decimal price)
+        {
+            // Convert string date to DateTime
+            DateTime CreatedDate = DateTime.Parse(createdDateStr);
+
+            // Create a new DataTable to hold the cookbook data
+            DataTable dt = Cookbook.Load(0);
+            DataRow r = dt.Rows.Add();
+            Assume.That(dt.Rows.Count == 1);
+
+            int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users");
+            TestContext.WriteLine("userid is" + UsersID);
+            Assume.That(UsersID > 0, "no Users in database, cant do test");
+
+            dt.Columns["CookbookID"].ReadOnly = false;
+            r["CookbookName"] = CookbookName;
+            r["DateCreated"] = CreatedDate;
+            r["UsersID"] = UsersID;
+            r["price"] = price;
+            
+            // Save the new cookbook to the database
+            Cookbook.Save(dt);
+
+            // Retrieve the new CookbookID based on the CookbookName
+            string query = $"SELECT CookbookID FROM Cookbook WHERE CookbookName LIKE '%{CookbookName}%'";
+            int newID = SQLUtility.GetFirstColumnFirstRowValue(query);
+
+            // Assert that the new CookbookID is valid
+            ClassicAssert.IsTrue(newID > 0, "Cookbook with CookbookName = " + CookbookName + " is not found in the database.");
+            TestContext.WriteLine("Cookbook with " + CookbookName + " is found in the database with primary key value = " + newID);
+        }
+
+        [Test]
+        [TestCase(1, "Updated Cookbook Name", "2025-01-01")]
+        public void UpdateExistingCookbook(int CookbookID, string NewCookbookName, string newCreatedDateStr)
+        {
+            DateTime NewCreatedDate = DateTime.Parse(newCreatedDateStr);
+
+            // Load the cookbook data into a DataTable
+            DataTable dt = Cookbook.Load(CookbookID);
+            Assume.That(dt.Rows.Count == 1, "No cookbook found for the given CookbookID.");
+
+            // Update the cookbook details
+            dt.Rows[0]["CookbookName"] = NewCookbookName;
+            dt.Rows[0]["DateCreated"] = NewCreatedDate;
+            dt.Columns["CookbookID"].ReadOnly = false;
+
+            // Save the updated cookbook data
+            Cookbook.Save(dt);
+
+            // Retrieve the updated cookbook details from the database
+            string query = $"SELECT CookbookName, DateCreated FROM Cookbook WHERE CookbookID = {CookbookID}";
+            DataTable updatedDt = SQLUtility.GetDataTable(query);
+
+            string updatedName = updatedDt.Rows[0]["CookbookName"].ToString();
+            DateTime updatedDate = (DateTime)updatedDt.Rows[0]["DateCreated"];
+
+            // Assert that the updated cookbook name and date match
+            ClassicAssert.IsTrue(updatedName == NewCookbookName, "Cookbook name was not updated.");
+            ClassicAssert.IsTrue(updatedDate == NewCreatedDate, "Cookbook creation date was not updated.");
+        }
+
+        [Test]
+        public void DeleteCookbook()
+        {
+            int CookbookID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CookbookID from cookbook");
+            TestContext.WriteLine("CookbookID is" + CookbookID);
+
+            // Assume that the cookbook exists
+            DataTable dt = Cookbook.Load(CookbookID);
+            Assume.That(dt.Rows.Count == 1, "No cookbook found for the given CookbookID.");
+
+            // Delete the cookbook
+            Cookbook.Delete(dt);
+
+            // Retrieve the cookbook data after deletion
+            DataTable dtAfterDelete = Cookbook.Load(CookbookID);
+
+            // Assert that the cookbook has been deleted
+            ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "Cookbook with CookbookID = " + CookbookID + " still exists in the database.");
+            TestContext.WriteLine("Cookbook with CookbookID = " + CookbookID + " is successfully deleted.");
+        }
+                [Test]
+        public void SaveCookbookRecipe()
+        {
+
+            int CookbookID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CookbookID from cookbook");
+            TestContext.WriteLine("CookbookID is" + CookbookID);
+
+            int RecipeID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 RecipeID from Recipe");
+            TestContext.WriteLine("RecipeID is" + RecipeID);
+
+            int CookBookSequenceNumber = SQLUtility.GetFirstColumnFirstRowValue($"select top 1 CookBookSequenceNumber from CookbookRecipe where cookbookID= {CookbookID} ORDER by CookBookSequenceNumber desc");
+
+
+
+            // Load the cookbook recipe data
+            DataTable dtCookbookRecipe = CookbookRecipe.LoadByCookbookID(CookbookID);
+            DataRow newRow = dtCookbookRecipe.Rows.Add();
+            newRow["CookbookID"] = CookbookID;
+            newRow["RecipeID"] = RecipeID;
+            newRow["CookBookSequenceNumber"] = CookBookSequenceNumber+1;
+
+            // Save the cookbook recipe
+            CookbookRecipe.SaveTable(dtCookbookRecipe, CookbookID);
+
+            // Retrieve the cookbook recipe to check if it was saved
+            string query = $"SELECT RecipeID FROM CookbookRecipe WHERE CookbookID = {CookbookID} AND RecipeID = {RecipeID}";
+            DataTable savedRecipe = SQLUtility.GetDataTable(query);
+
+            // Assert that the recipe is saved
+            ClassicAssert.IsTrue(savedRecipe.Rows.Count > 0, "CookbookRecipe with CookbookID = " + CookbookID + " and RecipeID = " + RecipeID + " is not found.");
+            TestContext.WriteLine("CookbookRecipe with CookbookID = " + CookbookID + " and RecipeID = " + RecipeID + " is saved.");
+        }
+        
+        [Test]
+
+        public void DeleteCookbookRecipe()
+        {
+
+            int CookbookID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CookbookID from cookbook");
+            TestContext.WriteLine("CookbookID is" + CookbookID);
+
+            int RecipeID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 RecipeID from Recipe");
+            TestContext.WriteLine("RecipeID is" + RecipeID);
+            // Load the cookbook recipe data
+            DataTable dtCookbookRecipe = CookbookRecipe.LoadByCookbookID(CookbookID);
+            Assume.That(dtCookbookRecipe.Rows.Count > 0, "No cookbook recipes found.");
+
+            // Find the recipe row to delete
+            DataRow rowToDelete = dtCookbookRecipe.Rows.Cast<DataRow>().FirstOrDefault(r => (int)r["RecipeID"] == RecipeID);
+            Assume.That(rowToDelete != null, "RecipeID " + RecipeID + " not found in the Cookbook.");
+
+            // Delete the cookbook recipe
+            int rowIndex = dtCookbookRecipe.Rows.IndexOf(rowToDelete);
+            CookbookRecipe.Delete(rowIndex);
+
+            // Retrieve the cookbook recipe data to confirm deletion
+            DataTable updatedDt = CookbookRecipe.LoadByCookbookID(CookbookID);
+
+            // Assert that the recipe is deleted
+            ClassicAssert.IsTrue(updatedDt.Rows.Cast<DataRow>().All(r => (int)r["RecipeID"] != RecipeID), "CookbookRecipe with RecipeID = " + RecipeID + " was not deleted.");
+            TestContext.WriteLine("CookbookRecipe with RecipeID = " + RecipeID + " is successfully deleted.");
+        }
+
     }
 }
 
