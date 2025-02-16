@@ -9,8 +9,6 @@ begin
     if @DeleteAllowed <> ''
 
 
---if exists (SELECT* from recipe r where r.RecipeID=@recipeid and (r.Status = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE())<30))
-
 BEGIN
   SELECT @Return =1, @Message= @DeleteAllowed
   --@Message= 'can only delete recipe that is currently drafted or the recipe has been archived more than 30 days ago'
@@ -19,8 +17,22 @@ END
 
 begin try
 begin tran
-    delete ri from RecipeIngredient ri where ri.RecipeID= @Recipeid
-    delete d from Directions d where RecipeID= @RecipeID
+
+        -- Delete from all related tables first to maintain referential integrity
+        DELETE FROM CookbookRecipe WHERE RecipeID = @RecipeID
+        DELETE FROM CourseMealRecipe WHERE RecipeID = @RecipeID
+        DELETE FROM RecipeIngredient WHERE RecipeID = @RecipeID
+        DELETE FROM Directions WHERE RecipeID = @RecipeID
+
+        -- Delete orphaned CourseMeal records if they no longer have associated recipes
+        DELETE FROM CourseMeal WHERE CourseMealID IN (
+            SELECT cm.CourseMealID
+            FROM CourseMeal cm
+            LEFT JOIN CourseMealRecipe cmr ON cm.CourseMealID = cmr.CourseMealID
+            WHERE cmr.CourseMealID IS NULL
+        )
+
+        --finally delete the recipe
     delete r from recipe r where RecipeID= @RecipeiD
 
   commit

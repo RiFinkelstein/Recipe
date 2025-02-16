@@ -11,14 +11,10 @@ begin
 
     SELECT @All = ISNULL(@all, 0), @RecipeIngredientID = ISNULL(@RecipeIngredientID, 0), @RecipeID= ISNULL(@RecipeID, 0)
 
-    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.IngredientID, i.IngredientName, m.MeasurementID,  ri.Amount, ri.SequenceNumber
+    SELECT RI.RecipeIngredientID, ri.RecipeID, ri.Amount, ri.IngredientID, RI.MeasurementID, ri.SequenceNumber
         from Recipe R
         join RecipeIngredient RI 
         on r.RecipeID = ri.RecipeID
-        join ingredient i 
-        on i.IngredientID = RI.IngredientID
-        LEFT join Measurement m 
-        on m.MeasurementID = ri.MeasurementID
         where @RecipeID= r.RecipeID
         or @all=1
         or ri.RecipeID= @RecipeID
