@@ -575,30 +575,30 @@ namespace RecipeTest
 
         public void DeleteCookbookRecipe()
         {
-
+            // Get a CookbookID from the cookbook table
             int CookbookID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CookbookID from cookbook");
             TestContext.WriteLine("CookbookID is" + CookbookID);
+            // Retrieve the CookbookRecipeID for this CookbookID
+            string sql = $"select top 1 CookbookRecipeID from CookbookRecipe where cookbookID = {CookbookID}";
+            DataTable dt = SQLUtility.GetDataTable(sql);
 
-            int RecipeID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 RecipeID from Recipe");
-            TestContext.WriteLine("RecipeID is" + RecipeID);
-            // Load the cookbook recipe data
-            DataTable dtCookbookRecipe = CookbookRecipe.LoadByCookbookID(CookbookID);
-            Assume.That(dtCookbookRecipe.Rows.Count > 0, "No cookbook recipes found.");
 
-            // Find the recipe row to delete
-            DataRow rowToDelete = dtCookbookRecipe.Rows.Cast<DataRow>().FirstOrDefault(r => (int)r["RecipeID"] == RecipeID);
-            Assume.That(rowToDelete != null, "RecipeID " + RecipeID + " not found in the Cookbook.");
+            // If there is no CookbookRecipeID, fail the test
+            Assume.That(dt.Rows.Count > 0, "No recipes found in Cookbook. Cannot perform the test.");
+            int CookbookRecipeID = (int)dt.Rows[0]["CookbookRecipeID"];
+            TestContext.WriteLine("Existing CookbookRecipe with CookbookRecipeID = " + CookbookRecipeID);
+
 
             // Delete the cookbook recipe
-            int rowIndex = dtCookbookRecipe.Rows.IndexOf(rowToDelete);
-            CookbookRecipe.Delete(rowIndex);
+            CookbookRecipe.Delete(CookbookRecipeID);
 
             // Retrieve the cookbook recipe data to confirm deletion
             DataTable updatedDt = CookbookRecipe.LoadByCookbookID(CookbookID);
 
             // Assert that the recipe is deleted
-            ClassicAssert.IsTrue(updatedDt.Rows.Cast<DataRow>().All(r => (int)r["RecipeID"] != RecipeID), "CookbookRecipe with RecipeID = " + RecipeID + " was not deleted.");
-            TestContext.WriteLine("CookbookRecipe with RecipeID = " + RecipeID + " is successfully deleted.");
+            ClassicAssert.IsTrue(updatedDt.Rows.Cast<DataRow>().All(r => (int)r["CookbookRecipeID"] != CookbookRecipeID),
+                "Record with CookbookRecipeID " + CookbookRecipeID + " still exists in the DB.");
+            TestContext.WriteLine("CookbookRecipe with CookbookRecipeID = " + CookbookRecipeID + " is successfully deleted.");
         }
 
     }
