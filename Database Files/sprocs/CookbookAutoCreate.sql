@@ -1,11 +1,13 @@
 CREATE OR ALTER PROCEDURE dbo.CookbookAutoCreate(
     @UsersID INT,
-    @CookbookID INT output)
+    @CookbookID INT output,
+    @Message VARCHAR(100) output)
 AS
 BEGIN
     Declare @CookbookName VARCHAR(100)
     Declare @RecipeCount INT 
-    Declare @Price DECIMAL(10,2)    
+    Declare @Price DECIMAL(10,2)   
+
     -- Get user full name
     SELECT @CookbookName = 'Recipes by ' + U.UsersFirstName + ' ' + U.UsersLastName
     FROM Users U
@@ -19,9 +21,11 @@ BEGIN
     -- If no recipes, exit
     IF @RecipeCount = 0
     BEGIN
-        PRINT 'User has no recipes to create a cookbook';
+        set @Message= 'User has no recipes to create a cookbook';
         RETURN;
     END
+    --if the user does have recipes, clear the message
+    SET @Message= ''
 
     -- Calculate price
     SET @Price = @RecipeCount * 1.33;
@@ -42,7 +46,7 @@ BEGIN
     FROM Recipe
     WHERE UsersID = @UsersID;
 
-    PRINT 'Cookbook created successfully!';
+    set @Message= 'Cookbook created successfully!';
 END
 GO
 
