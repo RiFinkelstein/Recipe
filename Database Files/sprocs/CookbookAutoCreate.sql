@@ -13,6 +13,12 @@ BEGIN
     FROM Users U
     WHERE UsersID = @UsersID;
 
+    IF EXISTS (SELECT 1 FROM Cookbook WHERE CookbookName = @CookbookName AND UsersID = @UsersID)
+    BEGIN
+    SET @Message = 'A cookbook with this name already exists for this user.';
+    RETURN;
+    END
+
     -- Count user's recipes
     SELECT @RecipeCount = COUNT(*)
     FROM Recipe
