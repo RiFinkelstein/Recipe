@@ -71,6 +71,9 @@ namespace RecipeSystem
                 cmd.Parameters.Add(outputParam);
 
             }
+            cmd.Parameters["@message"].Direction = ParameterDirection.Output;
+
+
             // Execute the stored procedure
             SQLUtility.ExecuteSQL(cmd);
 
