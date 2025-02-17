@@ -50,8 +50,8 @@ namespace RecipeSystem
             }
             DataRow r = dtCookbook.Rows[0];
             SQLUtility.SaveDataRow(r, "CookbookUpdate");
-        }
-
+        }        
+        
         public static int AutoCreateCookbook(int UsersID)
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("CookbookAutoCreate");
@@ -69,16 +69,23 @@ namespace RecipeSystem
                     Direction = ParameterDirection.Output
                 };
                 cmd.Parameters.Add(outputParam);
-
             }
             cmd.Parameters["@message"].Direction = ParameterDirection.Output;
-
-
             // Execute the stored procedure
             SQLUtility.ExecuteSQL(cmd);
 
+            object cookbookIDValue = cmd.Parameters["@CookbookID"].Value;
+            if (cookbookIDValue == DBNull.Value)
+            {
+                // Fetch the message from the stored procedure output
+                string message = cmd.Parameters["@message"].Value.ToString();
+                throw new Exception(message ?? "Cookbook could not be created because the user has no recipes.");
+            }
+
+
             // Return the generated CookbookID
-            return (int)cmd.Parameters["@CookbookID"].Value;
+
+            return (int)cookbookIDValue;
         }
     }
 }

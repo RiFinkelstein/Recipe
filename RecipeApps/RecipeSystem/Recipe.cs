@@ -97,7 +97,7 @@ namespace RecipeSystem
                     Direction = ParameterDirection.Output
                 };
                 cmd.Parameters.Add(outputParam);
-
+ 
             }
             SQLUtility.ExecuteSQL(cmd);
             return (int)cmd.Parameters["@ClonedRecipeID"].Value;
