@@ -597,11 +597,83 @@ namespace RecipeTest
 
             // Assert that the recipe is deleted
             ClassicAssert.IsTrue(updatedDt.Rows.Cast<DataRow>().All(r => (int)r["CookbookRecipeID"] != CookbookRecipeID),
-                "Record with CookbookRecipeID " + CookbookRecipeID + " still exists in the DB.");
+            "Record with CookbookRecipeID " + CookbookRecipeID + " still exists in the DB.");
             TestContext.WriteLine("CookbookRecipe with CookbookRecipeID = " + CookbookRecipeID + " is successfully deleted.");
         }
 
+        [Test]
+        public void AutoCreateCookbook()
+        {
+            // Step 1: Find a user who has recipes but does NOT already have a cookbook with the same name
+            string getUsersQuery = @"
+        SELECT u.UsersID, 'Recipes by ' + u.UsersFirstName + ' ' + u.UsersLastName AS CookbookName
+        FROM users u
+        JOIN recipe r ON r.UsersID = u.UsersID";
+
+            DataTable usersTable = SQLUtility.GetDataTable(getUsersQuery);
+            int UserID = 0;
+            string cookbookName = string.Empty;
+
+            foreach (DataRow row in usersTable.Rows)
+            {
+                int potentialUserID = (int)row["UsersID"];
+                string potentialCookbookName = row["CookbookName"].ToString();
+
+                string checkCookbookSql = $"SELECT COUNT(*) FROM Cookbook WHERE CookbookName = '{potentialCookbookName}' AND UsersID = {potentialUserID}";
+                int existingCookbookCount = (int)SQLUtility.GetFirstColumnFirstRowValue(checkCookbookSql);
+
+                if (existingCookbookCount == 0)
+                {
+                    UserID = potentialUserID;
+                    cookbookName = potentialCookbookName;
+                    break; // Found a valid user, exit loop
+                }
+            }
+
+            // If no valid user was found, fail the test
+            if (UserID == 0)
+            {
+                ClassicAssert.Fail("All users with recipes already have a cookbook. No valid user found to create a new cookbook.");
+                return;
+            }
+
+            TestContext.WriteLine("Selected UserID: " + UserID);
+            TestContext.WriteLine("Cookbook Name: " + cookbookName);
+
+            // Step 2: Call the AutoCreateCookbook method
+            string message = string.Empty;
+            int cookbookID = 0;
+
+            try
+            {
+                cookbookID = Cookbook.AutoCreateCookbook(UserID);
+                message = "Cookbook created successfully!";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message; // Capture the error message if an exception is thrown
+            }
+
+            // Step 3: Check if a cookbook was created successfully
+            if (cookbookID > 0)
+            {
+                TestContext.WriteLine($"Successfully created cookbook with ID: {cookbookID}");
+
+                // Step 4: Verify cookbook creation in the database
+                string checkSql = $"SELECT COUNT(*) FROM Cookbook WHERE CookbookID = {cookbookID}";
+                int count = (int)SQLUtility.GetFirstColumnFirstRowValue(checkSql);
+                ClassicAssert.AreEqual(1, count, "Cookbook was not created successfully.");
+            }
+            else
+            {
+                // If no cookbook ID is returned, handle the error
+                TestContext.WriteLine($"Error: {message}");
+                ClassicAssert.Fail($"Failed to create cookbook. Error: {message}");
+            }
+        }
+    
     }
+    
 }
 
 
