@@ -35,9 +35,9 @@ namespace RecipeWinForms
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
+            this.Shown += FrmCookbook_Shown;
 
         }
-
 
 
         public void LoadForm(int cookbookIDVal)
@@ -92,15 +92,20 @@ namespace RecipeWinForms
             dtcookbookrecipe.Columns["recipeid"].ReadOnly = false;
 
             WindowsFormUtility.AddComboBoxToGrid(gCookbookRecipe, dtrecipe, "recipe", "recipename");
+        }
 
+        private void FrmCookbook_Shown(object? sender, EventArgs e)
+        {
+            FormatRecipeGrid();
+        }
 
+        private void FormatRecipeGrid()
+        {
             // Add delete button
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
-
             // Format the grid for editing
             WindowsFormUtility.FormatGridforEdit(gCookbookRecipe, "cookbookrecipe");
         }
-
         private void DeleteCookbookRecipe(int rowIndex)
         {
             try
