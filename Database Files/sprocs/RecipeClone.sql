@@ -1,22 +1,48 @@
 CREATE OR ALTER PROCEDURE RecipeClone
     @OriginalRecipeID INT,
-    @ClonedRecipeID int OUTPUT
+    @ClonedRecipeID int OUTPUT,
+
+    @Message VARCHAR(500) output
 AS
 BEGIN
-    --SET NOCOUNT ON;
 
-    --DECLARE @ClonedRecipeID INT;
+    DECLARE @Return INT = 0;
+    begin try 
+        BEGIN TRANSACTION;
+
+    --initialize output message
+    set @message = '';
+
+        -- Check if the original recipe exists
+    IF NOT EXISTS (SELECT 1 FROM Recipe WHERE RecipeID = @OriginalRecipeID)
+    BEGIN
+        SET @Message = 'Error: Original recipe not found.';
+        ROLLBACK
+        RETURN;
+    END
+
+    -- Check if this recipe has already been cloned
+    IF EXISTS (
+        SELECT 1
+        FROM Recipe
+        WHERE RecipeName LIKE (SELECT RecipeName FROM Recipe WHERE RecipeID = @OriginalRecipeID) + ' - clone'
+    )
+    BEGIN
+        SET @Message = 'Error: This recipe has already been cloned and cannot be cloned again.';
+        ROLLBACK;
+        RETURN;
+    END
 
     -- Clone the recipe
-    INSERT INTO Recipe (UsersID, CuisineID, RecipeName, Calories, DraftedDate, PublishedDate, ArchivedDate)
+    INSERT Recipe (UsersID, CuisineID, RecipeName, Calories, DraftedDate, PublishedDate, ArchivedDate)
     SELECT
         UsersID,
         CuisineID,
         RecipeName + ' - clone', -- Append " - clone" to the name
         Calories,
-        GETDATE(),
+        GETDATE(), -- Use the current date for the drafted date
         null, 
-        null -- Use the current date for the drafted date
+        null 
     FROM Recipe
     WHERE RecipeID = @OriginalRecipeID;
 
@@ -33,5 +59,20 @@ BEGIN
     FROM RecipeIngredient RI
     WHERE RecipeID = @OriginalRecipeID;
 
+    -- Success message
+        SET @Message = 'Recipe cloned successfully!';
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        -- Handle SQL errors
+        ROLLBACK;
+        SET @Message = 'Error cloning recipe: ' + ERROR_MESSAGE();
+        SET @ClonedRecipeID = NULL;
+        THROW;  -- Rethrow the error to be handled by C#
+
+    END CATCH
+    RETURN @Return
 END
+GO
+
 

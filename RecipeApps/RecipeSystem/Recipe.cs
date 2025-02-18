@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RecipeSystem
 {
@@ -14,11 +15,11 @@ namespace RecipeSystem
     {
         public static DataTable SearchRecipe(string RecipeName)
         {
-                DataTable dt = new();
-                SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeGet");
-                SQLUtility.SetParamValue(cmd, "@recipename", RecipeName);
-                dt = SQLUtility.GetDataTable(cmd);
-                return dt;
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeGet");
+            SQLUtility.SetParamValue(cmd, "@recipename", RecipeName);
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
         }
 
         public static DataTable Load(int RecipeID)
@@ -32,7 +33,7 @@ namespace RecipeSystem
             return dt;
 
         }
-        
+
         public static DataTable GetUserList()
         {
             DataTable dt = new();
@@ -41,7 +42,7 @@ namespace RecipeSystem
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
-        
+
 
         public static DataTable GetCuisineList()
         {
@@ -81,6 +82,8 @@ namespace RecipeSystem
 
             return value;
         }
+
+
         public static int CloneRecipe(int originalRecipeID)
         {
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeClone");
@@ -92,17 +95,31 @@ namespace RecipeSystem
             }
             else
             {
-                SqlParameter outputParam = new SqlParameter("@ClonedRecipeID", SqlDbType.Int)
+                SqlParameter clonedRecipeParam = new SqlParameter("@ClonedRecipeID", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
                 };
-                cmd.Parameters.Add(outputParam);
- 
+                cmd.Parameters.Add(clonedRecipeParam);
             }
-            SQLUtility.ExecuteSQL(cmd);
-            return (int)cmd.Parameters["@ClonedRecipeID"].Value;
+            cmd.Parameters["@message"].Direction = ParameterDirection.Output;
 
+            // Execute the stored procedure
+            SQLUtility.ExecuteSQL(cmd);
+
+            object RecipeIDValue = cmd.Parameters["@ClonedRecipeID"].Value;
+
+            if (RecipeIDValue == DBNull.Value)
+            {
+                // Fetch the message from the stored procedure output
+                string message = cmd.Parameters["@message"].Value.ToString();
+                throw new Exception(message ?? "Recipe could not be created");
+            }
+
+
+            // Return the generated RecipeID
+            return (int)RecipeIDValue;
         }
+
 
     }
 }
