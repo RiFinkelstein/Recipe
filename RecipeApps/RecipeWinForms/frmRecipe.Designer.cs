@@ -52,6 +52,7 @@
             lblCaptionUser = new Label();
             lstUsersName = new ComboBox();
             tblStatus = new TableLayoutPanel();
+            txtDraftedDate = new TextBox();
             lblStatusDates = new Label();
             lblCaptionDraftedDate = new Label();
             lblCaptionPublishedDate = new Label();
@@ -63,7 +64,6 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
-            txtDraftedDate = new TextBox();
             tblMain.SuspendLayout();
             tbRecipeChildRecords.SuspendLayout();
             tbIngredients.SuspendLayout();
@@ -375,6 +375,16 @@
             tblStatus.Size = new Size(924, 42);
             tblStatus.TabIndex = 29;
             // 
+            // txtDraftedDate
+            // 
+            txtDraftedDate.Dock = DockStyle.Fill;
+            txtDraftedDate.Enabled = false;
+            txtDraftedDate.Location = new Point(464, 24);
+            txtDraftedDate.Name = "txtDraftedDate";
+            txtDraftedDate.ReadOnly = true;
+            txtDraftedDate.Size = new Size(148, 27);
+            txtDraftedDate.TabIndex = 19;
+            // 
             // lblStatusDates
             // 
             lblStatusDates.AutoSize = true;
@@ -470,16 +480,6 @@
             // 
             sqlCommand1.CommandTimeout = 30;
             sqlCommand1.EnableOptimizedParameterBinding = false;
-            // 
-            // txtDraftedDate
-            // 
-            txtDraftedDate.Dock = DockStyle.Fill;
-            txtDraftedDate.Enabled = false;
-            txtDraftedDate.Location = new Point(464, 24);
-            txtDraftedDate.Name = "txtDraftedDate";
-            txtDraftedDate.ReadOnly = true;
-            txtDraftedDate.Size = new Size(148, 27);
-            txtDraftedDate.TabIndex = 19;
             // 
             // frmRecipe
             // 

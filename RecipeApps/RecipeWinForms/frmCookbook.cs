@@ -60,7 +60,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
-            WindowsFormUtility.SetControlBinding(dtpDateCreated, bindsource);
+            WindowsFormUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
             SetButtonsEnabledBasedOnNewRecord();
             LoadCookbookRecipe();

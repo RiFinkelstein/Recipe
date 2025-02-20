@@ -39,12 +39,12 @@
             tblPriceDateCreated = new TableLayoutPanel();
             lblCaptionDateCreated = new Label();
             txtPrice = new TextBox();
-            dtpDateCreated = new DateTimePicker();
             ChbActive = new CheckBox();
             lblCaptionPrice = new Label();
             tblCookbookChildRecords = new TableLayoutPanel();
             btnSaveCookbookRecipe = new Button();
             gCookbookRecipe = new DataGridView();
+            txtDateCreated = new Label();
             tblMain.SuspendLayout();
             tblPriceDateCreated.SuspendLayout();
             tblCookbookChildRecords.SuspendLayout();
@@ -151,9 +151,9 @@
             tblPriceDateCreated.ColumnCount = 2;
             tblPriceDateCreated.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tblPriceDateCreated.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblPriceDateCreated.Controls.Add(txtDateCreated, 0, 1);
             tblPriceDateCreated.Controls.Add(lblCaptionDateCreated, 1, 0);
             tblPriceDateCreated.Controls.Add(txtPrice, 0, 1);
-            tblPriceDateCreated.Controls.Add(dtpDateCreated, 1, 1);
             tblPriceDateCreated.Location = new Point(144, 132);
             tblPriceDateCreated.Name = "tblPriceDateCreated";
             tblPriceDateCreated.RowCount = 2;
@@ -180,14 +180,6 @@
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(320, 27);
             txtPrice.TabIndex = 1;
-            // 
-            // dtpDateCreated
-            // 
-            dtpDateCreated.Enabled = false;
-            dtpDateCreated.Location = new Point(329, 33);
-            dtpDateCreated.Name = "dtpDateCreated";
-            dtpDateCreated.Size = new Size(315, 27);
-            dtpDateCreated.TabIndex = 2;
             // 
             // ChbActive
             // 
@@ -247,6 +239,17 @@
             gCookbookRecipe.Size = new Size(788, 136);
             gCookbookRecipe.TabIndex = 1;
             // 
+            // txtDateCreated
+            // 
+            txtDateCreated.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtDateCreated.AutoSize = true;
+            txtDateCreated.Location = new Point(331, 35);
+            txtDateCreated.Margin = new Padding(5);
+            txtDateCreated.Name = "txtDateCreated";
+            txtDateCreated.Size = new Size(317, 32);
+            txtDateCreated.TabIndex = 2;
+            txtDateCreated.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // frmCookbook
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -278,10 +281,10 @@
         private TextBox txtCookbookName;
         private ComboBox lstUsersName;
         private TextBox txtPrice;
-        private DateTimePicker dtpDateCreated;
         private CheckBox ChbActive;
         private TableLayoutPanel tblCookbookChildRecords;
         private Button btnSaveCookbookRecipe;
         private DataGridView gCookbookRecipe;
+        private Label txtDateCreated;
     }
 }
