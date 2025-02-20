@@ -1,4 +1,4 @@
-CREATE or alter PROCEDURE dbo.cookbookrecipeupdate(
+CREATE or alter PROCEDURE dbo.CookbookRecipeUpdate(
     @CookbookRecipeID int output, 
     @CookbookID int, 
     @RecipeID int,

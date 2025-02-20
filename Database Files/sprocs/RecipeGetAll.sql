@@ -1,4 +1,4 @@
-CREATE or ALTER PROCEDURE dbo.recipegetall (
+CREATE or ALTER PROCEDURE dbo.RecipeGetAll (
     @RecipeID int = 0,
 	@All bit = 0,
 	@Message varchar(500) = ''  output
