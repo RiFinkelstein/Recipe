@@ -102,8 +102,8 @@ GO
 INSERT Cuisine(CuisineName)
 SELECT 'French'
 UNION SELECT 'Italian'
-UNION SELECT 'Chinise'
-UNION SELECT 'Japenese'
+UNION SELECT 'Chinese'
+UNION SELECT 'Japanese'
 UNION SELECT 'Greek'
 UNION SELECT 'Indian' 
 UNION SELECT 'Spanish'
