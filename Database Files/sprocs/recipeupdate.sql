@@ -1,3 +1,5 @@
+
+--AS Sproc name should be proper cased
 CREATE OR ALTER PROC dbo.Recipeupdate(
     @RecipeID int OUTPUT,
     @CuisineID int,
@@ -10,7 +12,7 @@ CREATE OR ALTER PROC dbo.Recipeupdate(
 AS
 BEGIN
     DECLARE @Return int = 0;
-
+--AS Take out logic checking if null
     IF @RecipeID IS NULL or @RecipeID=0
 
     BEGIN

@@ -4,6 +4,7 @@ CREATE OR ALTER PROCEDURE dbo.CookbookAutoCreate(
     @Message VARCHAR(100) output)
 AS
 BEGIN
+--AS There is no reason why this code has to be all broken up using variables, this can be done simply in 2 insert statements (the same way it was done in maintenance tasks.)
     Declare @CookbookName VARCHAR(100)
     Declare @RecipeCount INT 
     Declare @Price DECIMAL(10,2)   

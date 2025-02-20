@@ -1,3 +1,4 @@
+--AS Why do you need this sproc in addition to RecipeGet?
 CREATE or ALTER PROCEDURE dbo.recipegetall (
     @RecipeID int = 0,
 	@All bit = 0,
