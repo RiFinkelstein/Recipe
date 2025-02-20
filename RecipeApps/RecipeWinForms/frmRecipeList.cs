@@ -69,6 +69,7 @@ namespace RecipeWinForms
 
         private void GRecipe_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             ShowRecipeForm(e.RowIndex);
         }
         private void GRecipe_KeyDown(object? sender, KeyEventArgs e)
