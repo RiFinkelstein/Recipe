@@ -9,7 +9,7 @@ AS
 BEGIN
     DECLARE @return int = 0;
 
-    IF @CookbookID IS NULL or @CookbookID=0
+    IF @CookbookID =0
     BEGIN
         INSERT Cookbook (UsersID, CookbookName, Price, DateCreated)
         VALUES (@UsersID, @CookbookName, @Price, @DateCreated);

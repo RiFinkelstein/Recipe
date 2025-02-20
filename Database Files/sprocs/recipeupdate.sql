@@ -11,7 +11,7 @@ AS
 BEGIN
     DECLARE @Return int = 0;
 
-    IF @RecipeID IS NULL or @RecipeID=0
+    IF @RecipeID=0
 
     BEGIN
         INSERT INTO Recipe (CuisineID, UsersID, RecipeName, DraftedDate, PublishedDate, ArchivedDate, Calories)
