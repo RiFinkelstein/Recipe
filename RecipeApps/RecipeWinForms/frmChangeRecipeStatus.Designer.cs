@@ -187,8 +187,8 @@
             // 
             // lblDraftedDate
             // 
+            lblDraftedDate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblDraftedDate.AutoSize = true;
-            lblDraftedDate.Dock = DockStyle.Fill;
             lblDraftedDate.Font = new Font("Segoe UI", 14F);
             lblDraftedDate.Location = new Point(3, 50);
             lblDraftedDate.Name = "lblDraftedDate";
@@ -225,8 +225,8 @@
             // 
             // lblPublishedDate
             // 
+            lblPublishedDate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblPublishedDate.AutoSize = true;
-            lblPublishedDate.Dock = DockStyle.Fill;
             lblPublishedDate.Font = new Font("Segoe UI", 14F);
             lblPublishedDate.Location = new Point(3, 50);
             lblPublishedDate.Name = "lblPublishedDate";
@@ -264,8 +264,8 @@
             // 
             // lblArchivedDate
             // 
+            lblArchivedDate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblArchivedDate.AutoSize = true;
-            lblArchivedDate.Dock = DockStyle.Fill;
             lblArchivedDate.Font = new Font("Segoe UI", 14F);
             lblArchivedDate.Location = new Point(3, 50);
             lblArchivedDate.Name = "lblArchivedDate";

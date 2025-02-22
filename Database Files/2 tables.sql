@@ -64,10 +64,9 @@ CREATE table dbo.recipe(
         when PublishedDate is not null and ArchivedDate is null then 'Published'
         else 'Archived' 
         end,
--- SM Tip: You can combine two of the following constraints with between.
-    CONSTRAINT ck_archive_date_cannot_be_before_published_date check(PublishedDate <ArchivedDate),
-    constraint ck_published_date_cannot_be_before_drafted_date CHECK(DraftedDate<PublishedDate), 
-    constraint ck_archive_date_cannot_be_before_drafted_date CHECK(DraftedDate<ArchivedDate)
+    CONSTRAINT ck_published_date_cannot_be_before_drafted_date CHECK (DraftedDate <= PublishedDate),
+    CONSTRAINT ck_archive_date_cannot_be_before_published_date CHECK (PublishedDate <= ArchivedDate), 
+    CONSTRAINT ck_archive_date_cannot_be_before_drafted_date CHECK (DraftedDate <= ArchivedDate)
 )
 go 
 

@@ -18,6 +18,7 @@ namespace RecipeWinForms
 
         DataTable dtRecipe = new DataTable();
         BindingSource bindsource = new BindingSource();
+        string currentStatus;
 
         int recipeID = 0;
         public frmChangeRecipeStatus()
@@ -84,7 +85,7 @@ namespace RecipeWinForms
         private void DisableCurrentStatusButton()
         {
             // Ensure case insensitivity matches database values
-            string currentStatus = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "RecipeStatus");
+            currentStatus = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "RecipeStatus");
 
             if (!string.IsNullOrEmpty(currentStatus))
             {
@@ -102,8 +103,10 @@ namespace RecipeWinForms
                 btnArchive.Enabled = true;
             }
         }
-        private void ChangeRecipeStatus(string newStatus, string columnName)
+        private void ChangeRecipeStatus(string newStatus)
         {
+            currentStatus = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "RecipeStatus");
+
             var response = MessageBox.Show($"Are you sure you want to change this recipe to {newStatus}?",
                 "Confirm Status Change", MessageBoxButtons.YesNo);
 
@@ -117,33 +120,34 @@ namespace RecipeWinForms
                     // Handle Published to Archived transition properly to maintain constraints
                     if (newStatus == "Published")
                     {
-                        // Set the PublishedDate and clear ArchivedDate
-                        row["PublishedDate"] = DateTime.Now;
-                        row["ArchivedDate"] = DBNull.Value;
+                        if (currentStatus == "Archived")
+                        {
+                            // Set the PublishedDate and clear ArchivedDate
+                            row["PublishedDate"] = DateTime.Now;
+                            row["ArchivedDate"] = DBNull.Value;
+                        }
+                        else if (currentStatus == "drafted")
+                        {
+                            // Set the PublishedDate
+                            row["PublishedDate"] = DateTime.Now;
+                        }
+
                     }
                     else if (newStatus == "Archived")
                     {
-                        // Set ArchivedDate only if PublishedDate is valid
-                        if (row["PublishedDate"] != DBNull.Value)
+                        if (currentStatus == "Published")
                         {
-                            DateTime publishedDate = (DateTime)row["PublishedDate"];
-                            if (publishedDate > DateTime.Now)
-                            {
-                                MessageBox.Show("Published date cannot be after the Archived date.", "Invalid Operation",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
+                            // Set the ArchivedDate
                             row["ArchivedDate"] = DateTime.Now;
                         }
-                        else
+                        else if (currentStatus == "Drafted")
                         {
-                            MessageBox.Show("Cannot archive a recipe without a Published date.", "Invalid Operation",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            // Set the PublishedDate and ArchivedDate
+                            row["PublishedDate"] = DateTime.Now;
+                            row["ArchivedDate"] = DateTime.Now;
                         }
-                        row["PublishedDate"] = DBNull.Value; // Clear PublishedDate
                     }
-                    else
+                    else if (newStatus == "Draft")
                     {
                         // Reset DraftedDate and clear PublishedDate and ArchivedDate
                         row["DraftedDate"] = DateTime.Now;
@@ -171,17 +175,17 @@ namespace RecipeWinForms
 
         private void BtnDraft_Click(object? sender, EventArgs e)
         {
-            ChangeRecipeStatus("Draft", "DraftedDate");
+            ChangeRecipeStatus("Drafted");
         }
 
         private void BtnPublish_Click(object? sender, EventArgs e)
         {
-            ChangeRecipeStatus("Published", "PublishedDate");
+            ChangeRecipeStatus("Published");
         }
 
         private void BtnArchive_Click(object? sender, EventArgs e)
         {
-            ChangeRecipeStatus("Archived", "ArchivedDate");
+            ChangeRecipeStatus("Archived");
         }
 
     }

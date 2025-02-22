@@ -128,12 +128,12 @@ SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), (select C.Cui
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Apple Yogurt Smoothie', 75, '05-28-2004', '04-11-2009',  null 
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'English'), 'Cheese Bread', 250, '11-01-2021', null,  null 
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Vegetable Soup', 50, '02-22-2015', '02-16-2022',  '04-04-2022'
-UNION SELECT (Select u.usersID from users U WHERE UsersName = 'HHarper'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Teriaki Salmon', 400, '11-07-2009', '09-05-2022', null
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'HHarper'), (select C.CuisineID from Cuisine C where cuisinename= 'Japanese'), 'Teriaki Salmon', 400, '11-07-2009', '09-05-2022', null
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'BJohnson'), (select C.CuisineID from Cuisine C where cuisinename= 'Mexican'), 'Grilled Peppers', 40, '07-29-2008', '05-22-2009', '08-26-2016'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'Awhite'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Fruit Cups', 100, '09-25-2023', null, null
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'JElias'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Deli Salad', 100, '10-11-2008', '01-26-2013', '08-21-2021'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Jewish'), 'Pretzel Chicken ', 120, '06-16-2019', '06-16-2020', null
-UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Japenese'), 'Spicy Rice', 120, '12-21-2003', '01-30-2008', '03-26-2017'
+UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'Japanese'), 'Spicy Rice', 120, '12-21-2003', '01-30-2008', '03-26-2017'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'French'), 'Chocolate Mousse', 175, '05-20-2015', null, '05-10-2019'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'CCollins'), (select C.CuisineID from Cuisine C where cuisinename= 'Greek'), 'pancakes', 125, '09-12-2020', null, null
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Classic Potatoes', 125, '09-09-2005', '02-08-2010', null
@@ -142,7 +142,6 @@ UNION SELECT (Select u.usersID from users U WHERE UsersName = 'ERadley'), (selec
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'CC Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'Cinaman Butter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
 UNION SELECT (Select u.usersID from users U WHERE UsersName = 'MStephans'), (select C.CuisineID from Cuisine C where cuisinename= 'American'), 'PeanutButter Muffins ', 300, '01-20-2012', '01-11-2016', '12-03-2021'
-ss
 go
 
 -- SM A CTE would be much more readable and easier to do.
