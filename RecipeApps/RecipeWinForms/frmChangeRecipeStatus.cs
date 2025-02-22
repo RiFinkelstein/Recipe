@@ -126,7 +126,7 @@ namespace RecipeWinForms
                             row["PublishedDate"] = DateTime.Now;
                             row["ArchivedDate"] = DBNull.Value;
                         }
-                        else if (currentStatus == "drafted")
+                        else if (currentStatus == "Drafted")
                         {
                             // Set the PublishedDate
                             row["PublishedDate"] = DateTime.Now;
@@ -147,7 +147,7 @@ namespace RecipeWinForms
                             row["ArchivedDate"] = DateTime.Now;
                         }
                     }
-                    else if (newStatus == "Draft")
+                    else if (newStatus == "Drafted")
                     {
                         // Reset DraftedDate and clear PublishedDate and ArchivedDate
                         row["DraftedDate"] = DateTime.Now;
