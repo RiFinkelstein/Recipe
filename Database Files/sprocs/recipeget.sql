@@ -5,6 +5,7 @@ create or alter procedure dbo.RecipeGet (
 as
 begin 
 	select @RecipeName = nullif(@RecipeName, '')
+--AS Why is the function for if recipe delete allowed necessary here?
 	select r.UsersID, r.CuisineID, r.RecipeID, r.RecipeName, r.Calories, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Picture, r.RecipeStatus, dbo.IsRecipeDeleteAllowed(r.recipeID) as isdeleteallowed
 
 	from recipe r

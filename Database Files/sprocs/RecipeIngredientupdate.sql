@@ -23,6 +23,7 @@ BEGIN
             VALUES (
                 @RecipeID,
                 @IngredientID,
+--AS Fix logic, this isn't working. Same for update
                 (SELECT MeasurementID FROM Measurement WHERE MeasurementName = @MeasurementName),
                 @Amount,
                 (SELECT ISNULL(MAX(SequenceNumber), 0) + 1 FROM RecipeIngredient WHERE RecipeID = @RecipeID)
@@ -49,7 +50,7 @@ BEGIN
                 SET @return = 1;
                 RETURN @return;
             END
-
+--AS Why is this necessary?
             -- Update IngredientName if provIDed
             IF @IngredientName IS NOT NULL
             BEGIN

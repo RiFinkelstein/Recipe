@@ -1,3 +1,4 @@
+--AS Combine this sproc with CookbookGet, no need for 2 separate sprocs.
 create or alter procedure dbo.CookbookListGet 
 as
 begin 

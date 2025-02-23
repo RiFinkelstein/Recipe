@@ -1,3 +1,4 @@
+--AS What is this sproc for?
 create or alter procedure dbo.RecipeNumGet (
     @RecipeNum int OUTPUT
 )

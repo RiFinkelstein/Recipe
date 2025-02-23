@@ -4,6 +4,7 @@ create or alter procedure dbo.CookbookGet (
 	)
 as
 begin 
+--AS Why is the case necessary?
 	select c.CookbookID, c.CookbookName, c.UsersID, c.Price, cast(c.Active as int) as active, c.DateCreated
 	from cookbook c
 	where @CookbookID= c.CookbookID or @all= 1
