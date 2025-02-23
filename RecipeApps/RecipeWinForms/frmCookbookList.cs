@@ -69,6 +69,7 @@ namespace RecipeWinForms
         }
         private void GCookbooklist_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             ShowCookbookForm(e.RowIndex);
         }
 

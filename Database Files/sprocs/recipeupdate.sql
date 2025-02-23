@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 
 --AS Sproc name should be proper cased
 CREATE OR ALTER PROC dbo.Recipeupdate(
+=======
+CREATE OR ALTER PROC dbo.RecipeUpdate(
+>>>>>>> ce296b26ad62d933db5305df0d18be524562a86d
     @RecipeID int OUTPUT,
     @CuisineID int,
     @UsersID int,
@@ -12,8 +16,13 @@ CREATE OR ALTER PROC dbo.Recipeupdate(
 AS
 BEGIN
     DECLARE @Return int = 0;
+<<<<<<< HEAD
 --AS Take out logic checking if null
     IF @RecipeID IS NULL or @RecipeID=0
+=======
+
+    IF @RecipeID=0
+>>>>>>> ce296b26ad62d933db5305df0d18be524562a86d
 
     BEGIN
         INSERT INTO Recipe (CuisineID, UsersID, RecipeName, DraftedDate, PublishedDate, ArchivedDate, Calories)

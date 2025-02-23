@@ -1,8 +1,7 @@
-CREATE OR ALTER PROCEDURE RecipeClone
+CREATE OR ALTER PROCEDURE RecipeClone(
     @OriginalRecipeID INT,
     @ClonedRecipeID int OUTPUT,
-
-    @Message VARCHAR(500) output
+    @Message VARCHAR(500) output)
 AS
 BEGIN
 

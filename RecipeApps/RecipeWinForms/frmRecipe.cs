@@ -75,7 +75,7 @@ namespace RecipeWinForms
             WindowsFormUtility.SetListBinding(lstCuisineName, dtCuisine, dtRecipe, "Cuisine");
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
-            WindowsFormUtility.SetControlBinding(dtpDraftedDate, bindsource);
+            WindowsFormUtility.SetControlBinding(txtDraftedDate, bindsource);
             if (dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate"))
             {
                 dtRecipe.Rows[0]["drafteddate"] = DateTime.Now;

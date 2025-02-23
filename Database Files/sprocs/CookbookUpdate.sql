@@ -8,8 +8,13 @@ CREATE OR ALTER PROC dbo.CookbookUpdate(
 AS
 BEGIN
     DECLARE @return int = 0;
+<<<<<<< HEAD
 --AS Take out checking if it's null.
     IF @CookbookID IS NULL or @CookbookID=0
+=======
+
+    IF @CookbookID =0
+>>>>>>> ce296b26ad62d933db5305df0d18be524562a86d
     BEGIN
         INSERT Cookbook (UsersID, CookbookName, Price, DateCreated)
         VALUES (@UsersID, @CookbookName, @Price, @DateCreated);

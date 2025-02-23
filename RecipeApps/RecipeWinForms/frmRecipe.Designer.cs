@@ -52,10 +52,10 @@
             lblCaptionUser = new Label();
             lstUsersName = new ComboBox();
             tblStatus = new TableLayoutPanel();
+            txtDraftedDate = new TextBox();
             lblStatusDates = new Label();
             lblCaptionDraftedDate = new Label();
             lblCaptionPublishedDate = new Label();
-            dtpDraftedDate = new DateTimePicker();
             txtArchivedDate = new TextBox();
             lblCaptionArchivedDate = new Label();
             txtPublishedDate = new TextBox();
@@ -359,10 +359,10 @@
             tblStatus.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.668335F));
             tblStatus.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.668335F));
             tblStatus.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.668335F));
+            tblStatus.Controls.Add(txtDraftedDate, 0, 1);
             tblStatus.Controls.Add(lblStatusDates, 0, 0);
             tblStatus.Controls.Add(lblCaptionDraftedDate, 1, 0);
             tblStatus.Controls.Add(lblCaptionPublishedDate, 2, 0);
-            tblStatus.Controls.Add(dtpDraftedDate, 1, 1);
             tblStatus.Controls.Add(txtArchivedDate, 3, 1);
             tblStatus.Controls.Add(lblCaptionArchivedDate, 3, 0);
             tblStatus.Controls.Add(txtPublishedDate, 2, 1);
@@ -374,6 +374,16 @@
             tblStatus.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblStatus.Size = new Size(924, 42);
             tblStatus.TabIndex = 29;
+            // 
+            // txtDraftedDate
+            // 
+            txtDraftedDate.Dock = DockStyle.Fill;
+            txtDraftedDate.Enabled = false;
+            txtDraftedDate.Location = new Point(464, 24);
+            txtDraftedDate.Name = "txtDraftedDate";
+            txtDraftedDate.ReadOnly = true;
+            txtDraftedDate.Size = new Size(148, 27);
+            txtDraftedDate.TabIndex = 19;
             // 
             // lblStatusDates
             // 
@@ -408,16 +418,6 @@
             lblCaptionPublishedDate.TabIndex = 2;
             lblCaptionPublishedDate.Text = "Published";
             lblCaptionPublishedDate.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // dtpDraftedDate
-            // 
-            dtpDraftedDate.Dock = DockStyle.Fill;
-            dtpDraftedDate.Enabled = false;
-            dtpDraftedDate.Font = new Font("Segoe UI", 7F);
-            dtpDraftedDate.Location = new Point(464, 24);
-            dtpDraftedDate.Name = "dtpDraftedDate";
-            dtpDraftedDate.Size = new Size(148, 23);
-            dtpDraftedDate.TabIndex = 28;
             // 
             // txtArchivedDate
             // 
@@ -537,7 +537,6 @@
         private Button btnDeleteRecipe;
         private Button btnChangeStatusRecipe;
         private Label lblCaptionRecipeStatus;
-        private DateTimePicker dtpDraftedDate;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private TableLayoutPanel tblStatus;
         private Label lblStatusDates;
@@ -547,5 +546,6 @@
         private Label lblCaptionUser;
         private ComboBox lstUsersName;
         private TextBox txtRecipeStatus;
+        private TextBox txtDraftedDate;
     }
 }
