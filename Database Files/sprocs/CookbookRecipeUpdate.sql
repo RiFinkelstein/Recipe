@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 --AS Sproc name should be proper cased
-CREATE or alter PROCEDURE dbo.cookbookrecipeupdate(
-=======
 CREATE or alter PROCEDURE dbo.CookbookRecipeUpdate(
->>>>>>> ce296b26ad62d933db5305df0d18be524562a86d
     @CookbookRecipeID int output, 
     @CookbookID int, 
     @RecipeID int,
