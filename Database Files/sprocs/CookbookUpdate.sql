@@ -3,7 +3,8 @@ CREATE OR ALTER PROC dbo.CookbookUpdate(
     @UsersID int,
     @CookbookName varchar(100),
     @Price int,
-    @DateCreated DATETIME
+    @DateCreated DATETIME,
+    @Active int
 )
 AS
 BEGIN
@@ -14,8 +15,8 @@ BEGIN
 
     IF @CookbookID =0
     BEGIN
-        INSERT Cookbook (UsersID, CookbookName, Price, DateCreated)
-        VALUES (@UsersID, @CookbookName, @Price, @DateCreated);
+        INSERT Cookbook (UsersID, CookbookName, Price, DateCreated, Active)
+        VALUES (@UsersID, @CookbookName, @Price, @DateCreated, @Active);
         -- Capture the newly inserted ID
         SELECT @CookbookID = SCOPE_IDENTITY();
     END
@@ -27,7 +28,8 @@ BEGIN
             UsersID = @UsersID,
             CookbookName = @CookbookName,
             Price = @Price,
-            DateCreated = @DateCreated
+            DateCreated = @DateCreated,
+            Active= @Active
         WHERE CookbookID = @cookbookID;
     END
 

@@ -40,8 +40,8 @@ go
 create table dbo.Cuisine(
     CuisineID int not null Identity PRIMARY KEY, 
     CuisineName varchar(35) 
-            CONSTRAINT ck_Cuisne_Cuisne_name_is_not_blank check(CuisineName <> '') 
-            constraint u_Cuisne_Cuisne_name_is_unique UNIQUE
+            CONSTRAINT ck_Cuisne_Cuisine_name_is_not_blank check(CuisineName <> '') 
+            constraint u_Cuisne_Cuisine_name_is_unique UNIQUE
 )
 go 
 
