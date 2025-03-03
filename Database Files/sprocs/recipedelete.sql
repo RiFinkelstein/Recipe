@@ -1,6 +1,6 @@
 CREATE or ALTER PROCEDURE dbo.RecipeDelete(
     @RecipeID INT,
-    @Message VARCHAR(500) = '' OUTPUT
+    @Message VARCHAR(1000) = '' OUTPUT
 )
 as 
 begin 
