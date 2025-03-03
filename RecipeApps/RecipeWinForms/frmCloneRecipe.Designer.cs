@@ -62,6 +62,9 @@
             // btnClone
             // 
             btnClone.Anchor = AnchorStyles.Top;
+            btnClone.BackColor = Color.FromArgb(255, 224, 192);
+            btnClone.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClone.ForeColor = SystemColors.ControlText;
             btnClone.ImageAlign = ContentAlignment.TopCenter;
             btnClone.Location = new Point(285, 44);
             btnClone.Margin = new Padding(10);
@@ -69,7 +72,7 @@
             btnClone.Size = new Size(100, 50);
             btnClone.TabIndex = 1;
             btnClone.Text = "Clone";
-            btnClone.UseVisualStyleBackColor = true;
+            btnClone.UseVisualStyleBackColor = false;
             // 
             // sqlCommand1
             // 
