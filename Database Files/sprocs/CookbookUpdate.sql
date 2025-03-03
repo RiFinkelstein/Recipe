@@ -2,7 +2,7 @@ CREATE OR ALTER PROC dbo.CookbookUpdate(
     @CookbookID int OUTPUT, -- Corrected parameter name
     @UsersID int,
     @CookbookName varchar(100),
-    @Price int,
+    @Price DECIMAL,
     @DateCreated DATETIME,
     @Active int
 )

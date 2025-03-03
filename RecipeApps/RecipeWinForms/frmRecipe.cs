@@ -53,10 +53,14 @@ namespace RecipeWinForms
             this.Tag = RecipeID;
             dtRecipe = Recipe.Load(RecipeID);
             bindsource.DataSource = dtRecipe;
+            bindsource.ResetBindings(false);
             if (RecipeID == 0)
             {
                 DataRow newRow = dtRecipe.NewRow();
-                newRow["drafteddate"] = DateTime.Now;
+                newRow["DraftedDate"] = DBNull.Value;
+                newRow["Publisheddate"] = DBNull.Value;
+                newRow["ArchivedDate"] = DBNull.Value;
+
                 dtRecipe.Rows.Add(newRow);
             }
             this.Text = GetRecipeDescription();
@@ -76,11 +80,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormUtility.SetControlBinding(txtDraftedDate, bindsource);
-            if (dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate"))
-            {
-                dtRecipe.Rows[0]["drafteddate"] = DateTime.Now;
-            }
-
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
@@ -158,6 +157,7 @@ namespace RecipeWinForms
         }
 
 
+
         public bool Save()
         {
             bool b = false;
@@ -165,11 +165,15 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Save(dtRecipe);
+
                 b = true;
-                bindsource.ResetBindings(false);
                 RecipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
                 this.Tag = RecipeID;
                 SetButtonsEnabledBasedOnNewRecord();
+                dtRecipe = Recipe.Load(RecipeID);
+                bindsource.DataSource = dtRecipe;
+                bindsource.ResetBindings(false);
+
             }
             catch (Exception ex)
             {
@@ -181,6 +185,8 @@ namespace RecipeWinForms
             }
             return b;
         }
+
+
         private void delete()
         {
             if (dtRecipe.Rows.Count > 0)
