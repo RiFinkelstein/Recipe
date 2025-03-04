@@ -2,29 +2,37 @@ CREATE OR ALTER PROCEDURE dbo.RecipeIngredientUpdate(
     @RecipeIngredientID INT OUTPUT,
     @RecipeID INT,
     @IngredientID INT,
-    @MeasurementName VARCHAR(35) = NULL, -- Optional
+    @MeasurementID INT = NULL,  -- Now accepting MeasurementID directly
     @Amount DECIMAL(5,2) = NULL,         -- Optional
     @IngredientName VARCHAR(35) = NULL -- Optional
-   --@Message VARCHAR(500) OUTPUT
 )
 AS
 BEGIN
     SET NOCOUNT ON;
     DECLARE @return INT = 0;
+    DECLARE @MeasurementName VARCHAR(35);
 
     -- Default RecipeIngredientID to 0 if NULL
     SELECT @RecipeIngredientID = ISNULL(@RecipeIngredientID, 0);
 
     BEGIN TRY
         IF @RecipeIngredientID = 0
-        BEGIN
-            -- Insert New Recipe Ingredient
+        BEGIN TRY
+                -- Step 1: Retrieve MeasurementName based on MeasurementID
+                IF @MeasurementID IS NOT NULL
+                BEGIN
+                    SELECT @MeasurementName = MeasurementName FROM Measurement WHERE MeasurementID = @MeasurementID;
+                END
+
+            -- Step 2: Insert new RecipeIngredient if RecipeIngredientID = 0
+            IF @RecipeIngredientID = 0
+            BEGIN
             INSERT INTO RecipeIngredient (RecipeID, IngredientID, MeasurementID, Amount, SequenceNumber)
             VALUES (
                 @RecipeID,
                 @IngredientID,
 --AS Fix logic, this isn't working. Same for update
-                (SELECT MeasurementID FROM Measurement WHERE MeasurementName = @MeasurementName),
+                @MeasurementID,
                 @Amount,
                 (SELECT ISNULL(MAX(SequenceNumber), 0) + 1 FROM RecipeIngredient WHERE RecipeID = @RecipeID)
             );
@@ -35,12 +43,12 @@ BEGIN
         END
         ELSE
         BEGIN
-            -- Update existing RecipeIngredient
+            --Step 3: Update existing RecipeIngredient
             UPDATE RecipeIngredient
             SET
                 RecipeID = @RecipeID,
                 IngredientID = @IngredientID,
-                MeasurementID = (SELECT MeasurementID FROM Measurement WHERE MeasurementName = @MeasurementName),
+                MeasurementID = @MeasurementID,
                 Amount = @Amount
             WHERE RecipeIngredientID = @RecipeIngredientID;
 
@@ -51,23 +59,9 @@ BEGIN
                 RETURN @return;
             END
 --AS Why is this necessary?
-            -- Update IngredientName if provIDed
-            IF @IngredientName IS NOT NULL
-            BEGIN
-                UPDATE Ingredient
-                SET IngredientName = @IngredientName
-                WHERE IngredientID = @IngredientID;
-
-                IF @@ROWCOUNT = 0
-                BEGIN
-                    --SET @Message = 'Update failed: IngredientID not found.';
-                    SET @return = 1;
-                    RETURN @return;
-                END
             END
 
             --SET @Message = 'Recipe ingredient successfully updated.';
-        END
     END TRY
     BEGIN CATCH
         -- Capture the error message

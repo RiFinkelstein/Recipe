@@ -1,6 +1,6 @@
 CREATE or ALTER PROCEDURE dbo.RecipeDelete(
     @RecipeID INT,
-    @Message VARCHAR(1000) = '' OUTPUT
+    @Message VARCHAR(2000) = '' OUTPUT
 )
 as 
 begin 
@@ -11,8 +11,6 @@ begin
         select 1 from recipe r 
         where r.RecipeID = @RecipeID
         and (r.RecipeStatus = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE()) <30))
-
-
 BEGIN
   SELECT @Return =1, @Message= 'Can only delete recipe that is currently drafted or has been archvied more than 30 days ago'
   goto finished

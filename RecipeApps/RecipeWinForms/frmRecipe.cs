@@ -189,15 +189,6 @@ namespace RecipeWinForms
 
         private void Delete()
         {
-            /*if (dtRecipe.Rows.Count > 0)
-            {
-                string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "isdeleteallowed");
-                if (alloweddelete != "")
-                {
-                    MessageBox.Show(alloweddelete);
-                    return;
-                }
-            }*/
             var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.DefaultDesktopOnly);
             if (response == DialogResult.No)
             {
