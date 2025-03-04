@@ -69,7 +69,12 @@ namespace RecipeSystem
             int id = (int)dtRecipe.Rows[0]["recipeID"];
             SqlCommand cmd = SQLUtility.GetSqlcommand("RecipeDelete");
             SQLUtility.SetParamValue(cmd, "@recipeid", id);
+
+            cmd.Parameters["@message"].Direction = ParameterDirection.Output;
+
+
             SQLUtility.ExecuteSQL(cmd);
+
         }
         public static string GetRecipeDescription(DataTable dtRecipe)
         {

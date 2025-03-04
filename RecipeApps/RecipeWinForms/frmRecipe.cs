@@ -187,9 +187,9 @@ namespace RecipeWinForms
         }
 
 
-        private void delete()
+        private void Delete()
         {
-            if (dtRecipe.Rows.Count > 0)
+            /*if (dtRecipe.Rows.Count > 0)
             {
                 string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "isdeleteallowed");
                 if (alloweddelete != "")
@@ -197,7 +197,7 @@ namespace RecipeWinForms
                     MessageBox.Show(alloweddelete);
                     return;
                 }
-            }
+            }*/
             var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.DefaultDesktopOnly);
             if (response == DialogResult.No)
             {
@@ -206,6 +206,7 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Delete(dtRecipe);
+                MessageBox.Show("Recipe deleted successfully", "Hearty Health", MessageBoxButtons.OK);
                 this.Close();
             }
             catch (Exception ex)
@@ -362,7 +363,7 @@ namespace RecipeWinForms
 
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
-            delete();
+            Delete();
         }
 
         private void BtnSave_Click(object? sender, EventArgs e)
