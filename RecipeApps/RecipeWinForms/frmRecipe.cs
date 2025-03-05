@@ -147,6 +147,9 @@ namespace RecipeWinForms
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
+            gSteps.ScrollBars = ScrollBars.Vertical;
+
+
         }
 
 
