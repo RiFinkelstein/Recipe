@@ -107,6 +107,8 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
             // Format the grid for editing
             WindowsFormUtility.FormatGridforEdit(gCookbookRecipe, "cookbookrecipe");
+            gCookbookRecipe.ScrollBars = ScrollBars.Vertical;
+
         }
         private void DeleteCookbookRecipe(int rowIndex)
         {
