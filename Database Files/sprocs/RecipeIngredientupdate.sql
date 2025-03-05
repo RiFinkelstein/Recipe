@@ -4,7 +4,8 @@ CREATE OR ALTER PROCEDURE dbo.RecipeIngredientUpdate(
     @IngredientID INT,
     @MeasurementID INT = NULL,  -- Now accepting MeasurementID directly
     @Amount DECIMAL(5,2) = NULL,         -- Optional
-    @IngredientName VARCHAR(35) = NULL -- Optional
+    @IngredientName VARCHAR(35) = NULL, 
+    @SequenceNumber INT= NULL -- Optional
 )
 AS
 BEGIN
@@ -16,8 +17,6 @@ BEGIN
     SELECT @RecipeIngredientID = ISNULL(@RecipeIngredientID, 0);
 
     BEGIN TRY
-        IF @RecipeIngredientID = 0
-        BEGIN TRY
                 -- Step 1: Retrieve MeasurementName based on MeasurementID
                 IF @MeasurementID IS NOT NULL
                 BEGIN
@@ -34,12 +33,11 @@ BEGIN
 --AS Fix logic, this isn't working. Same for update
                 @MeasurementID,
                 @Amount,
-                (SELECT ISNULL(MAX(SequenceNumber), 0) + 1 FROM RecipeIngredient WHERE RecipeID = @RecipeID)
+                @SequenceNumber
             );
 
             -- Capture the new ID
             SELECT @RecipeIngredientID = SCOPE_IDENTITY();
-            --SET @Message = 'Recipe ingredient successfully added.';
         END
         ELSE
         BEGIN
@@ -49,23 +47,20 @@ BEGIN
                 RecipeID = @RecipeID,
                 IngredientID = @IngredientID,
                 MeasurementID = @MeasurementID,
-                Amount = @Amount
+                Amount = @Amount, 
+                SequenceNumber= @SequenceNumber
             WHERE RecipeIngredientID = @RecipeIngredientID;
 
             IF @@ROWCOUNT = 0
             BEGIN
-                --SET @Message = 'Update failed: RecipeIngredientID not found.';
                 SET @return = 1;
                 RETURN @return;
             END
 --AS Why is this necessary?
             END
 
-            --SET @Message = 'Recipe ingredient successfully updated.';
     END TRY
     BEGIN CATCH
-        -- Capture the error message
-        --SET @Message = ERROR_MESSAGE();
         SET @return = 1;
     END CATCH
 
