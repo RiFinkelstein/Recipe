@@ -120,9 +120,13 @@ namespace RecipeWinForms
         }
         private void FormatIngredientGrid()
         {
+
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+
+            //add scrollbar to table
+            gIngredients.ScrollBars= ScrollBars.Vertical;
         }
 
 
@@ -223,7 +227,6 @@ namespace RecipeWinForms
                 }
                 DataRow row = dtrecipeingredient.Rows[rowIndex];
                 dtrecipeingredient.Rows.Remove(row);
-
             }
             catch (Exception ex)
             {
