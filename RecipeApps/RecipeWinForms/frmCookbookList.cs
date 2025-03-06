@@ -58,7 +58,7 @@ namespace RecipeWinForms
 
         public static DataTable GetcookbookList()
         {
-            SqlCommand cmd = SQLUtility.GetSqlcommand("CookbookListGet");
+            SqlCommand cmd = SQLUtility.GetSqlcommand("CookbookGet");
             return SQLUtility.GetDataTable(cmd);
         }
 

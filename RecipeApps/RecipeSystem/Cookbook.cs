@@ -12,12 +12,13 @@ namespace RecipeSystem
     public class Cookbook
     {
 
-        public static DataTable Load(int CookbookID)
+        public static DataTable Load(int CookbookID, bool GetAll = false)
         {
 
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSqlcommand("CookbookGet");
             SQLUtility.SetParamValue(cmd, "@CookbookID", CookbookID);
+            SQLUtility.SetParamValue(cmd, "@All", GetAll ? 1 : 0);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
 
