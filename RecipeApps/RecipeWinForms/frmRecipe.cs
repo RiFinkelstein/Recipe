@@ -278,6 +278,15 @@ namespace RecipeWinForms
             try
             {
                 RecipeIngredient.SaveTable(dtrecipeingredient, RecipeID);
+                foreach (DataGridViewRow row in gIngredients.Rows)
+                {
+                    if (row.Cells["RecipeIngredientID"].Value == null || Convert.ToInt32(row.Cells["RecipeIngredientID"].Value) == 0)
+                    {
+                        row.Cells[Deletecolname].ReadOnly = true;
+                        row.Cells[Deletecolname].Style.ForeColor = Color.Gray; // Grayed-out button effect
+                        row.Cells[Deletecolname].Style.SelectionBackColor = Color.LightGray;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -336,10 +345,19 @@ namespace RecipeWinForms
             }
         }
 
+
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
+                int recipeIngredientID = WindowsFormUtility.GetIDFromGrid(gIngredients, e.RowIndex, "RecipeIngredientID");
+
+                if (recipeIngredientID == 0)
+                {
+                    MessageBox.Show("Cannot delete a new ingredient entry before saving.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 DeleteRecipeIngredient(e.RowIndex);
             }
         }
