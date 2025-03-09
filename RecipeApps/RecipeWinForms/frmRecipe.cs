@@ -278,15 +278,7 @@ namespace RecipeWinForms
             try
             {
                 RecipeIngredient.SaveTable(dtrecipeingredient, RecipeID);
-                foreach (DataGridViewRow row in gIngredients.Rows)
-                {
-                    if (row.Cells["RecipeIngredientID"].Value == null || Convert.ToInt32(row.Cells["RecipeIngredientID"].Value) == 0)
-                    {
-                        row.Cells[Deletecolname].ReadOnly = true;
-                        row.Cells[Deletecolname].Style.ForeColor = Color.Gray; // Grayed-out button effect
-                        row.Cells[Deletecolname].Style.SelectionBackColor = Color.LightGray;
-                    }
-                }
+
             }
             catch (Exception ex)
             {
@@ -341,6 +333,13 @@ namespace RecipeWinForms
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
+                int DirectionsID = WindowsFormUtility.GetIDFromGrid(gSteps, e.RowIndex, "DirectionsID");
+
+                if (DirectionsID == 0)
+                {
+                    MessageBox.Show("Cannot delete a new step entry before saving.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 DeleteRecipeDirections(e.RowIndex);
             }
         }

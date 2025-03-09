@@ -44,7 +44,7 @@ namespace RecipeWinForms
         {
             cookbookID = cookbookIDVal;
             this.Tag = cookbookID;
-            dtCookbook = Cookbook.Load(cookbookID);
+            dtCookbook = Cookbook.Load(cookbookID, false);
             bindsource.DataSource = dtCookbook;
             if (cookbookID == 0)
             {

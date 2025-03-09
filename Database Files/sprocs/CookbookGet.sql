@@ -4,15 +4,15 @@ create or alter procedure dbo.CookbookGet (
 	)
 as
 begin 
-    IF @CookbookID > 0  -- Fetch a specific cookbook
+    IF @All=0 AND @CookbookID >= 0  -- Fetch a specific cookbook
 	BEGIN	
 --AS Why is the case necessary?
 	select c.CookbookID, c.CookbookName, c.UsersID, c.Price, c.Active, c.DateCreated
 	from cookbook c
-	where @CookbookID= c.CookbookID or @all= 1
+	where @CookbookID= c.CookbookID --or @all= 1
 	order by c.CookbookName
 end 
-	ELSE
+	ELSE if @All= 1
 	    BEGIN
         SELECT
             cb.CookbookID,
