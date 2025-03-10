@@ -30,12 +30,13 @@ namespace RecipeWinForms
            btnSave.Click += BtnSave_Click;
            btnDelete.Click += BtnDelete_Click;
            gCookbookRecipe.CellContentClick += GCookbookRecipe_CellContentClick;
-            btnSaveCookbookRecipe.Click += BtnSaveCookbookRecipe_Click;
+           btnSaveCookbookRecipe.Click += BtnSaveCookbookRecipe_Click;
+           WindowsFormUtility.EnforceNumericInput(txtPrice);
            foreach (Control c in tblMain.Controls)
-            {
-                c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            }
-            this.Shown += FrmCookbook_Shown;
+           {
+               c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+           }
+           this.Shown += FrmCookbook_Shown;
 
         }
 

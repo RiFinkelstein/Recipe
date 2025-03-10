@@ -37,13 +37,15 @@ namespace RecipeWinForms
             btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
+            //txtCalories.TextChanged += TxtCalories_TextChanged;
+            WindowsFormUtility.EnforceNumericInput(txtCalories);
+
             foreach (Control c in tblMain.Controls)
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
             }
             this.Shown += FrmRecipe_Shown;
         }
-
 
 
 
@@ -285,8 +287,7 @@ namespace RecipeWinForms
         }
 
 
-
-        private void SaveRecipeIngredient()
+         private void SaveRecipeIngredient()
         {
             try
             {
@@ -342,18 +343,22 @@ namespace RecipeWinForms
             }
         }
 
+        private void TxtCalories_TextChanged(object? sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && System.Text.RegularExpressions.Regex.IsMatch(txt.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numeric values.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txt.SelectionStart = txt.Text.Length; // Keep cursor at the end
+            }
+        }
+
+
         private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
-                int DirectionsID = WindowsFormUtility.GetIDFromGrid(gSteps, e.RowIndex, "DirectionsID");
-
-                if (DirectionsID == 0)
-                {
-                    MessageBox.Show("Cannot delete a new step entry before saving.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                DeleteRecipeDirections(e.RowIndex);
+                   DeleteRecipeIngredient(e.RowIndex);
             }
         }
 
