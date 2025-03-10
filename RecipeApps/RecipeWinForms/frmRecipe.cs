@@ -216,7 +216,7 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
-
+        //in the delete procedure check if the rowindex is equal to the dtRecipe.Rows.Count  and if is then return (meaning it won't do anything).
 
         private void DeleteRecipeIngredient(int rowIndex)
         {
@@ -227,9 +227,15 @@ namespace RecipeWinForms
                 if (id > 0)
                 {
                     RecipeIngredient.Delete(id);
+                    DataRow row = dtrecipeingredient.Rows[rowIndex];
+                    dtrecipeingredient.Rows.Remove(row);
                 }
-                DataRow row = dtrecipeingredient.Rows[rowIndex];
-                dtrecipeingredient.Rows.Remove(row);
+                else if(rowIndex== dtrecipeingredient.Rows.Count)
+                {
+                    return;
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -242,16 +248,21 @@ namespace RecipeWinForms
             try
             {
                 int id = WindowsFormUtility.GetIDFromGrid(gSteps, rowIndex, "DirectionsID");
-
+               
                 if (id > 0)
                 {
                     // Delete from database
                     RecipeDirections.Delete(id);
+
+                    // Remove the row from the DataTable
+                    DataRow row = dtrecipedirections.Rows[rowIndex];
+                    dtrecipedirections.Rows.Remove(row);
+                }
+                else if (rowIndex == dtrecipedirections.Rows.Count)
+                {
+                    return;
                 }
 
-                // Remove the row from the DataTable
-                DataRow row = dtrecipedirections.Rows[rowIndex];
-                dtrecipedirections.Rows.Remove(row);
 
             }
             catch (Exception ex)
@@ -351,14 +362,6 @@ namespace RecipeWinForms
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
-                int recipeIngredientID = WindowsFormUtility.GetIDFromGrid(gIngredients, e.RowIndex, "RecipeIngredientID");
-
-                if (recipeIngredientID == 0)
-                {
-                    MessageBox.Show("Cannot delete a new ingredient entry before saving.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 DeleteRecipeIngredient(e.RowIndex);
             }
         }
