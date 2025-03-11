@@ -1,3 +1,4 @@
+--AS File has 1 after the name.
 CREATE OR ALTER procedure dbo.CookbookRecipeGet (
     --@CookbookRecipeID INT = 0,
     @CookbookID INT = 0,
@@ -10,7 +11,6 @@ BEGIN
     DECLARE @return INT= 0
     SELECT
         @all = ISNULL(@all, 0),
-        --@CookbookRecipeID = ISNULL(@CookbookRecipeID, 0),
         @CookbookID = ISNULL(@CookbookID, 0);
 
         SELECT r.RecipeName, cr.CookBookSequenceNumber, cr.CookbookRecipeID, r.RecipeID, cr.CookbookID

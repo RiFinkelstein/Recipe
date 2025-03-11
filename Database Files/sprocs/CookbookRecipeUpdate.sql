@@ -1,3 +1,4 @@
+--AS Sproc name should be proper cased
 CREATE or alter PROCEDURE dbo.CookbookRecipeUpdate(
     @CookbookRecipeID int output, 
     @CookbookID int, 

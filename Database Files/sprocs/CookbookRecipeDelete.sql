@@ -1,3 +1,4 @@
+--AS Sproc name should be proper cased
 CREATE or alter PROCEDURE dbo.CookbookRecipeDelete(
     @CookbookRecipeID int =0, 
     @Message varchar(500) = ''  output

@@ -37,6 +37,9 @@ namespace RecipeWinForms
             btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
+            //txtCalories.TextChanged += TxtCalories_TextChanged;
+            WindowsFormUtility.EnforceNumericInput(txtCalories);
+
             foreach (Control c in tblMain.Controls)
             {
                 c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
@@ -46,17 +49,20 @@ namespace RecipeWinForms
 
 
 
-
         public void LoadForm(int RecipeIDval)
         {
             RecipeID = RecipeIDval;
             this.Tag = RecipeID;
             dtRecipe = Recipe.Load(RecipeID);
             bindsource.DataSource = dtRecipe;
+            bindsource.ResetBindings(false);
             if (RecipeID == 0)
             {
                 DataRow newRow = dtRecipe.NewRow();
-                newRow["drafteddate"] = DateTime.Now;
+                newRow["DraftedDate"] = DBNull.Value;
+                newRow["Publisheddate"] = DBNull.Value;
+                newRow["ArchivedDate"] = DBNull.Value;
+
                 dtRecipe.Rows.Add(newRow);
             }
             this.Text = GetRecipeDescription();
@@ -76,11 +82,6 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormUtility.SetControlBinding(txtCalories, bindsource);
             WindowsFormUtility.SetControlBinding(txtDraftedDate, bindsource);
-            if (dtRecipe.Rows.Count > 0 && dtRecipe.Rows[0].IsNull("DraftedDate"))
-            {
-                dtRecipe.Rows[0]["drafteddate"] = DateTime.Now;
-            }
-
             WindowsFormUtility.SetControlBinding(txtPublishedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtArchivedDate, bindsource);
             WindowsFormUtility.SetControlBinding(txtRecipeStatus, bindsource);
@@ -121,9 +122,13 @@ namespace RecipeWinForms
         }
         private void FormatIngredientGrid()
         {
+
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+
+            //add scrollbar to table
+            gIngredients.ScrollBars= ScrollBars.Vertical;
         }
 
 
@@ -144,6 +149,9 @@ namespace RecipeWinForms
 
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
+            gSteps.ScrollBars = ScrollBars.Vertical;
+
+
         }
 
 
@@ -158,6 +166,7 @@ namespace RecipeWinForms
         }
 
 
+
         public bool Save()
         {
             bool b = false;
@@ -165,11 +174,15 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Save(dtRecipe);
+
                 b = true;
-                bindsource.ResetBindings(false);
                 RecipeID = SQLUtility.GetValueFromFirstRowAsInt(dtRecipe, "RecipeID");
                 this.Tag = RecipeID;
                 SetButtonsEnabledBasedOnNewRecord();
+                dtRecipe = Recipe.Load(RecipeID);
+                bindsource.DataSource = dtRecipe;
+                bindsource.ResetBindings(false);
+
             }
             catch (Exception ex)
             {
@@ -181,18 +194,11 @@ namespace RecipeWinForms
             }
             return b;
         }
-        private void delete()
+
+
+        private void Delete()
         {
-            if (dtRecipe.Rows.Count > 0)
-            {
-                string alloweddelete = SQLUtility.GetValueFromFirstRowAsString(dtRecipe, "isdeleteallowed");
-                if (alloweddelete != "")
-                {
-                    MessageBox.Show(alloweddelete);
-                    return;
-                }
-            }
-            var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo);
+            var response = MessageBox.Show("are you sure you want to delete this recipe?", "Hearty Health", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.DefaultDesktopOnly);
             if (response == DialogResult.No)
             {
                 return;
@@ -200,6 +206,7 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Delete(dtRecipe);
+                MessageBox.Show("Recipe deleted successfully", "Hearty Health", MessageBoxButtons.OK);
                 this.Close();
             }
             catch (Exception ex)
@@ -211,7 +218,7 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
-
+        //in the delete procedure check if the rowindex is equal to the dtRecipe.Rows.Count  and if is then return (meaning it won't do anything).
 
         private void DeleteRecipeIngredient(int rowIndex)
         {
@@ -222,9 +229,14 @@ namespace RecipeWinForms
                 if (id > 0)
                 {
                     RecipeIngredient.Delete(id);
+                    DataRow row = dtrecipeingredient.Rows[rowIndex];
+                    dtrecipeingredient.Rows.Remove(row);
                 }
-                DataRow row = dtrecipeingredient.Rows[rowIndex];
-                dtrecipeingredient.Rows.Remove(row);
+                else if(rowIndex== dtrecipeingredient.Rows.Count)
+                {
+                    return;
+                }
+
 
             }
             catch (Exception ex)
@@ -238,16 +250,21 @@ namespace RecipeWinForms
             try
             {
                 int id = WindowsFormUtility.GetIDFromGrid(gSteps, rowIndex, "DirectionsID");
-
+               
                 if (id > 0)
                 {
                     // Delete from database
                     RecipeDirections.Delete(id);
+
+                    // Remove the row from the DataTable
+                    DataRow row = dtrecipedirections.Rows[rowIndex];
+                    dtrecipedirections.Rows.Remove(row);
+                }
+                else if (rowIndex == dtrecipedirections.Rows.Count)
+                {
+                    return;
                 }
 
-                // Remove the row from the DataTable
-                DataRow row = dtrecipedirections.Rows[rowIndex];
-                dtrecipedirections.Rows.Remove(row);
 
             }
             catch (Exception ex)
@@ -269,11 +286,13 @@ namespace RecipeWinForms
             }
         }
 
-        private void SaveRecipeIngredient()
+
+         private void SaveRecipeIngredient()
         {
             try
             {
                 RecipeIngredient.SaveTable(dtrecipeingredient, RecipeID);
+
             }
             catch (Exception ex)
             {
@@ -324,13 +343,25 @@ namespace RecipeWinForms
             }
         }
 
+        private void TxtCalories_TextChanged(object? sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null && System.Text.RegularExpressions.Regex.IsMatch(txt.Text, "[^0-9]"))
+            {
+                MessageBox.Show("Please enter only numeric values.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txt.SelectionStart = txt.Text.Length; // Keep cursor at the end
+            }
+        }
+
+
         private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
             {
-                DeleteRecipeDirections(e.RowIndex);
+                   DeleteRecipeIngredient(e.RowIndex);
             }
         }
+
 
         private void GIngredients_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
@@ -356,7 +387,7 @@ namespace RecipeWinForms
 
         private void BtnDelete_Click(object? sender, EventArgs e)
         {
-            delete();
+            Delete();
         }
 
         private void BtnSave_Click(object? sender, EventArgs e)

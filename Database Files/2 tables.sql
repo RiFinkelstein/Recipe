@@ -40,8 +40,8 @@ go
 create table dbo.Cuisine(
     CuisineID int not null Identity PRIMARY KEY, 
     CuisineName varchar(35) 
-            CONSTRAINT ck_Cuisne_Cuisne_name_is_not_blank check(CuisineName <> '') 
-            constraint u_Cuisne_Cuisne_name_is_unique UNIQUE
+            CONSTRAINT ck_Cuisne_Cuisine_name_is_not_blank check(CuisineName <> '') 
+            constraint u_Cuisne_Cuisine_name_is_unique UNIQUE
 )
 go 
 
@@ -152,7 +152,7 @@ CREATE table dbo.CookBook(
     CookbookName varchar(100) not null 
             CONSTRAINT ck_Cookbook_Cookbook_Name_is_not_blank check(CookbookName <> '') 
             constraint u_Cookbook_Cookbook_Name_is_unique UNIQUE,
-    Price decimal not null CONSTRAINT ck_Cookbook_price_is_not_less_than_0 CHECK (price > 0),
+    Price decimal(10,2) not null CONSTRAINT ck_Cookbook_price_cannot_be_less_than_0 CHECK (price > 0),
 -- SM Tip: Default to current date.
     DateCreated date not null constraint ck_cookbook_DateCreated_is_not_in_future CHECK(DateCreated <= CURRENT_TIMESTAMP),
     Active bit not null DEFAULT 1, 

@@ -26,6 +26,11 @@ namespace RecipeSystem
 
         public static void SaveDataList(DataTable dt, string tablename)
         {
+            //ensure teh ID column is not read only
+            if (dt.Columns.Contains(tablename + "ID"))
+            {
+                dt.Columns[tablename + "ID"].ReadOnly = false;
+            }
             SQLUtility.SaveDataTable(dt, tablename + "update");
         }
 

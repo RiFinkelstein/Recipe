@@ -30,12 +30,13 @@ namespace RecipeWinForms
            btnSave.Click += BtnSave_Click;
            btnDelete.Click += BtnDelete_Click;
            gCookbookRecipe.CellContentClick += GCookbookRecipe_CellContentClick;
-            btnSaveCookbookRecipe.Click += BtnSaveCookbookRecipe_Click;
+           btnSaveCookbookRecipe.Click += BtnSaveCookbookRecipe_Click;
+           WindowsFormUtility.EnforceNumericInput(txtPrice);
            foreach (Control c in tblMain.Controls)
-            {
-                c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
-            }
-            this.Shown += FrmCookbook_Shown;
+           {
+               c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
+           }
+           this.Shown += FrmCookbook_Shown;
 
         }
 
@@ -44,7 +45,7 @@ namespace RecipeWinForms
         {
             cookbookID = cookbookIDVal;
             this.Tag = cookbookID;
-            dtCookbook = Cookbook.Load(cookbookID);
+            dtCookbook = Cookbook.Load(cookbookID, false);
             bindsource.DataSource = dtCookbook;
             if (cookbookID == 0)
             {
@@ -60,6 +61,8 @@ namespace RecipeWinForms
             WindowsFormUtility.SetControlBinding(txtCookbookName, bindsource);
             WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtCookbook, "users");
             WindowsFormUtility.SetControlBinding(txtPrice, bindsource);
+            txtPrice.DataBindings.Add("Text", bindsource, "Price", true, DataSourceUpdateMode.OnPropertyChanged, 0, "N2");
+
             WindowsFormUtility.SetControlBinding(txtDateCreated, bindsource);
             WindowsFormUtility.SetControlBinding(ChbActive, bindsource);
             SetButtonsEnabledBasedOnNewRecord();
@@ -105,6 +108,8 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gCookbookRecipe, Deletecolname);
             // Format the grid for editing
             WindowsFormUtility.FormatGridforEdit(gCookbookRecipe, "cookbookrecipe");
+            gCookbookRecipe.ScrollBars = ScrollBars.Vertical;
+
         }
         private void DeleteCookbookRecipe(int rowIndex)
         {

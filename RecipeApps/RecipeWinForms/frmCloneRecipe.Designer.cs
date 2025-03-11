@@ -47,7 +47,7 @@
             tblMain.RowCount = 2;
             tblMain.RowStyles.Add(new RowStyle());
             tblMain.RowStyles.Add(new RowStyle());
-            tblMain.Size = new Size(556, 157);
+            tblMain.Size = new Size(670, 245);
             tblMain.TabIndex = 0;
             // 
             // lstRecipename
@@ -56,19 +56,23 @@
             lstRecipename.FormattingEnabled = true;
             lstRecipename.Location = new Point(3, 3);
             lstRecipename.Name = "lstRecipename";
-            lstRecipename.Size = new Size(550, 28);
+            lstRecipename.Size = new Size(664, 28);
             lstRecipename.TabIndex = 0;
             // 
             // btnClone
             // 
-            btnClone.Anchor = AnchorStyles.None;
-            btnClone.Location = new Point(228, 70);
+            btnClone.Anchor = AnchorStyles.Top;
+            btnClone.BackColor = Color.FromArgb(255, 224, 192);
+            btnClone.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClone.ForeColor = SystemColors.ControlText;
+            btnClone.ImageAlign = ContentAlignment.TopCenter;
+            btnClone.Location = new Point(285, 44);
             btnClone.Margin = new Padding(10);
             btnClone.Name = "btnClone";
             btnClone.Size = new Size(100, 50);
             btnClone.TabIndex = 1;
             btnClone.Text = "Clone";
-            btnClone.UseVisualStyleBackColor = true;
+            btnClone.UseVisualStyleBackColor = false;
             // 
             // sqlCommand1
             // 
@@ -79,7 +83,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(554, 155);
+            ClientSize = new Size(668, 243);
             Controls.Add(tblMain);
             Name = "frmCloneRecipe";
             Text = "Clone a Recipe";
