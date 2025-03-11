@@ -37,7 +37,6 @@ namespace RecipeWinForms
             btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
-            //txtCalories.TextChanged += TxtCalories_TextChanged;
             WindowsFormUtility.EnforceNumericInput(txtCalories);
 
             foreach (Control c in tblMain.Controls)
