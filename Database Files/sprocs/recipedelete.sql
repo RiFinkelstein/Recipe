@@ -4,7 +4,6 @@ CREATE or ALTER PROCEDURE dbo.RecipeDelete(
 )
 as 
 begin 
---AS No need for a separate function for this, leave the sproc how it was with the logic in the sproc.
     DECLARE @Return int =0
     
     if exists (

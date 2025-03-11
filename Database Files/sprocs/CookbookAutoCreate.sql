@@ -4,8 +4,6 @@ CREATE OR ALTER PROCEDURE dbo.CookbookAutoCreate(
     @Message VARCHAR(100) output)
 AS
 BEGIN
---AS There is no reason why this code has to be all broken up using variables, this can be done simply in 2 insert statements (the same way it was done in maintenance tasks.)    
-    -- Insert into Cookbook table
     INSERT Cookbook (UsersID, CookbookName, Price, DateCreated, Active)
     VALUES (@UsersID, 
     (select 'Recipes by ' + U.UsersFirstName + ' ' + U.UsersLastName from users u where UsersID= @UsersID), 

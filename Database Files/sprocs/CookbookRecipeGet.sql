@@ -1,4 +1,3 @@
---AS File has 1 after the name.
 CREATE OR ALTER procedure dbo.CookbookRecipeGet (
     --@CookbookRecipeID INT = 0,
     @CookbookID INT = 0,

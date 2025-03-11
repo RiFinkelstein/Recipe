@@ -11,7 +11,6 @@ CREATE OR ALTER PROC dbo.RecipeUpdate(
 AS
 BEGIN
     DECLARE @Return int = 0;
---AS Take out logic checking if null
     set @RecipeID = ISNULL(@RecipeID,0)
 
     IF @RecipeID = 0

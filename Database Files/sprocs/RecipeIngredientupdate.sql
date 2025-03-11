@@ -30,7 +30,6 @@ BEGIN
             VALUES (
                 @RecipeID,
                 @IngredientID,
---AS Fix logic, this isn't working. Same for update
                 @MeasurementID,
                 @Amount,
                 @SequenceNumber
@@ -56,7 +55,6 @@ BEGIN
                 SET @return = 1;
                 RETURN @return;
             END
---AS Why is this necessary?
             END
 
     END TRY
