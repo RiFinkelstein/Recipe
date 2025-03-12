@@ -1,17 +1,17 @@
 CREATE or ALTER PROCEDURE dbo.RecipeDelete(
     @RecipeID INT,
-    @Message VARCHAR(500) = '' OUTPUT
+    @Message VARCHAR(2000) = '' OUTPUT
 )
 as 
 begin 
-    DECLARE @Return int =0, @DeleteAllowed varchar(60)= ''
-    select @DeleteAllowed =ISNULL(dbo.isRecipeDelteAllowed(@RecipeId), '') 
-    if @DeleteAllowed <> ''
-
-
+    DECLARE @Return int =0
+    
+    if exists (
+        select 1 from recipe r 
+        where r.RecipeID = @RecipeID
+        and (r.RecipeStatus = 'published' or DATEDIFF(day, r.ArchivedDate, GETDATE()) <30))
 BEGIN
-  SELECT @Return =1, @Message= @DeleteAllowed
-  --@Message= 'can only delete recipe that is currently drafted or the recipe has been archived more than 30 days ago'
+  SELECT @Return =1, @Message= 'Can only delete recipe that is currently drafted or has been archvied more than 30 days ago'
   goto finished
 END
 

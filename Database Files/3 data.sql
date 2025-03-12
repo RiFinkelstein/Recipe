@@ -357,7 +357,7 @@ go
 
 -- SM A CTE would be much more readable and easier to do.
 INSERT CookBook (UsersID, CookbookName, price, DateCreated, Active)
-SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Treats for two', 30,  '07-14-2013', 1
+SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Treats for two', 30.5,  '07-14-2013', 1
 union SELECT (Select u.usersID from users U WHERE UsersName = 'JElias'), 'Deserts Oh my', 35,  '09-23-21', 1
 union SELECT (Select u.usersID from users U WHERE UsersName = 'JGreen'), 'Best of Recipes', 25,  '02-15-2022', 1
 union SELECT (Select u.usersID from users U WHERE UsersName = 'Awhite'), 'Kid in the kitchen', 15,  '11-10-2021', 0

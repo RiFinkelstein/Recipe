@@ -15,7 +15,7 @@ BEGIN
         -- Check if the original recipe exists
     IF NOT EXISTS (SELECT 1 FROM Recipe WHERE RecipeID = @OriginalRecipeID)
     BEGIN
-        SET @Message = 'Error: Original recipe not found.';
+        SET @Message = 'Original recipe not found.';
         ROLLBACK
         RETURN;
     END
@@ -27,7 +27,7 @@ BEGIN
         WHERE RecipeName LIKE (SELECT RecipeName FROM Recipe WHERE RecipeID = @OriginalRecipeID) + ' - clone'
     )
     BEGIN
-        SET @Message = 'Error: This recipe has already been cloned and cannot be cloned again.';
+        SET @Message = 'This recipe has already been cloned and cannot be cloned again.';
         ROLLBACK;
         RETURN;
     END
