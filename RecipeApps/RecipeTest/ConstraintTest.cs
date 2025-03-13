@@ -117,9 +117,16 @@ namespace RecipeTest
         public void InsertBlankRecipeName()
         {
             DataTable dt = SQLUtility.GetDataTable("SELECT * FROM Recipe WHERE 1=0");
+            string existingCuisine = SQLUtility.GetFirstColumnFirstRowValuestring("SELECT TOP 1 CuisineID FROM Cuisine");
+            string existingUser = SQLUtility.GetFirstColumnFirstRowValuestring("SELECT TOP 1 UsersID FROM Users");
+
             DataRow r = dt.Rows.Add();
 
-            r["RecipeName"] = "";  // Violates check constraint
+            r["RecipeName"] = ""; // Violates check constraint
+            r["CuisineID"] = existingCuisine;
+            r["UsersID"] = existingUser;
+            r["Calories"] = 12;
+
 
             Exception ex = Assert.Throws<Exception>(() => SQLUtility.SaveDataTable(dt, "RecipeUpdate"));
             TestContext.WriteLine("Error Message: " + ex.Message);
@@ -163,9 +170,15 @@ namespace RecipeTest
         public void InsertDraftedDateInFuture()
         {
             DataTable dt = SQLUtility.GetDataTable("SELECT * FROM Recipe WHERE 1=0");
+            string existingCuisine = SQLUtility.GetFirstColumnFirstRowValuestring("SELECT TOP 1 CuisineID FROM Cuisine");
+            string existingUser = SQLUtility.GetFirstColumnFirstRowValuestring("SELECT TOP 1 UsersID FROM Users");
+
             DataRow r = dt.Rows.Add();
 
             r["DraftedDate"] = DateTime.Now.AddDays(10);  // Violates check constraint
+            r["CuisineID"] = existingCuisine;
+            r["UsersID"] = existingUser;
+            r["Calories"] = 12;
 
             Exception ex = Assert.Throws<Exception>(() => SQLUtility.SaveDataTable(dt, "RecipeUpdate"));
             TestContext.WriteLine("Error Message: " + ex.Message);

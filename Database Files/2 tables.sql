@@ -19,20 +19,20 @@ go
 
 create table dbo.users(
     UsersID int not null Identity PRIMARY KEY, 
-    usersFirstName varchar(35) CONSTRAINT ck_Users_First_name_is_not_blank check(UsersFirstName <> ''),
-    UsersLastName varchar(35) CONSTRAINT ck_users_Last_name_is_not_blank check(UsersLastName <> ''),
+    usersFirstName varchar(35) CONSTRAINT ck_Users_First_name_cannot_be_blank check(UsersFirstName <> ''),
+    UsersLastName varchar(35) CONSTRAINT ck_users_Last_name_cannot_be_blank check(UsersLastName <> ''),
     UsersName varchar(35) 
-            CONSTRAINT ck_Users_users_name_is_not_blank check(UsersName <> '') 
-            constraint USERs_NAME_is_unique UNIQUE
+            CONSTRAINT ck_Users_users_name_cannot_be_blank check(UsersName <> '') 
+            constraint u_users_USERs_NAME_must_be_unique UNIQUE
 )
 go
 
 CREATE table dbo.ingredient(
     ingredientID int not null Identity PRIMARY KEY, 
     ingredientName varchar(35)
-            CONSTRAINT ck_ingredient_name_is_not_blank check(ingredientname <> '') 
+            CONSTRAINT ck_ingredient_ingredient_name_cannot_be_blank check(ingredientname <> '') 
 -- SM Tip: No need to include column name when doing unique constraint on the column.
-            constraint ingredient_name_is_unique UNIQUE(ingredientname),
+            constraint u__ingredient_ingredient_name_must_be_unique UNIQUE(ingredientname),
     Picture as concat('ingredient_', replace(ingredientName, ' ', '_'), '.jpg')
 )
 go
@@ -40,8 +40,8 @@ go
 create table dbo.Cuisine(
     CuisineID int not null Identity PRIMARY KEY, 
     CuisineName varchar(35) 
-            CONSTRAINT ck_Cuisne_Cuisine_name_is_not_blank check(CuisineName <> '') 
-            constraint u_Cuisne_Cuisine_name_is_unique UNIQUE
+            CONSTRAINT ck_Cuisine_Cuisine_name_cannot_be_blank check(CuisineName <> '') 
+            constraint u_Cuisine_Cuisine_name_must_be_unique UNIQUE
 )
 go 
 
@@ -50,13 +50,13 @@ CREATE table dbo.recipe(
     CuisineID int not null constraint f_Cuisine_recipe REFERENCES Cuisine(CuisineID),
     UsersID int not null constraint f_Users_recipe REFERENCES Users(UsersID),
     RecipeName varchar(50)
-            CONSTRAINT ck_Recipe_Recipe_name_is_not_blank check(RecipeName <> '') 
-            constraint u_Recipe_Recipe_name_is_unique UNIQUE,
-    Calories int not null constraint ck_calories_not_less_than_0 CHECK(calories>0), 
+            CONSTRAINT ck_Recipe_Recipe_name_cannot_be_blank check(RecipeName <> '') 
+            constraint u_Recipe_Recipe_name_must_be_unique UNIQUE,
+    Calories int not null constraint ck_recipe_calories_cannot_be_less_than_0 CHECK(calories>0), 
 -- SM Tip: DraftedDate should be defaulted to current date
-    DraftedDate date not null  DEFAULT GETDATE() constraint ck_recipe_Drafted_date_is_not_in_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
-    PublishedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe__Published_Dateis_not_in_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
-    ArchivedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe_Archived_Date_is_not_in_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
+    DraftedDate date not null  DEFAULT GETDATE() constraint ck_recipe_Drafted_date_cannot_be_in_the_future CHECK(drafteddate <= CURRENT_TIMESTAMP) , 
+    PublishedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe__Published_Date_cannot_be_in__the_future CHECK(PublishedDate <= CURRENT_TIMESTAMP),
+    ArchivedDate DATETIME null DEFAULT GETDATE()  constraint ck_recipe_Archived_Date_cannot_be_in_the_future CHECK(ArchivedDate <= CURRENT_TIMESTAMP),
     Picture as concat('recipe_', replace(RecipeName, ' ', '_'), '.jpg'),
 -- SM Column name should be RecipeStatus as Status is a reserved word.
     RecipeStatus as case
@@ -64,9 +64,9 @@ CREATE table dbo.recipe(
         when PublishedDate is not null and ArchivedDate is null then 'Published'
         else 'Archived' 
         end,
-    CONSTRAINT ck_published_date_cannot_be_before_drafted_date CHECK (DraftedDate <= PublishedDate),
-    CONSTRAINT ck_archive_date_cannot_be_before_published_date CHECK (PublishedDate <= ArchivedDate), 
-    CONSTRAINT ck_archive_date_cannot_be_before_drafted_date CHECK (DraftedDate <= ArchivedDate)
+    CONSTRAINT ck_recipe_published_date_cannot_be_before_drafted_date CHECK (DraftedDate <= PublishedDate),
+    CONSTRAINT ck_recipe_archive_date_cannot_be_before_published_date CHECK (PublishedDate <= ArchivedDate), 
+    CONSTRAINT ck_recipe_archive_date_cannot_be_before_drafted_date CHECK (DraftedDate <= ArchivedDate)
 )
 go 
 
@@ -74,8 +74,8 @@ go
 CREATE table dbo.Measurement(
     MeasurementID int not null Identity PRIMARY key,
     MeasurementName varchar(35) not null
-        CONSTRAINT ck__Measurement_MeasurementName_is_not_blank check(MeasurementName <> '') 
-        Constraint u_Measurement_MeasurementName_is_unique UNIQUE
+        CONSTRAINT ck__Measurement_Measurement_Name_cannot_be_blank check(MeasurementName <> '') 
+        Constraint u_Measurement_Measurement_Name_must_be_unique UNIQUE
 )
 go 
 
@@ -84,8 +84,8 @@ CREATE TABLE dbo.RecipeIngredient(
     RecipeID int not null constraint f_Recipe_RecipeIngredient REFERENCES Recipe(RecipeID), 
     IngredientID int not null CONSTRAINT f_Ingredient_RecipeIngredient REFERENCES Ingredient(IngredientID),
     MeasurementID int null CONSTRAINT f_Measurement_Recipeingredient REFERENCES Measurement(MeasurementID),
-    Amount decimal(5,2) not null constraint ck_Amount_not_less_than_0 CHECK(Amount>=0), 
-    SequenceNumber int not null constraint ck_SequenceNumber_not_less_than_0 CHECK(SequenceNumber>0),
+    Amount decimal(5,2) not null constraint ck_RecipeIngredient_Amount_cannot_be_less_than_0 CHECK(Amount>=0), 
+    SequenceNumber int not null constraint ck_RecipeIngredient_SequenceNumber_cannot_be_less_than_0 CHECK(SequenceNumber>0),
     CONSTRAINT u_RecipeID_ingredientID UNIQUE(RecipeID, ingredientID),
     CONSTRAINT u_sequence#_RecipeID UNIQUE(SequenceNumber, RecipeID)
 )
@@ -94,8 +94,8 @@ go
 CREATE table dbo.Directions(
     directionsID int not null Identity Primary Key, 
     RecipeID int not null CONSTRAINT f_recipe_Directions REFERENCES Recipe(RecipeID),
-    Direction varchar(1000) not null CONSTRAINT ck_Direction_Direction_is_not_blank check(Direction <> ''), 
-    StepNumber int not null constraint ck_Driections_Step_number_is_not_less_than_0 CHECK (stepNumber> 0),
+    Direction varchar(1000) not null CONSTRAINT ck_Direction_Direction_cannot_blank check(Direction <> ''), 
+    StepNumber int not null constraint ck_Driections_Step_number_cannot_be_less_than_0 CHECK (stepNumber> 0),
     CONSTRAINT u_Step#_RecipeID UNIQUE(stepNumber, RecipeID)
 )
 go 
@@ -104,11 +104,11 @@ create table dbo.Meal(
     MealID int not null Identity PRIMARY KEY, 
     UsersID int not null constraint f_users_Meal REFERENCES Users(UsersID),
     MealName varchar(50) 
-            CONSTRAINT ck_Meal_Meal_Name_is_not_blank check(MealName <> '') 
-            constraint u_Meal_Meal_Name_is_unique UNIQUE,
+            CONSTRAINT ck_Meal_Meal_Name_cannot_be_blank check(MealName <> '') 
+            constraint u_Meal_Meal_Name_must_be_unique UNIQUE,
     active bit not null Default 1,
 -- SM Tip: Default to current date.
-    DateCreated date not null constraint ck_meal_DateCreated_is_not_in_future CHECK(DateCreated <= CURRENT_TIMESTAMP), 
+    DateCreated date not null constraint ck_meal_DateCreated_cannot_be_in_the_future CHECK(DateCreated <= CURRENT_TIMESTAMP), 
     Picture as concat('Meal_', replace(MealName, ' ', '_'), '.jpg')
 )
 
@@ -117,11 +117,11 @@ go
 create table dbo.course(
     CourseID int not null IDENTITY PRIMARY KEY,
     CourseName VARCHAR(50) not null 
-            CONSTRAINT ck_Course_Course_Name_is_not_blank check(CourseName <> '') 
-            constraint u_Course_Course_Name_is_unique UNIQUE,
+            CONSTRAINT ck_Course_Course_Name_cannot_be_blank check(CourseName <> '') 
+            constraint u_Course_Course_Name_must_be_unique UNIQUE,
     courseSequence int not null 
-        constraint ck_Course_Sequence_is_not_les_than_0 CHECK(courseSequence > 0)
-        CONSTRAINT u_Course_sequence_is_unique UNIQUE
+        constraint ck_Course_Sequence_cannot_be_less_than_0 CHECK(courseSequence > 0)
+        CONSTRAINT u_Course_sequence_must_be_unique UNIQUE
 )
 
 GO
@@ -150,11 +150,11 @@ CREATE table dbo.CookBook(
     CookbookID int not null Identity PRIMARY key, 
     UsersID int not null constraint f_users_cookbook REFERENCES Users(UsersID),
     CookbookName varchar(100) not null 
-            CONSTRAINT ck_Cookbook_Cookbook_Name_is_not_blank check(CookbookName <> '') 
-            constraint u_Cookbook_Cookbook_Name_is_unique UNIQUE,
-    Price decimal(10,2) not null CONSTRAINT ck_Cookbook_price_cannot_be_less_than_0 CHECK (price > 0),
+            CONSTRAINT ck_Cookbook_Cookbook_Name_cannot_be_blank check(CookbookName <> '') 
+            constraint u_Cookbook_Cookbook_Name_must_be_unique UNIQUE,
+    Price decimal not null CONSTRAINT ck_Cookbook_price_cannot_be_less_than_0 CHECK (price > 0),
 -- SM Tip: Default to current date.
-    DateCreated date not null constraint ck_cookbook_DateCreated_is_not_in_future CHECK(DateCreated <= CURRENT_TIMESTAMP),
+    DateCreated date not null constraint ck_cookbook_DateCreated_cannot_be_in_the_future CHECK(DateCreated <= CURRENT_TIMESTAMP),
     Active bit not null DEFAULT 1, 
     Picture as concat('CookBook_', replace(CookbookName, ' ', '_'), '.jpg')
 )
