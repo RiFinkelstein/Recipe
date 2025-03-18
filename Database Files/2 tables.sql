@@ -19,8 +19,8 @@ go
 
 create table dbo.users(
     UsersID int not null Identity PRIMARY KEY, 
-    usersFirstName varchar(35) CONSTRAINT ck_Users_First_name_cannot_be_blank check(UsersFirstName <> ''),
-    UsersLastName varchar(35) CONSTRAINT ck_users_Last_name_cannot_be_blank check(UsersLastName <> ''),
+    usersFirstName varchar(35) CONSTRAINT ck_users_Users_First_name_cannot_be_blank check(UsersFirstName <> ''),
+    UsersLastName varchar(35) CONSTRAINT ck_users_users_Last_name_cannot_be_blank check(UsersLastName <> ''),
     UsersName varchar(35) 
             CONSTRAINT ck_Users_users_name_cannot_be_blank check(UsersName <> '') 
             constraint u_users_USERs_NAME_must_be_unique UNIQUE
@@ -32,7 +32,7 @@ CREATE table dbo.ingredient(
     ingredientName varchar(35)
             CONSTRAINT ck_ingredient_ingredient_name_cannot_be_blank check(ingredientname <> '') 
 -- SM Tip: No need to include column name when doing unique constraint on the column.
-            constraint u__ingredient_ingredient_name_must_be_unique UNIQUE(ingredientname),
+            constraint u_ingredient_ingredient_name_must_be_unique UNIQUE(ingredientname),
     Picture as concat('ingredient_', replace(ingredientName, ' ', '_'), '.jpg')
 )
 go
@@ -74,7 +74,7 @@ go
 CREATE table dbo.Measurement(
     MeasurementID int not null Identity PRIMARY key,
     MeasurementName varchar(35) not null
-        CONSTRAINT ck__Measurement_Measurement_Name_cannot_be_blank check(MeasurementName <> '') 
+        CONSTRAINT ck_Measurement_Measurement_Name_cannot_be_blank check(MeasurementName <> '') 
         Constraint u_Measurement_Measurement_Name_must_be_unique UNIQUE
 )
 go 

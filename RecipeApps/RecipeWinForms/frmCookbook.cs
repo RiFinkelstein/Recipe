@@ -32,7 +32,9 @@ namespace RecipeWinForms
            gCookbookRecipe.CellContentClick += GCookbookRecipe_CellContentClick;
            btnSaveCookbookRecipe.Click += BtnSaveCookbookRecipe_Click;
            WindowsFormUtility.EnforceNumericInput(txtPrice);
-           foreach (Control c in tblMain.Controls)
+           WindowsFormUtility.EnforceNumericInputInGrid(gCookbookRecipe, "CookBookSequenceNumber");
+
+            foreach (Control c in tblMain.Controls)
            {
                c.DataBindings.DefaultDataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged;
            }

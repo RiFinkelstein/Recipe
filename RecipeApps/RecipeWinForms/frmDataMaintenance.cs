@@ -27,7 +27,7 @@ namespace RecipeWinForms
             this.FormClosing += FrmDataMaintenance_FormClosing;
             BindData(currenttabletype);
             SetupRadioButtons();
-            gData.CellContentClick += GData_CellContentClick; ;
+            gData.CellContentClick += GData_CellContentClick; 
         }
 
         private void BindData(TableTypeEnum tabletype)
@@ -38,6 +38,12 @@ namespace RecipeWinForms
             gData.DataSource = dtlist;
             WindowsFormUtility.AddDeleteButtonToGrid(gData, deletecolname);
             WindowsFormUtility.FormatGridforEdit(gData, currenttabletype.ToString());
+            if (currenttabletype == TableTypeEnum.Course)
+            {
+                // Here we enforce numeric input on the 'coursesequence' column (by name)
+                WindowsFormUtility.EnforceNumericInputInGrid(gData, "courseSequence");
+            }
+
         }
 
         private void SetupRadioButtons()
