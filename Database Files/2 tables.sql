@@ -87,7 +87,7 @@ CREATE TABLE dbo.RecipeIngredient(
     Amount decimal(5,2) not null constraint ck_RecipeIngredient_Amount_cannot_be_less_than_0 CHECK(Amount>=0), 
     SequenceNumber int not null constraint ck_RecipeIngredient_SequenceNumber_cannot_be_less_than_0 CHECK(SequenceNumber>0),
     CONSTRAINT u_RecipeID_ingredientID UNIQUE(RecipeID, ingredientID),
-    CONSTRAINT u_sequence#_RecipeID UNIQUE(SequenceNumber, RecipeID)
+    CONSTRAINT u_RecipeID_sequence# UNIQUE(SequenceNumber, RecipeID)
 )
 go 
 

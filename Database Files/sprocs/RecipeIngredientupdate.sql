@@ -10,7 +10,6 @@ CREATE OR ALTER PROCEDURE dbo.RecipeIngredientUpdate(
 AS
 BEGIN
     SET NOCOUNT ON;
-    DECLARE @return INT = 0;
     DECLARE @MeasurementName VARCHAR(35);
 
     -- Default RecipeIngredientID to 0 if NULL
@@ -50,18 +49,12 @@ BEGIN
                 SequenceNumber= @SequenceNumber
             WHERE RecipeIngredientID = @RecipeIngredientID;
 
-            IF @@ROWCOUNT = 0
-            BEGIN
-                SET @return = 1;
-                RETURN @return;
-            END
-            END
+            
+            ENd
 
     END TRY
-    BEGIN CATCH
-        SET @return = 1;
-    END CATCH
-
-    RETURN @return;
+    begin CATCH
+    THROW;
+end CATCH
 END
 GO
