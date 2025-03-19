@@ -37,9 +37,7 @@ namespace RecipeWinForms
             btnSaveRecipeDirections.Click += BtnSaveRecipeDirections_Click;
             gIngredients.CellContentClick += GIngredients_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
-            //txtCalories.TextChanged += TxtCalories_TextChanged;
             WindowsFormUtility.EnforceNumericInput(txtCalories);
-            //gIngredients.EditingControlShowing += GIngredients_EditingControlShowing; ;
             WindowsFormUtility.EnforceNumericInputInGrid(gIngredients, "Amount", "SequenceNumber");
             WindowsFormUtility.EnforceNumericInputInGrid(gSteps, "StepNumber");
 
@@ -130,8 +128,16 @@ namespace RecipeWinForms
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
             //add scrollbar to table
-            gIngredients.ScrollBars= ScrollBars.Vertical;
-        }
+            gIngredients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            gIngredients.AutoSizeRowsMode= DataGridViewAutoSizeRowsMode.None;
+            gIngredients.ScrollBars= ScrollBars.Both;
+            tblIngredients.AutoScroll = true;
+            tblIngredients.VerticalScroll.Visible = true;
+            gIngredients.Anchor = AnchorStyles.Top| AnchorStyles.Bottom| AnchorStyles.Left| AnchorStyles.Right;
+            
+       }
+
+
 
 
         private void LoadRecipeDirections()
@@ -344,27 +350,6 @@ namespace RecipeWinForms
                 }
             }
         }
-        /*
-        private void GIngredients_EditingControlShowing(object? sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            e.Control.KeyPress -= new KeyPressEventHandler(Column2_KeyPress);
-            if (gIngredients.CurrentCell.ColumnIndex == 2) //Desired Column
-            {
-                TextBox tb = e.Control as TextBox;
-                if (tb != null)
-                {
-                    tb.KeyPress += new KeyPressEventHandler(Column2_KeyPress);
-                }
-            }
-        }
-
-        private void Column2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }*/
         private void GSteps_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == gIngredients.Columns[Deletecolname].Index && e.RowIndex >= 0)
