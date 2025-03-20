@@ -119,6 +119,15 @@ namespace RecipeWinForms
         private void FrmRecipe_Shown(object? sender, EventArgs e)
         {
             FormatIngredientGrid();
+
+            //add scrollbar to table
+            gIngredients.ScrollBars = ScrollBars.Vertical;
+            gIngredients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            gIngredients.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            gIngredients.Dock = DockStyle.Fill;
+            tbIngredients.AutoScroll = true;
+            gIngredients.MinimumSize = new Size(0, 200);
+
         }
         private void FormatIngredientGrid()
         {
@@ -127,15 +136,8 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
 
-            //add scrollbar to table
-            gIngredients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            gIngredients.AutoSizeRowsMode= DataGridViewAutoSizeRowsMode.None;
-            gIngredients.ScrollBars= ScrollBars.Both;
-            tblIngredients.AutoScroll = true;
-            tblIngredients.VerticalScroll.Visible = true;
-            gIngredients.Anchor = AnchorStyles.Top| AnchorStyles.Bottom| AnchorStyles.Left| AnchorStyles.Right;
-            
-       }
+
+        }
 
 
 
@@ -158,6 +160,12 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
             gSteps.ScrollBars = ScrollBars.Vertical;
+
+            gSteps.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            gSteps.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            gSteps.Dock = DockStyle.Fill;
+            tbSteps.AutoScroll= true;
+            gSteps.MinimumSize = new Size(0, 200);
 
 
         }
