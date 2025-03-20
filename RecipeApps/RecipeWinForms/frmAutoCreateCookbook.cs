@@ -32,7 +32,24 @@ namespace RecipeWinForms
         private void BindData()
         {
             DataTable dtUsers = Recipe.GetUserList();
-            WindowsFormUtility.SetListBinding(lstUsersName, dtUsers, dtUsers, "users");
+
+            //Set DataSource before setting SelectedValue to avoid UI issues
+            lstUsersName.DisplayMember = "UsersName"; // Ensure this column exists in dtUsers
+            lstUsersName.ValueMember = "UsesrID"; // Ensure this column exists in dtUsers
+            lstUsersName.DataSource = dtUsers;
+
+
+            if (lstUsersName.Items.Count > 0)
+            {
+                // Select the first user by default or retain the previous selection
+                int userIDToSelect = Convert.ToInt32(dtUsers.Rows[0]["UsersID"]);
+                lstUsersName.SelectedValue = userIDToSelect;
+
+                // Force UI update
+                lstUsersName.SelectedIndex = lstUsersName.FindStringExact(dtUsers.Rows[0]["UsersName"].ToString());
+
+                lstUsersName.Refresh();
+            }
         }
 
         public bool AutoCreateCookbook()

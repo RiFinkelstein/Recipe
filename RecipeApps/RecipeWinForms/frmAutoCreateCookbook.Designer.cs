@@ -53,11 +53,14 @@
             // lstUsersName
             // 
             lstUsersName.Dock = DockStyle.Fill;
+            lstUsersName.FlatStyle = FlatStyle.Flat;
             lstUsersName.FormattingEnabled = true;
+            lstUsersName.ImeMode = ImeMode.On;
             lstUsersName.Location = new Point(3, 3);
             lstUsersName.Name = "lstUsersName";
             lstUsersName.Size = new Size(195, 28);
             lstUsersName.TabIndex = 0;
+            lstUsersName.TabStop = false;
             // 
             // btnCreateCookbook
             // 
