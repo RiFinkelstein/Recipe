@@ -197,7 +197,6 @@
             // 
             // tblIngredients
             // 
-            tblIngredients.AutoScroll = true;
             tblIngredients.ColumnCount = 1;
             tblIngredients.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblIngredients.Controls.Add(btnSaveIngredients, 0, 0);
@@ -247,7 +246,6 @@
             gIngredients.Name = "gIngredients";
             gIngredients.RowHeadersVisible = false;
             gIngredients.RowHeadersWidth = 51;
-            gIngredients.ScrollBars = ScrollBars.Vertical;
             gIngredients.Size = new Size(865, 418);
             gIngredients.TabIndex = 1;
             // 

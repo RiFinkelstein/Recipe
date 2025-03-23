@@ -115,18 +115,16 @@ namespace RecipeWinForms
             DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
 
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
+            gIngredients.ScrollBars = ScrollBars.Vertical;
+            tbIngredients.AutoScroll = true;
+            tblIngredients.AutoScroll = true;
+            gIngredients.Dock = DockStyle.Fill;
+            gIngredients.Height = Math.Min(gIngredients.RowCount * gIngredients.RowTemplate.Height + gIngredients.ColumnHeadersHeight, tbIngredients.Height);
         }
         private void FrmRecipe_Shown(object? sender, EventArgs e)
         {
             FormatIngredientGrid();
 
-            //add scrollbar to table
-            gIngredients.ScrollBars = ScrollBars.Vertical;
-            gIngredients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            gIngredients.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            gIngredients.Dock = DockStyle.Fill;
-            tbIngredients.AutoScroll = true;
-            gIngredients.MinimumSize = new Size(0, 200);
 
         }
         private void FormatIngredientGrid()
@@ -135,6 +133,7 @@ namespace RecipeWinForms
             //Add delete button and format the grid
             WindowsFormUtility.AddDeleteButtonToGrid(gIngredients, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gIngredients, "recipeingredient");
+
 
 
         }
@@ -160,13 +159,8 @@ namespace RecipeWinForms
             WindowsFormUtility.AddDeleteButtonToGrid(gSteps, Deletecolname);
             WindowsFormUtility.FormatGridforEdit(gSteps, "dtrecipedirections");
             gSteps.ScrollBars = ScrollBars.Vertical;
-
-            gSteps.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            gSteps.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            gSteps.Dock = DockStyle.Fill;
-            tbSteps.AutoScroll= true;
-            gSteps.MinimumSize = new Size(0, 200);
-
+            tbSteps.AutoScroll= false;
+            tblSteps.AutoScroll = false;
 
         }
 
@@ -234,7 +228,6 @@ namespace RecipeWinForms
                 Application.UseWaitCursor = false;
             }
         }
-        //in the delete procedure check if the rowindex is equal to the dtRecipe.Rows.Count  and if is then return (meaning it won't do anything).
 
         private void DeleteRecipeIngredient(int rowIndex)
         {
