@@ -115,11 +115,12 @@ namespace RecipeWinForms
             DataTable dtMeasurement = Data_Maintenance.GetDataList("Measurement");
 
             WindowsFormUtility.AddComboBoxToGrid(gIngredients, dtMeasurement, "Measurement", "MeasurementName");
-            gIngredients.ScrollBars = ScrollBars.Vertical;
-            tbIngredients.AutoScroll = true;
-            tblIngredients.AutoScroll = true;
-            gIngredients.Dock = DockStyle.Fill;
-            gIngredients.Height = Math.Min(gIngredients.RowCount * gIngredients.RowTemplate.Height + gIngredients.ColumnHeadersHeight, tbIngredients.Height);
+
+            //AutoSizeColumnsMode and AutoSizeRowsMode to None, and ScrollBars to Both
+
+            gIngredients.ScrollBars = ScrollBars.Both;
+
+
         }
         private void FrmRecipe_Shown(object? sender, EventArgs e)
         {

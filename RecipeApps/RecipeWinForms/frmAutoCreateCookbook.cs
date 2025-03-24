@@ -35,7 +35,7 @@ namespace RecipeWinForms
 
             //Set DataSource before setting SelectedValue to avoid UI issues
             lstUsersName.DisplayMember = "UsersName"; // Ensure this column exists in dtUsers
-            lstUsersName.ValueMember = "UsesrID"; // Ensure this column exists in dtUsers
+            lstUsersName.ValueMember = "UsersID"; // Ensure this column exists in dtUsers
             lstUsersName.DataSource = dtUsers;
 
 
