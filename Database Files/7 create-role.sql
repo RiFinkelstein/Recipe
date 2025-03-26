@@ -1,4 +1,4 @@
-use RecordKeeperDB
+use heartyhealthDB
 drop role if exists approle
 go 
 create role approle
