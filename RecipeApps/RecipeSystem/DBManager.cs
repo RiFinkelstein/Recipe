@@ -9,9 +9,9 @@ namespace RecipeSystem
 {
     public class DBManager
     {
-        public static void setConnectionString(string connectionString)
+        public static void SetConnectionString(string connectionstring, bool tryopen, string userID = "", string password = "")
         {
-            SQLUtility.ConnectionString = connectionString;
+            SQLUtility.SetConnectionString(connectionstring, tryopen, userID, password);
         }
     }
 }

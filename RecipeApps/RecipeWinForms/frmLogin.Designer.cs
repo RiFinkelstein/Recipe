@@ -34,7 +34,7 @@
             txtUserID = new TextBox();
             txtPassword = new TextBox();
             tblButtons = new TableLayoutPanel();
-            btnOK = new Button();
+            btnLogin = new Button();
             btnCancel = new Button();
             tblMain.SuspendLayout();
             tblButtons.SuspendLayout();
@@ -96,6 +96,7 @@
             txtPassword.Font = new Font("Segoe UI", 12F);
             txtPassword.Location = new Point(117, 43);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(314, 34);
             txtPassword.TabIndex = 3;
             // 
@@ -105,7 +106,7 @@
             tblButtons.ColumnCount = 2;
             tblButtons.ColumnStyles.Add(new ColumnStyle());
             tblButtons.ColumnStyles.Add(new ColumnStyle());
-            tblButtons.Controls.Add(btnOK, 0, 0);
+            tblButtons.Controls.Add(btnLogin, 0, 0);
             tblButtons.Controls.Add(btnCancel, 1, 0);
             tblButtons.Location = new Point(117, 83);
             tblButtons.Name = "tblButtons";
@@ -114,16 +115,16 @@
             tblButtons.Size = new Size(200, 44);
             tblButtons.TabIndex = 4;
             // 
-            // btnOK
+            // btnLogin
             // 
-            btnOK.AutoSize = true;
-            btnOK.Font = new Font("Segoe UI", 12F);
-            btnOK.Location = new Point(3, 3);
-            btnOK.Name = "btnOK";
-            btnOK.Size = new Size(94, 38);
-            btnOK.TabIndex = 0;
-            btnOK.Text = "OK";
-            btnOK.UseVisualStyleBackColor = true;
+            btnLogin.AutoSize = true;
+            btnLogin.Font = new Font("Segoe UI", 12F);
+            btnLogin.Location = new Point(3, 3);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(94, 38);
+            btnLogin.TabIndex = 0;
+            btnLogin.Text = "OK";
+            btnLogin.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
@@ -159,7 +160,7 @@
         private TextBox txtUserID;
         private TextBox txtPassword;
         private TableLayoutPanel tblButtons;
-        private Button btnOK;
+        private Button btnLogin;
         private Button btnCancel;
     }
 }
