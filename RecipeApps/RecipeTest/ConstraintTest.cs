@@ -8,18 +8,25 @@ using Microsoft.VisualBasic;
 using NUnit.Framework.Legacy;
 using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client.Extensibility;
+using System.Configuration;
+
+
 
 namespace RecipeTest
 {
     internal class ConstraintTest
     {
-            
+        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+
         [SetUp]
         public void Setup()
         {
 
-            DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
+            DBManager.SetConnectionString(testconnstring, true);
         }
+
+
 
         //users contraint tests
         [Test]

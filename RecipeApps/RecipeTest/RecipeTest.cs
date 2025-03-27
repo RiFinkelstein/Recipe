@@ -8,16 +8,49 @@ using Microsoft.VisualBasic;
 using NUnit.Framework.Legacy;
 using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client.Extensibility;
+using System.Configuration;
+
 
 namespace RecipeTest
 {
     public class Tests
     {
+        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+
         [SetUp]
+
         public void Setup()
         {
 
-            DBManager.setConnectionString("Server=tcp:rfinkelstein.database.windows.net,1433;Initial Catalog=HeartyHealthDB;Persist Security Info=False;User ID=Rfinkelstein;Password=#Perlman6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=60;");
+            DBManager.SetConnectionString(testconnstring, true);
+        }
+
+
+        private DataTable GetDataTable(string sql)
+        {
+            DataTable dt = new();
+            DBManager.SetConnectionString(testconnstring, false);
+            dt = SQLUtility.GetDataTable(sql);
+            
+            DBManager.SetConnectionString(connstring, false);
+            return dt;
+        }
+
+        private int GetFirstColumnFirstRowValue(String sql)
+        {
+            int n = 0;
+            DBManager.SetConnectionString(testconnstring, false);
+            n = SQLUtility.GetFirstColumnFirstRowValue(sql);
+            DBManager.SetConnectionString(connstring, false);
+            return n;
+        }
+
+        private void ExecuteSQL(string sql)
+        {
+            DBManager.SetConnectionString(testconnstring, false);
+            SQLUtility.ExecuteSQL(sql);
+            DBManager.SetConnectionString(connstring, false);
         }
 
         [Test]
@@ -40,9 +73,9 @@ namespace RecipeTest
             dt.Columns["recipeID"].ReadOnly = false;
 
 
-            int CuisineID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
+            int CuisineID = GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
             TestContext.WriteLine("cusineid is" + CuisineID);
-            int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users");
+            int UsersID = GetFirstColumnFirstRowValue("select top 1 usersid from users");
             TestContext.WriteLine("userid is" + UsersID);
 
 
@@ -65,7 +98,7 @@ namespace RecipeTest
 
             // Retrieve the new RecipeID based on the unique RecipeName
             string query = $"SELECT RecipeID FROM Recipe WHERE RecipeName LIKE '%{RecipeName}%'";
-            int newID = SQLUtility.GetFirstColumnFirstRowValue(query);
+            int newID = GetFirstColumnFirstRowValue(query);
 
             // Assert that the new RecipeID is valid
             ClassicAssert.IsTrue(newID > 0, "Recipe with RecipeName = " + RecipeName + " is not found in the database.");
@@ -90,13 +123,12 @@ namespace RecipeTest
 
             dt.Columns["usersid"].ReadOnly = false;
             dt.Columns["CuisineID"].ReadOnly = false;
-            int CuisineID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
+            int CuisineID = GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
             TestContext.WriteLine("cusineid is" + CuisineID);
-            int UsersID = SQLUtility.GetFirstColumnFirstRowValue("select top 1 usersid from users");
+            int UsersID = GetFirstColumnFirstRowValue("select top 1 usersid from users");
             TestContext.WriteLine("userid is" + UsersID);
 
-            string RecipeName = SQLUtility.GetFirstColumnFirstRowValuestring("select top 1 recipename from recipe");
-
+            string RecipeName =SQLUtility.GetFirstColumnFirstRowValuestring("select top 1 recipename from recipe");
             Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
             Assume.That(UsersID > 0, "no Users in database, cant do test");
             r["RecipeName"] = RecipeName;
@@ -117,7 +149,7 @@ namespace RecipeTest
         {
             int recipeID = getExistingRecipeID();
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
-            int Calories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
+            int Calories = GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
             TestContext.WriteLine("calories for recipeID" + recipeID + "is " + Calories);
             Calories = Calories + 1;
             TestContext.WriteLine("change Calories" + Calories);
@@ -126,7 +158,7 @@ namespace RecipeTest
             dt.Columns["recipeID"].ReadOnly = false;
 
             Recipe.Save(dt);
-            int newCalories = SQLUtility.GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
+            int newCalories = GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
             ClassicAssert.IsTrue(newCalories == Calories, "calroeis for recipe (" + recipeID + ") = " + newCalories);
             TestContext.WriteLine("calories for recipe(" + recipeID + ") =" + Calories);
         }
