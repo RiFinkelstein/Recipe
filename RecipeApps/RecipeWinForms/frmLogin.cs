@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
-
+using RecipeWinForms.Properties;
 
 namespace RecipeWinForms
 {
@@ -29,14 +29,14 @@ namespace RecipeWinForms
 
         public bool ShowLogin()
         {
-            /*
+            
             txtUserID.Text = Settings.Default.userid;
+            txtPassword.Text = Settings.Default.password;
 #if DEBUG
             this.Text = this.Text + " -Dev";
 
-
 #endif
-            */
+            
             this.ShowDialog();
             return loginsuccess;
         }
@@ -59,8 +59,9 @@ namespace RecipeWinForms
                 DBManager.SetConnectionString(connstring, true, txtUserID.Text, txtPassword.Text);
 
                 loginsuccess = true;
-                //Settings.Default.userid = txtUserID.Text;
-                //Settings.Default.Save();
+                Settings.Default.userid = txtUserID.Text;
+                Settings.Default.password = txtPassword.Text;
+                Settings.Default.Save();
                 this.Close();
             }
             catch (Exception ex)
