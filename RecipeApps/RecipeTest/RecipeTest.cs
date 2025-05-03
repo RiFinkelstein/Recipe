@@ -15,42 +15,45 @@ namespace RecipeTest
 {
     public class Tests
     {
-        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
-        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+        string liveconn = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
+        //string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
 
         [SetUp]
 
         public void Setup()
         {
 
-            DBManager.SetConnectionString(testconnstring, true);
+            //DBManager.SetConnectionString(testconnstring, true);
         }
 
 
         private DataTable GetDataTable(string sql)
         {
             DataTable dt = new();
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconn, false);
+
+            //DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
             
-            DBManager.SetConnectionString(connstring, false);
             return dt;
         }
 
         private int GetFirstColumnFirstRowValue(String sql)
         {
             int n = 0;
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconn, false);
+
             n = SQLUtility.GetFirstColumnFirstRowValue(sql);
-            DBManager.SetConnectionString(connstring, false);
             return n;
         }
 
         private void ExecuteSQL(string sql)
         {
-            DBManager.SetConnectionString(testconnstring, false);
+            //DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconn, false);
+
             SQLUtility.ExecuteSQL(sql);
-            DBManager.SetConnectionString(connstring, false);
         }
 
         [Test]

@@ -49,7 +49,7 @@ namespace RecipeWinForms
 #if DEBUG
                 connstringkey = "localconnstring";
 #else
-                connstringkey = "devconn";
+                connstringkey = "liveconn";
 
 #endif
 

@@ -16,7 +16,7 @@ namespace RecipeTest
 {
     internal class ConstraintTest
     {
-        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        string connstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
         string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
 
         [SetUp]
