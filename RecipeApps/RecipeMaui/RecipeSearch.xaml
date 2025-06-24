@@ -3,10 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecipeMaui.RecipeSearch"
              Title="RecipeSearch">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid ColumnDefinitions= "Auto,Auto,Auto" RowDefinitions="auto,auto" HorizontalOptions="Center" RowSpacing="10" ColumnSpacing="10">
+        <Label Text="Recipe Name" Grid.Column="0" Grid.Row="0"/>
+        <Entry x:Name="RecipeNameTxt" Grid.Column="1" Grid.Row="0" MinimumWidthRequest="200" />
+        <Button x:Name="Searchbtn" Text="Search" Clicked="Searchbtn_Clicked" Grid.Column="2" Grid.Row="0" />
+        <ListView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" x:Name="Recipelst" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*, *, *, *, *,* ,*,*" ColumnSpacing="10">
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Path=[RecipeName]}" />
+                            <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=[Calories]}" />
+                            <Label Grid.Column="3" Grid.Row="0" Text="{Binding Path=[DraftedDate]}" />
+                            <Label Grid.Column="4" Grid.Row="0" Text="{Binding Path=[PublishedDate]}" />
+                            <Label Grid.Column="5" Grid.Row="0" Text="{Binding Path=[ArchivedDate]}" />
+                            <Label Grid.Column="6" Grid.Row="0" Text="{Binding Path=[Picture]}" />
+                            <Label Grid.Column="7" Grid.Row="0" Text="{Binding Path=[RecipeStatus]}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
 </ContentPage>

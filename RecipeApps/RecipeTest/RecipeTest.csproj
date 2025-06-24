@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\CPUFramework\CPUFramework.csproj" />
     <ProjectReference Include="..\RecipeSystem\RecipeSystem.csproj" />
+    <ProjectReference Include="..\RecipeWinForms\RecipeWinForms.csproj" />
   </ItemGroup>
 
   <ItemGroup>

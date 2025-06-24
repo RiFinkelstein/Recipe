@@ -3,10 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecipeMaui.Login"
              Title="Login">
-    <VerticalStackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="MinimumWidthRequest" Value="200"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Login"
+            FontSize="Header"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label x:Name="Messagelbl" FontSize="Medium" TextColor="Red"/>
+
+        <Border Padding="10">
+            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto" HorizontalOptions="Center" ColumnSpacing="10" RowSpacing="10">
+                <Label Text="User Name" Grid.Row="1" Grid.Column="0" />
+                <Entry x:Name="UserNametxt" Grid.Row="1" Grid.Column="1" Text="appadmin"   />
+                <Label Text="Password" Grid.Row="2" Grid.Column="0" />
+                <Entry x:Name="Passwordtxt" Grid.Row="2" Grid.Column="1"  IsPassword="True"/>
+                <Button x:Name="Loginbtn" Text="Login" Grid.Row="3" Grid.Column="0" Clicked="Loginbtn_Clicked" />
+                <Button x:Name="Cancelbtn" Text="Cancel" Grid.Row="3" Grid.Column="1" Clicked="Cancelbtn_Clicked"
+                        BackgroundColor="Orange"
+                        />
+
+            </Grid>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>
