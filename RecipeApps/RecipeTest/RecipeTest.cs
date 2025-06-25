@@ -15,7 +15,9 @@ namespace RecipeTest
 {
     public class Tests
     {
+
         string liveconn = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
+
         //string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
 
         [SetUp]
@@ -23,14 +25,17 @@ namespace RecipeTest
         public void Setup()
         {
 
+
             //DBManager.SetConnectionString(testconnstring, true);
+            DBManager.SetConnectionString(liveconn, true);
+
         }
 
 
         private DataTable GetDataTable(string sql)
         {
             DataTable dt = new();
-            DBManager.SetConnectionString(liveconn, false);
+            DBManager.SetConnectionString(liveconn, true);
 
             //DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
@@ -67,7 +72,8 @@ namespace RecipeTest
 
 
             // Create a new DataTable to hold the recipe data
-            DataTable dt = Recipe.Load(0);
+            bizRecipe recipe = new();
+            DataTable dt = recipe.Load(0);
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
 
@@ -97,7 +103,10 @@ namespace RecipeTest
             r["CuisineID"] = CuisineID;
 
             // Save the new recipe to the database using the existing Save method
-            Recipe.Save(dt);
+
+            bizRecipe rec = new();
+            rec.Save(dt);
+            //Recipe.Save(dt);
 
             // Retrieve the new RecipeID based on the unique RecipeName
             string query = $"SELECT RecipeID FROM Recipe WHERE RecipeName LIKE '%{RecipeName}%'";
@@ -120,7 +129,8 @@ namespace RecipeTest
 
 
             // Create a new DataTable to hold the recipe data
-            DataTable dt = Recipe.Load(0);
+            bizRecipe rec = new();
+            DataTable dt = rec.Load(0);
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
 
@@ -142,7 +152,8 @@ namespace RecipeTest
             r["usersid"] = UsersID;
             r["CuisineID"] = CuisineID;
 
-            Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
+            bizRecipe recipe = new();
+            Exception ex = Assert.Throws<Exception>(() => recipe.Save(dt));
             TestContext.WriteLine(ex.Message);
         }
 
@@ -156,11 +167,12 @@ namespace RecipeTest
             TestContext.WriteLine("calories for recipeID" + recipeID + "is " + Calories);
             Calories = Calories + 1;
             TestContext.WriteLine("change Calories" + Calories);
-            DataTable dt = Recipe.Load(recipeID);
+            bizRecipe rec = new();
+            DataTable dt = rec.Load(recipeID);
             dt.Rows[0]["calories"] = Calories;
             dt.Columns["recipeID"].ReadOnly = false;
-
-            Recipe.Save(dt);
+            bizRecipe recipe = new();
+            recipe.Save(dt);
             int newCalories = GetFirstColumnFirstRowValue("select calories from recipe where recipeid =" + recipeID);
             ClassicAssert.IsTrue(newCalories == Calories, "calroeis for recipe (" + recipeID + ") = " + newCalories);
             TestContext.WriteLine("calories for recipe(" + recipeID + ") =" + Calories);
@@ -174,7 +186,8 @@ namespace RecipeTest
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
 
             TestContext.WriteLine("change termstart year" + calories);
-            DataTable dt = Recipe.Load(recipeID);
+            bizRecipe rec = new();
+            DataTable dt = rec.Load(recipeID);
             dt.Rows[0]["calories"] = calories;
 
             Exception ex = Assert.Throws<Exception>(() => Recipe.Save(dt));
@@ -193,12 +206,14 @@ namespace RecipeTest
             DateTime NewDraftedDate = DraftedDate.AddDays(5);
             TestContext.WriteLine("Changing new drafted date to " + NewDraftedDate);
             // Load the recipe data into a DataTable 
-            DataTable dt = Recipe.Load(recipeID);
+            bizRecipe rec = new();
+            DataTable dt = rec.Load(recipeID);
             // Update the recipe name in the DataTable
             dt.Rows[0]["DraftedDate"] = NewDraftedDate;
             dt.Columns["recipeID"].ReadOnly = false;
             // Save the updated DataTable back to the database
-            Recipe.Save(dt);
+            bizRecipe recipe = new();
+            recipe.Save(dt);
             // Retrieve the updated recipe name from the database
             DateTime updatedDraftedDate = SQLUtility.GetFirstColumnFirstRowValueDate("SELECT DraftedDate FROM recipe WHERE RecipeID = " + recipeID);
             // Assert that the updated recipe name matches the expected new recipe name
@@ -234,8 +249,9 @@ namespace RecipeTest
             }
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
-            Recipe.Delete(dt);
-            DataTable dtAfterDelete = Recipe.Load(recipeID);
+            bizRecipe rec = new();
+            rec.Delete(dt);
+            DataTable dtAfterDelete = rec.Load(recipeID);
             ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
             TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB");
         }
@@ -321,7 +337,8 @@ namespace RecipeTest
             Assume.That(recipeID > 0, "no recipes in database, cant do test");
             TestContext.WriteLine("existing recipe with ID= " + recipeID);
             TestContext.WriteLine("ensure that app loads recipe " + recipeID);
-            DataTable dt = Recipe.Load(recipeID);
+            bizRecipe rec = new();
+            DataTable dt = rec.Load(recipeID);
             int loadedID = (int)dt.Rows[0]["recipeID"];
             ClassicAssert.IsTrue(loadedID == recipeID, (int)dt.Rows[0]["recipeID"] + "<>" + recipeID);
             TestContext.WriteLine("loaded recipe (" + loadedID + ")");
@@ -510,6 +527,7 @@ namespace RecipeTest
             r["DateCreated"] = CreatedDate;
             r["UsersID"] = UsersID;
             r["price"] = price;
+            r["active"] = 0;
             
             // Save the new cookbook to the database
             Cookbook.Save(dt);

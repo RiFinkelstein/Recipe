@@ -16,14 +16,16 @@ namespace RecipeTest
 {
     internal class ConstraintTest
     {
-        string connstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
-        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+       string connstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
+        //string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
 
         [SetUp]
         public void Setup()
         {
 
-            DBManager.SetConnectionString(testconnstring, true);
+            //DBManager.SetConnectionString(testconnstring, true);
+            DBManager.SetConnectionString(connstring, true);
+
         }
 
 
