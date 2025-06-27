@@ -16,8 +16,8 @@ namespace RecipeSystem
         private string _recipename;
         private int _calories;
         private DateTime _drafteddate;
-        private DateTime _publisheddate;
-        private DateTime _archiveddate;
+        private DateTime? _publisheddate;
+        private DateTime? _archiveddate;
 
 
         public int RecipeID
@@ -72,7 +72,7 @@ namespace RecipeSystem
             }
         }
 
-        private int Calories
+        public int Calories
         {
 
             get { return _calories; }
@@ -99,7 +99,7 @@ namespace RecipeSystem
             }
         }
 
-        public DateTime PublishedDate
+        public DateTime? PublishedDate
         {
             get { return _publisheddate; }
             set
@@ -111,7 +111,7 @@ namespace RecipeSystem
                 }
             }
         } 
-        public DateTime ArchivedDate
+        public DateTime? ArchivedDate
         {
             get { return _archiveddate; }
             set

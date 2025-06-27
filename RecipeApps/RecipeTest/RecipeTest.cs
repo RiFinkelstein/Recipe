@@ -70,47 +70,31 @@ namespace RecipeTest
             DateTime PublishedDate = DateTime.Parse(publishedDateStr);
             DateTime ArchivedDate = DateTime.Parse(archivedDateStr);
 
-
-            // Create a new DataTable to hold the recipe data
             bizRecipe recipe = new();
-            DataTable dt = recipe.Load(0);
-            DataRow r = dt.Rows.Add();
-            Assume.That(dt.Rows.Count == 1);
-
-            dt.Columns["usersid"].ReadOnly = false;
-            dt.Columns["CuisineID"].ReadOnly = false;
-            dt.Columns["recipeID"].ReadOnly = false;
-
 
             int CuisineID = GetFirstColumnFirstRowValue("select top 1 CuisineID from Cuisine");
             TestContext.WriteLine("cusineid is" + CuisineID);
             int UsersID = GetFirstColumnFirstRowValue("select top 1 usersid from users");
             TestContext.WriteLine("userid is" + UsersID);
-
-
             Assume.That(CuisineID > 0, "no cuisine in database, cant do test");
             Assume.That(UsersID > 0, "no Users in database, cant do test");
 
             // Append current datetime to the RecipeName to ensure uniqueness
             RecipeName = RecipeName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
-            r["RecipeName"] = RecipeName;
-            r["Calories"] = Calories;
-            r["DraftedDate"] = DraftedDate;
-            r["PublishedDate"] = PublishedDate;
-            r["ArchivedDate"] = ArchivedDate;
-            r["usersid"] = UsersID;
-            r["CuisineID"] = CuisineID;
+            recipe.RecipeName = RecipeName;
+            recipe.Calories = Calories;
+            recipe.DraftedDate= DraftedDate;
+            recipe.PublishedDate = PublishedDate;
+            recipe.ArchivedDate= ArchivedDate;
+            recipe.UsersID = UsersID;
+            recipe.CuisineID = CuisineID;
 
             // Save the new recipe to the database using the existing Save method
+            recipe.Save();
 
-            bizRecipe rec = new();
-            rec.Save(dt);
-            //Recipe.Save(dt);
+            int newID = recipe.RecipeID;
 
-            // Retrieve the new RecipeID based on the unique RecipeName
-            string query = $"SELECT RecipeID FROM Recipe WHERE RecipeName LIKE '%{RecipeName}%'";
-            int newID = GetFirstColumnFirstRowValue(query);
 
             // Assert that the new RecipeID is valid
             ClassicAssert.IsTrue(newID > 0, "Recipe with RecipeName = " + RecipeName + " is not found in the database.");
@@ -221,9 +205,7 @@ namespace RecipeTest
             // Output the final recipe name
             TestContext.WriteLine("Recipe name for RecipeID (" + recipeID + ") is now " + NewDraftedDate);
         }
-
-        [Test]
-        public void deleteRecipe()
+        private DataTable GetRecipeForDelete()
         {
             string sql = @"SELECT TOP 1 r.RecipeID 
                             FROM recipe r 
@@ -241,8 +223,53 @@ namespace RecipeTest
                             AND cbr.RecipeID IS NULL 
                             AND (r.recipestatus = 'drafted' OR DATEDIFF(day, r.ArchivedDate, GETDATE()) > 30)";
             DataTable dt = SQLUtility.GetDataTable(sql);
-            int recipeID = 0;
+            return dt;
+        }
 
+        [Test]
+        public void deleteRecipe()
+        {
+            DataTable dt = GetRecipeForDelete();
+            int recipeID = 0;
+            if (dt.Rows.Count > 0)
+            {
+                recipeID = (int)dt.Rows[0]["recipeID"];
+            }
+            Assume.That(recipeID > 0, "no recipes in database, cant do test");
+            TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
+            bizRecipe rec = new();
+            rec.Load(recipeID);
+            rec.Delete();
+            DataTable dtAfterDelete = rec.Load(recipeID);
+            ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
+            TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB");
+        }
+
+
+        [Test]
+        public void deleteRecipebyID()
+        {
+            DataTable dt = GetRecipeForDelete();
+            int recipeID = 0;
+            if (dt.Rows.Count > 0)
+            {
+                recipeID = (int)dt.Rows[0]["recipeID"];
+            }
+            Assume.That(recipeID > 0, "no recipes in database, cant do test");
+            TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
+            bizRecipe rec = new();
+            rec.Delete(recipeID);
+            DataTable dtAfterDelete = rec.Load(recipeID);
+            ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "record with RecipeID " + recipeID + " exists in db");
+            TestContext.WriteLine("record with recipeID: " + recipeID + "does not exist in DB");
+        }
+
+
+        [Test]
+        public void deleteRecipebyDatatable()
+        {
+            DataTable dt = GetRecipeForDelete();
+            int recipeID = 0;
             if (dt.Rows.Count > 0)
             {
                 recipeID = (int)dt.Rows[0]["recipeID"];
@@ -339,9 +366,10 @@ namespace RecipeTest
             TestContext.WriteLine("ensure that app loads recipe " + recipeID);
             bizRecipe rec = new();
             DataTable dt = rec.Load(recipeID);
-            int loadedID = (int)dt.Rows[0]["recipeID"];
-            ClassicAssert.IsTrue(loadedID == recipeID, (int)dt.Rows[0]["recipeID"] + "<>" + recipeID);
-            TestContext.WriteLine("loaded recipe (" + loadedID + ")");
+            int loadedID = rec.RecipeID;
+            string recipename = rec.RecipeName;
+            ClassicAssert.IsTrue(loadedID == recipeID, (int)dt.Rows[0]["recipeID"] + "<>" + recipeID+ " RecipeName= " + recipename);
+            TestContext.WriteLine("loaded recipe (" + loadedID + ") RecipeName= "+ recipename);
         }
 
         [Test]
@@ -369,7 +397,7 @@ namespace RecipeTest
         }
         private int getExistingRecipeID()
         {
-            return SQLUtility.GetFirstColumnFirstRowValue("select top 1 recipeID from recipe");
+            return SQLUtility.GetFirstColumnFirstRowValue("select top 1 recipeID from recipe where PublishedDate is null");
         }
 
         [Test]
