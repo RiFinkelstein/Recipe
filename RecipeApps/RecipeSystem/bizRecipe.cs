@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RecipeSystem
 {
-    public class bizRecipe : bizObject
+    public class bizRecipe : bizObject <bizRecipe>
     {
         public bizRecipe() { }
         private int _recipeid;
