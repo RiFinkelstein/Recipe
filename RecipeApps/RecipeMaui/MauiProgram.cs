@@ -29,15 +29,20 @@ namespace RecipeMaui
 
 #if DEBUG
             builder.Logging.AddDebug();
+            App.ConnStringSetting = config.GetConnectionString("devconn");
+#else
+            App.ConnStringSetting = config.GetConnectionString("liveconn");
+
 #endif
             var app = builder.Build();
 
             IConfiguration configval = app.Services.GetService<IConfiguration>();
             var settingsval = configval.GetRequiredSection("Settings").Get<Settings>();
 
-            App.ConnStringSetting = settingsval.devconn.ToString();
+            //App.ConnStringSetting = settingsval.liveconn.ToString();
             return app;
         }
     }
 }
+
 
