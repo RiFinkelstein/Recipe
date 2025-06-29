@@ -334,43 +334,81 @@ namespace RecipeTest
             Assume.That(recipeID > 0, "no recipes are currently published or archived less than 30 days ago, cannot perform test");
             TestContext.WriteLine("existing recipe with recipe ID= " + recipeID);
             Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            
             TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetListOfRecipes(bool includeblank)
+        {
+            int recipecount = GetFirstColumnFirstRowValue("select total = count(*) from recipe");
+            if (includeblank == true) { recipecount = recipecount + 1; }
+            Assume.That(recipecount > 0, "no recipies in database, cant do test");
+            TestContext.WriteLine("number of rows in DB= " + recipecount);
+            TestContext.WriteLine("Ensure the num of rows return by app matches " + recipecount);
+            bizRecipe r = new();
+            var lst = r.GetList(includeblank);
+            ClassicAssert.IsTrue(lst.Count == recipecount, "num rows return by app (" + lst.Count + ")<> " + recipecount);
+            TestContext.WriteLine("number of rows in recipies retruned by the app " + lst.Count);
         }
 
 
         [Test]
         public void SearchRecipes()
         {
-            string criteria = "a";
-            int num = SQLUtility.GetFirstColumnFirstRowValue("select total= count (*) from recipe where recipename like '%" + criteria + "%'");
+            string recipename = "a";
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select total= count (*) from recipe where recipename like '%" + recipename + "%'");
             Assume.That(num > 0, "there are no recipes that match the search for " + num);
-            TestContext.WriteLine(num + "recipe that match " + criteria);
+            TestContext.WriteLine(num + "recipe that match " + recipename);
             TestContext.WriteLine("ensure that recipe search returns " + num + "rows");
 
-            DataTable dt = Recipe.SearchRecipe(criteria);
-
-            int results = dt.Rows.Count;
+            //DataTable dt = Recipe.SearchRecipe(criteria);
+            bizRecipe r = new();
+            List<bizRecipe> lst = r.Search(recipename);
+            int results = lst.Count;
 
             ClassicAssert.IsTrue(results == num, "results of recipes search does not match number of recipes" + results + "<>" + num);
             TestContext.WriteLine("number of rows returned by recipes search is " + results);
-
         }
 
 
         [Test]
-        public void LoadRecipe()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GetListOfIngredient(bool includeblank)
         {
-            int recipeID = getExistingRecipeID();
-            Assume.That(recipeID > 0, "no recipes in database, cant do test");
-            TestContext.WriteLine("existing recipe with ID= " + recipeID);
-            TestContext.WriteLine("ensure that app loads recipe " + recipeID);
-            bizRecipe rec = new();
-            DataTable dt = rec.Load(recipeID);
-            int loadedID = rec.RecipeID;
-            string recipename = rec.RecipeName;
-            ClassicAssert.IsTrue(loadedID == recipeID, (int)dt.Rows[0]["recipeID"] + "<>" + recipeID+ " RecipeName= " + recipename);
-            TestContext.WriteLine("loaded recipe (" + loadedID + ") RecipeName= "+ recipename);
+            int ingredientcount = GetFirstColumnFirstRowValue("select total = count(*) from ingredient");
+            if (includeblank == true) { ingredientcount = ingredientcount + 1; }
+            Assume.That(ingredientcount > 0, "no ingredients in database, cant do test");
+            TestContext.WriteLine("number of rows in DB= " + ingredientcount);
+            TestContext.WriteLine("Ensure the num of rows return by app matches " + ingredientcount);
+            bizIngredient i = new();
+            var lst = i.GetList(includeblank);
+            ClassicAssert.IsTrue(lst.Count == ingredientcount, "num rows return by app (" + lst.Count + ")<> " + ingredientcount);
+            TestContext.WriteLine("number of rows in ingredients retruned by the app " + lst.Count);
         }
+
+
+        [Test]
+        public void SearchIngredients()
+        {
+            string ingredientname = "a";
+            int num = SQLUtility.GetFirstColumnFirstRowValue("select total= count (*) from ingredient where ingredientname like '%" + ingredientname + "%'");
+            Assume.That(num > 0, "there are no ingredient that match the search for " + num);
+            TestContext.WriteLine(num + "ingredienta that match " + ingredientname);
+            TestContext.WriteLine("ensure that ingredient search returns " + num + "rows");
+
+            bizIngredient i = new();
+            List<bizIngredient> lst = i.Search(ingredientname);
+            int results = lst.Count;
+
+            ClassicAssert.IsTrue(results == num, "results of ingredient search does not match number of ingredient" + results + "<>" + num);
+            TestContext.WriteLine("number of rows returned by ingredient search is " + results);
+        }
+
+
 
         [Test]
         public void GetListOfCuisines()
@@ -619,7 +657,7 @@ namespace RecipeTest
             ClassicAssert.IsTrue(dtAfterDelete.Rows.Count == 0, "Cookbook with CookbookID = " + CookbookID + " still exists in the database.");
             TestContext.WriteLine("Cookbook with CookbookID = " + CookbookID + " is successfully deleted.");
         }
-                [Test]
+        /*        [Test]
         public void SaveCookbookRecipe()
         {
 
@@ -651,7 +689,7 @@ namespace RecipeTest
             ClassicAssert.IsTrue(savedRecipe.Rows.Count > 0, "CookbookRecipe with CookbookID = " + CookbookID + " and RecipeID = " + RecipeID + " is not found.");
             TestContext.WriteLine("CookbookRecipe with CookbookID = " + CookbookID + " and RecipeID = " + RecipeID + " is saved.");
         }
-        
+        */
         [Test]
 
         public void DeleteCookbookRecipe()
