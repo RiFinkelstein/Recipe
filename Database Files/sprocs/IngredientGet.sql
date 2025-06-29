@@ -16,6 +16,8 @@ begin
         from ingredient i 
         where IngredientID= @IngredientID
         or @all=1
+		or (i.ingredientName is not null and i.ingredientName like '%'+ @IngredientName +'%')
+
 		UNION SELECT 0, ''
 		where @includeBlank=1
 

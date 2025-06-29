@@ -12,9 +12,8 @@ begin
 	where (@RecipeID <>0 and r.recipeID= @recipeID)
 	or @All= 1
 	or (r.RecipeName is not null and r.RecipeName like '%'+ @RecipeName +'%')
-		union SELECT 0, '', 0 , 0 , ''
+	union SELECT 0,0, 0 , '', 0, '', '', '', '', ''
 	where @includeblank= 1
-	order by p.PartyName
 	order by r.RecipeName
 end 
 go
