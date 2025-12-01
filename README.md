@@ -1,1 +1,2 @@
 # Recipe
+The Recipe Management System is a full-featured desktop application designed to help users create, organize, and maintain a personal cookbook. The system allows users to manage recipes, ingredients, and auto-generate cookbooks using a highly structured SQL Server database. The entire solution is built following object-oriented principles, focusing on code reuse, modularity, and maintainability.
